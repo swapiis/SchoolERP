@@ -1,0 +1,13 @@
+ $("ul.errors").html("")
+<% if  @class_timing1.errors.any? %>
+		<%  @class_timing1.errors.full_messages.each do |message| %>
+		$("ul.errors").addClass("alert alert-danger alert-dismissable")  
+		$("ul.errors").append($("<li />").html("<%= message.html_safe %>"))
+		<% end %>
+<% else %>
+
+
+$('#batch_div').html("<%= j render 'class_timing'%>");
+  $("#myModal").modal("hide")
+$('#flash').html("<%= j render 'layouts/messages'%>")
+  <% end %>

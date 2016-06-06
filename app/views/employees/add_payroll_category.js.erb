@@ -1,0 +1,12 @@
+$("ul.errors").html("")
+<% if @payroll_category.errors.any? %>
+		<% @payroll_category.errors.full_messages.each do |message| %>
+		$("div.errors").addClass("alert alert-danger alert-dismissable")  
+		$("ul.errors").append($("<li align ='left' style = 'width:300px'/>").html("<%= message.html_safe %>"))
+		<% end %>
+<% else %>
+$('#flash').html("<%= j render 'layouts/messages'%>")
+
+$('#form').html("<%= j render 'payroll_form'%>")
+$('#add_payroll_category').html("<%= j render 'payroll_category'%>")
+<%end%>

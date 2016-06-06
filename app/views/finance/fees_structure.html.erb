@@ -1,0 +1,22 @@
+<div id="myModal" class="modal fade"></div>
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Finance',finance_index_path %></li>
+    <li><%= link_to 'Manage Fees',fees_finance_index_path %></li>
+    <li>Fees structure</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-4">
+    <%= form_for :student, url:{action:'student_search'}, method: :get,remote:true,html:{id: "student_form"} do |f|%>
+      <div class="form-group">
+        <b>Search Student:</b>
+        <%= text_field_tag :search,"",{oninput:"$('#student_form').submit();", placeholder: 'Search Student',class: "form-control"}%>
+      </div>
+    <%end%>  
+  </div>
+</div>
+<div id="structure"></div>

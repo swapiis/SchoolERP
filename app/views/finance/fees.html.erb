@@ -1,0 +1,74 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Finance',finance_index_path %></li>
+    <li>Manage Fees</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/><br/>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to 'Create fees','master_fees'%></h2>
+      </div>
+      <div class="box-content">
+        Create master fees and additional fees.
+      </div>
+    </div>
+  </div>
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to 'Fees Collection','fee_collection' %>
+        </h2>
+      </div>
+      <div class="box-content">
+        Create new fees collection date.
+      </div>
+    </div>
+  </div>
+</div>
+<br/><br/>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to 'Fees Submission','fees_submission'%></h2>
+      </div>
+      <div class="box-content">
+        Fees submission by batches and students
+      </div>
+    </div>
+  </div>
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to 'Fees Structure','fees_structure' %>
+        </h2>
+      </div>
+      <div class="box-content">
+        Display fees structure for student.
+      </div>
+    </div>
+  </div>
+</div>
+<br/><br/>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to 'Fees Defaulters','fees_defaulters'%></h2>
+      </div>
+      <div class="box-content">
+        Student with fee dues.
+      </div>
+    </div>
+  </div>
+</div>

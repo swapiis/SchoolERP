@@ -1,0 +1,42 @@
+<hr>
+<div class="row">
+  <div class="box col-md-12">
+	  <div class="box-inner">
+	    <div class="box-header well">
+	      <h2>Transaction Categories</h2>
+	    </div>
+	    <div class="box-content">
+		    <% unless @transaction_categories.empty?%>
+		      <table id="datatable" class="table table-striped table-bordered responsive">
+		        <thead>
+		        	<tr><th>Category Name</th>
+		        	<th>Action</th></tr>
+		        </thead>
+		        <tbody>
+		        <% @transaction_categories.each do |tc|%>
+		          <tr>
+		            <% unless tc.id>3 %>
+									<td class="col-2" colspan="3"><%= tc.name%></td>
+								<%else%>
+									<td class="col-2"><%= tc.name%></td>
+									<td class="center">
+			              <div class="label-success label label-default">
+			              <i class="glyphicon glyphicon-edit icon-white"></i> 
+			              <%= link_to 'Edit',edit_transaction_category_finance_path(tc), class: 'a-action',remote:true%></div>
+
+			              <div class="label-danger label label-default">
+			              <i class="glyphicon glyphicon-trash icon-white"></i> 
+			              <%= link_to 'Delete' ,delete_transaction_category_finance_path(tc),method: :delete, data:{confirm:"Are You sure to delete Category '#{tc.name}'?"}, class: 'a-action'%></div>
+		            	</td>	
+								<%end%>
+		          </tr>
+		        <% end %>
+		        </tbody>
+		      </table>
+		    <%else%>
+					<center><h5>No categories found</h5></center>
+				<%end%>
+	    </div>
+	  </div>
+  </div>
+</div>

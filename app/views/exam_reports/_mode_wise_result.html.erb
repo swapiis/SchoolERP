@@ -1,0 +1,20 @@
+<% if @mode.eql? "Course wise" %>
+	<%= form_for :mode1,url:{action: 'select_rank'},html:{id: 'form_mode1'},remote:true,method: :get do |f| %>
+	 <div class="label-field-pair">
+	  <%= f.label :select_course %>
+	      <div class="text-input-bg">
+	      <%= f.select :id, @courses.collect {|c| [c.course_name,c.id]}, {prompt:true},{onchange:"$('#form_mode1').submit();"}%>
+	      </div></div>
+	  <% end %>
+<%elsif @mode.eql? "Batch wise"%>
+	<%= form_for :mode2,url:{action: 'select_rank'},html:{id: 'form_mode2'},remote:true,method: :get do |f| %>
+	 <div class="label-field-pair">
+	  <%= f.label :select_batch %>
+	      <div class="text-input-bg">
+	      <%= f.select :id, @batches.collect {|b| [b.course.course_name+" "+b.course.section_name+" - "+b.name,b.id]}, {prompt:true},{onchange:"$('#form_mode2').submit();"}%>
+	      </div></div>
+	  <% end %>
+<% else %>
+<h4>Please select mode</h4>
+<%end%>
+<div id="ranking_view"></div>

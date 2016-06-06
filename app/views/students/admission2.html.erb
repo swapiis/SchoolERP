@@ -1,0 +1,101 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%=link_to 'Step 1',admission1_students_path%></li>
+    <li>Admission(Step 2 - Parent/Guardian Details)</li>
+  </ul>
+</div>
+Note:&nbsp;&nbsp;<font color="red">Fields Marked with * must be filled</font>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="box col-md-12">
+    <div class="box-inner">
+      <div class="box-header well">
+        <h2>Step 2 - Parent/Guardian Details</h2>
+      </div>
+      <div class="box-content">
+        <%= form_for ([@student,@guardian]) do |f|%>
+          <fieldset>
+	        <%= admission2_error! %>
+  			  <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <b>First Name:</b>
+                <span style="color:red">*</span>
+                <%=f.text_field :first_name,placeholder: "First Name", class: "form-control"%>
+              </div>
+              <div class="form-group">
+                <b>Last Name:</b>
+                <span style="color:red">*</span>
+                <%=f.text_field :last_name,placeholder: "Last Name", class: "form-control"%>
+              </div>
+              <div class="form-group">
+                <b>Relation:</b>
+                <span style="color:red">*</span>
+                <%=f.text_field :relation,placeholder: "Relation", class: "form-control"%>
+              </div>
+              <div class="form-group">
+                <b>Date of Birth:</b>
+                <%=f.date_field :dob,class: "form-control"%>
+              </div>
+              <div class="form-group">
+                <b>Contact Number:</b>
+                <span style="color:red">*</span>
+                <%=f.text_field :office_phone1,placeholder: "Contact Number", class: "form-control"%>
+              </div>
+              <div class="form-group">
+                <b>Office Phone:</b>
+                <%=f.text_field :office_phone2,placeholder: "Office Phone", class: "form-control"%>
+              </div>
+              <div class="form-group">
+                <b>Email:</b>
+                <span style="color:red">*</span>
+                <%=f.text_field :email,placeholder: "Email", class: "form-control"%>
+              </div>
+            </div>
+            <div class="col-sm-1"></div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <b>Office Address Line1:</b>
+                  <%=f.text_field :office_address_line1,placeholder: "Office Address Line1", class: "form-control"%>
+                </div>
+                <div class="form-group">
+                  <b>Office Address Line2:</b>
+                  <%=f.text_field :office_address_line2,placeholder: "Office Address Line2", class: "form-control"%>
+                </div>
+                <div class="form-group">
+                  <b>City:</b>
+                  <%=f.text_field :city,placeholder: "City", class: "form-control"%>
+                </div>
+                <div class="form-group">
+                  <b>Country:</b>
+                  <span style="color:red">*</span>
+                  <%=f.select :country_id,collect_nationality,{prompt:true},{class: "form-control"}%>
+                </div>
+                <div class="form-group">
+                  <b>Occupation:</b>
+                  <%=f.text_field :occupation,placeholder: "Occupation", class: "form-control"%>
+                </div>
+                <div class="form-group">
+                  <b>Income:</b>
+                  <%=f.text_field :income,placeholder: "Income", class: "form-control"%>
+                </div>
+                <div class="form-group">
+                  <b>Education:</b>
+                  <%=f.text_field :education,placeholder: "Education", class: "form-control"%>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-5 col-sm-offset-5"> 
+              <div class="form-actions">               
+                <%= f.submit 'Submit', class: "btn btn-primary"%>
+                <br>
+              </div>
+            </div>
+          </fieldset>        
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

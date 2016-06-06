@@ -1,0 +1,60 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Finance',finance_index_path %></li>
+    <li>Transactions</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/><br/>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Add Expense", 'new_expense'%></h2>
+      </div>
+      <div class="box-content">
+        Create new expense.
+      </div>
+    </div>
+  </div>
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Add Income",'new_income' %>
+        </h2>
+      </div>
+      <div class="box-content">
+        Create new income.
+      </div>
+    </div>
+  </div>
+</div>
+<br/><br/>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Report",'transaction_report' %></h2>
+      </div>
+      <div class="box-content">
+        Show transactions.
+      </div>
+    </div>
+  </div>
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Compare Transactions",'compare_report' %>
+        </h2>
+      </div>
+      <div class="box-content">
+        Compare transactions.
+      </div>
+    </div>
+  </div>
+</div>

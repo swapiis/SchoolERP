@@ -1,0 +1,27 @@
+
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Finance',finance_index_path %></li>
+    <li><%= link_to 'Manage Fees',fees_finance_index_path %></li>
+    <li><%= link_to 'Fees Submission',fees_submission_finance_index_path %></li>
+    <li><%= link_to 'Fees submission for stunents',fees_submission_student_finance_index_path %></li>
+    <li>Student</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="box-content">
+  <fieldset>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <b>Fee collection date:</b><span style="color:red">*</span>
+          <%= select :collection,:id,collect_unique,{prompt:true},{onchange:"var a={collection_id: $('#collection_id').val(),student_id:#{@student.id}};$.get('student_fees_submission',a,function(response){});",class: "form-control"}%>
+        </div>
+      </div>
+    </div>
+  </fieldset>        
+</div>
+<div id="fees"></div>
+

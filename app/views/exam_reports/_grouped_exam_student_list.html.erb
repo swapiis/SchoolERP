@@ -1,0 +1,19 @@
+<% unless @students.empty?  %>
+  <div class="box-inner">
+    <div class="box-header well">
+
+    <h2>Students In Batch</h2>
+  </div>
+  <div class="box-content">
+  <ul class="student_list">
+    <% @students.each do |s| %>
+      <li class="student_names">
+        <%=link_to s.first_name+" "+s.last_name,student_report_exam_report_path(s.batch,student_id:s),remote:true%>
+      </li>
+    <% end %>
+  </ul>
+
+
+</div>
+</div>
+<% end %>

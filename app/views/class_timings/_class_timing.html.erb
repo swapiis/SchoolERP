@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-md-11">
+    <div class="pull-right">
+      <%= link_to 'Add', new_batch_class_timing_path(@batch),remote: true,class: "btn btn-primary"%>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="box col-md-12">
+    <div class="box-inner">
+      <div class="box-header well">
+        <h2>Class Timing Details</h2>
+      </div>
+
+      <div class="box-content">
+        <fieldset>
+          <div class="col-md-11 col-md-offset-1">
+            <table id="datatable" class="table table-striped  responsive ">
+              <thead>
+                <tr>
+                 <th>Name</th>
+                 <th>Start Time</th>
+                 <th>End Time</th>
+                 <th>Operation</th>
+               </tr>
+             </thead>
+             <tr>
+               <td colspan="4"><%=classtiming_not_found!%></td>
+             </tr>
+             <tbody>
+               <%= render 'index' %>
+             </tbody>
+           </table>
+         </div>
+       </fieldset>
+     </div>
+
+   </div>
+ </div>
+
+</div>

@@ -1,0 +1,24 @@
+<fieldset>
+<ul class="errors" ></ul>
+<%= form_for [@batch,@exam_group],url: {action: 'create',format: @batch.id} , remote: true do |f|%>
+<div class="row">
+  <div class="col-md-4 col-md-offset-1">
+    <b>Exam Group Name:<span style="color:red">*</span></b>
+  </div>
+  <div class="col-md-6">
+    <%=f.text_field :name,class: "form-control",placeholder: 'Exam Group Name',required: true%>
+  </div>
+</div><br/>
+<div class="row">
+  <div class="col-md-4 col-md-offset-1"><b>Type:</b></div>
+  <div class="col-md-6">
+    <%= f.select :exam_type,["Marks","Grades","Marks and Grades"],{prompt:true},{class: "form-control"}%>
+  </div>
+</div><br/>
+<div class="row">
+  <center>
+    <%= f.submit 'Submit', class: "btn btn-primary"%>
+  </center>
+</div>
+<%end%>
+</fieldset>

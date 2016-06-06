@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+      <%= link_to 'New Course', new_course_path, class: "btn btn-primary-link btn-xs" %>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="box col-md-12">
+  <div class="box-inner">
+    <div class="box-header well">
+      <h2>Courses Details</h2>
+    </div>
+
+    <div class="box-content">
+    <table class="datatable display responsive no-wrap table">
+        <thead>
+          <tr>
+            <th>Course Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @courses.each do |c| %>
+          <tr>
+            <td>
+              <%= link_to  c.full_name,course_path(c)%>
+            </td>
+            <td class="center">
+              <div class="label-success label label-default">
+              <i class="glyphicon glyphicon-edit icon-white"></i> 
+              <%= link_to 'Edit' ,edit_course_path(c),remote:true,class: "a-action"%></div>
+              
+              <div class="label-danger label label-default">
+              <i class="glyphicon glyphicon-trash icon-white"></i>
+              <%= link_to 'Delete' ,course_path(c),method: :delete, data:{confirm:"Are You sure to delete Course '#{c.course_name}' ?"}, class: "a-action"%></div>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>

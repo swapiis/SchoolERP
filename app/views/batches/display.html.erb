@@ -1,0 +1,63 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Settings',setting_index_path %></li>
+    <li><%= link_to 'Manage Course / Batch',course_batch_setting_index_path %></li>
+    <li><%= link_to 'Course',courses_path %></li>
+    <li><%= link_to 'Batch',course_path(@batch.course)%></li>
+    <li>View</li>
+  </ul>
+</div><div id="flash"><%= render 'layouts/messages'%></div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+      <%= link_to 'Edit', edit_batch_path(@batch),class: "btn btn-primary-link btn-xs"%>
+      <%= link_to 'Delete',display_batch_path(@batch),
+        method: :delete, data: { confirm: "Are you sure to delete Batch #{@batch.full_name}?"}, class: "btn btn-primary-link btn-xs"%>
+      <%= link_to 'Exams',exam_group_path(@batch),class: "btn btn-primary-link btn-xs" %> 
+      <%= link_to 'Assign Tutor',assign_tutor_batches_path(@batch),class: "btn btn-primary-link btn-xs"%>
+      <%= link_to 'Manage Subject', subjects_path,class: "btn btn-primary-link btn-xs"%>
+    </div>
+  </div>
+</div>
+<br/>
+
+<div class="row">
+  <div class="box col-md-12">
+  <div class="box-inner">
+    <div class="box-header well">
+      <h2>Students In Batch - <%= @batch.batch_course_name%></h2>
+    </div>
+    <div class="box-content" style="overflow-y: scroll; height:auto">
+    <% if @students.empty? %>
+      <h4 align="center">No Record Found </h4>
+    <% else %>
+      <table class="table table-striped table-bordered responsive">
+        <thead>
+          <tr>
+            <th>Sl.no</th>
+            <th>Student Name</th>
+            <th>Admission Number</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @students.each_with_index do |student,i| %>
+          <tr>
+            <td><%= i+1 %></td>
+            <td><%= student.student_name%></td>
+            <td><%= student.admission_no %></td>
+            <td class="center">
+            <div class="label-primary label label-default">
+              <i class="glyphicon glyphicon-th-list icon-white"></i> 
+              <%= link_to 'View Profile',profile_student_path(student),class: "a-action"%></div></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    <% end %>  
+    </div>
+  </div>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<table align="center" class="table table-striped" >
+<ul id="category-list">
+<tbody>
+<thead>
+</thead>
+ <tbody class="product-index">
+      <%= batches_present%>
+      <% @batches.each do |batch| %>
+        <tr>
+          <td><%= link_to batch.full_name, exam_group_path(batch)%>
+        </tr>
+      <% end %>   
+  </tbody>
+</table>

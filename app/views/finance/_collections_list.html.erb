@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="box col-md-12">
+	  <div class="box-inner">
+	    <div class="box-header well">
+	      <h2>Collection Details</h2>
+	    </div>
+	    <div class="box-content">
+		    <% unless @collections.empty?%>
+		      <table id="datatable" class="table table-striped table-bordered responsive">
+		        <thead>
+		          <tr>
+		            <th>Name</th>
+								<th>Start Date</th>
+								<th>End Date</th>
+								<th>Due Date</th>
+								<th>Action</th>
+		          </tr>
+		        </thead>
+		        <tbody>
+		        <% @collections.each do |c| %>
+		          <tr>
+		            <td>
+		              <%= link_to c.name,collection_details_view_finance_path(c)%> </td>
+		            <td class="col-3"><%= c.start_date%></td>
+		            <td class="col-3"><%= c.end_date%></td>
+		            <td class="col-3"><%= c.due_date%></td>
+								<td class="center">
+		              <div class="label-success label label-default">
+		              <i class="glyphicon glyphicon-edit icon-white"></i> 
+		              <%= link_to 'Edit',edit_fee_collection_finance_path(@batch,collection_id:c),remote:true, class: 'a-action'%></div>
+		              <div class="label-danger label label-default">
+		              <i class="glyphicon glyphicon-trash icon-white"></i> 
+		              <%= link_to 'Delete' ,delete_fee_collection_finance_path(@batch,collection_id:c),method: :delete, data:{confirm:"Are you sure to delete '#{c.name}'?"}, class: 'a-action'%></div>
+		            </td>
+		          </tr>
+		        <% end %>
+		        </tbody>
+		      </table>
+		    <%else%>
+					<center><h5>No collection found for this fee category</h5></center>
+				<%end%>
+	    </div>
+	  </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col-sm-4 ">
+    <div class="form-group">
+      <b>Select Question Type:</b>
+      <span style="color:red">*</span>
+      <%= select_tag("question_type[]",options_for_select(QuestionType.all.collect { |c| [c.que_type, c.id] }),class: "form-control" )%>
+    </div>
+  </div>
+  <div class="col-sm-4 ">
+    <div class="form-group">
+      <b>Percentage:</b>
+      <span style="color:red">*</span>
+      <%= text_field_tag "percentages[]","",class: "form-control"%>
+    </div>
+  </div>
+</div>

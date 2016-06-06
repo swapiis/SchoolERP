@@ -1,0 +1,56 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Student Details',students_path %></li>
+    <li><%= link_to 'Profile',profile_student_path(@student.id)%></li>
+    <li>Reports Center</li>
+  </ul>
+</div><div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-12">
+    <div class="box-inner">
+      <div class="box-header well">
+        <h2>Report Center</h2>
+      </div>
+      <div class="box-content" style="overflow-y: scroll; height:auto">
+        <fieldset>
+          <div class="col-md-9">
+            <h3>Academics</h3><hr>
+            <div class="col-md-4">
+              <h4>Recent Exams</h4>
+              <% @batch.exam_groups.all.each do |eg|%>
+                <p>
+                  <%=link_to eg.name,recent_exam_report_students_path(exam_group_id:eg.id,student_id:@student.id) %>
+                </p>
+              <%end%>
+            </div>
+            <div class="col-md-4">
+              <h4>Subject wise results</h4>
+              <% @batch.subjects.includes(:elective_group).all.each do |s|%>
+                <% is_elective=StudentSubject.find_by_subject_id_and_student_id(s.id,@student.id)%>
+                <% if s.elective_group.nil?%>
+                  <p><%=link_to s.name,subject_wise_report_students_path(subject_id:s.id,student_id:@student.id)%></p>
+                <%else%>
+                  <% unless is_elective.nil?%>
+                    <p><%=link_to s.name,subject_wise_report_students_path(subject_id:s.id,student_id:@student.id)%></p>
+                  <%end%>
+                <%end%>
+              <%end%>
+            </div>
+            <div class="col-md-4">
+              <h4>Detailed reports</h4>
+              <p><%= link_to 'Final Report(Exam Grouped)',final_report_students_path(@student.id)%></p>
+              <p><%= link_to 'Transcript Report',transcript_report_students_path(@student.id)%></p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <h3>Attendance</h3><hr>
+            <h4>Detailed Reports</h4>
+            <p><%=link_to 'Current year report',attendance_report_students_path(@student.id)%></p>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</div>

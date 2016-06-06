@@ -1,0 +1,15 @@
+<%= students_present %>
+  <div class="box-inner">
+    <div class="box-header well">
+    <h2>Students In Batch</h2>
+  </div>
+  <div class="box-content">
+  <ul>
+    <% @students.each do |s| %>
+      <li>
+        <%=link_to s.first_name, archived_student_exam_report_path(s),remote:true%>
+      </li>
+    <% end %>
+  </ul>
+</div>
+</div> 

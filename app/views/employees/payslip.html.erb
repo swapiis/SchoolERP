@@ -1,0 +1,41 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+     <li><%= link_to 'Human Resources',employees_path %></li>
+    <li>Create Payslip</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/><br/>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%=link_to "Select employee",select_employee_department_employees_path%></h2>
+      </div>
+      <div class="box-content">
+       Generate Payslip of an Employee
+      </div>
+    </div>
+  </div>
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "One click payslip Generator",one_click_payslip_employees_path,remote:true%>
+        </h2>
+      </div>
+      <div class="box-content">
+          One click payslip Generation
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-md-2"></div>
+    <div class="col-md-8">
+       <div id="one_click_payslip"></div>
+    </div>
+</div>

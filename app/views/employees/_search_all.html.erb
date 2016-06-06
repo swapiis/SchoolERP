@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="box col-md-12">
+  <div class="box-inner">
+    <div class="box-header well">
+      <h2>Employee Details</h2>
+    </div>
+   <div class="box-content">
+
+
+<% if @reporting_man.nil? %>
+ <h4 align="center">No Record Found </h4>
+   <% else %>
+<% if @reporting_man.empty? %>
+ <h4 align="center">No Record Found </h4>
+   <% else %>
+ <div class="col-md-1"></div>
+  <table id="datatable" class="table table-striped table-bordered responsive">
+     <thead>
+      <tr>
+            <th>Employee Name</th>
+            <th>Employee Id</th>
+            <th>Employee Deprtment</th>
+      </tr>
+      </thead>
+      <tbody>
+      <%@reporting_man.each do |emp|%>
+          <tr>
+                <td col-md-1><%= link_to emp.first_name,update_reporting_manager_name_employee_path(@employee,reporting_manager_id:emp),remote:true%></td>
+                <td col-md-1><%= emp.id%></td>
+                <td col-md-1><%= emp.employee_department.name%></td>
+         </tr>
+      <%end%> 
+      </tbody> 
+      </table>
+  <% end %>
+  <%end%>
+</div>
+</div>
+</div>
+</div>

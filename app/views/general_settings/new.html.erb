@@ -1,0 +1,125 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Settings',setting_index_path %>
+    </li>
+    <li>General Setting</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+
+
+    <div class="box-inner">
+      <div class="box-header well">
+        <h2>General Setting</h2>
+      </div>
+      <div class="box-content">
+      <%= form_for @general_setting,method: :patch do |f| %>
+
+    <fieldset>
+    <%=general_setting_error!%>   
+  
+      
+      <div class="col-sm-4 col-md-offset-1">
+        <div class="form-group">
+
+          <b>School/College Name:</b>
+          <span style="color:red">*</span>
+
+          <%= f.text_field :school_or_college_name, placeholder: "School/College Name", class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+
+          <b>School/College Phone No.:</b>
+           <span style="color:red">*</span>
+
+          <%= f.text_field :school_or_college_phone_no, placeholder: "School/College Phone No", class: "form-control"%>
+        </div>
+        
+        <div class="form-group">
+
+          <b>School/College Address:</b>
+
+          <%= f.text_field :school_or_college_address, placeholder: "School/College Address", class: "form-control"%>
+        </div>
+
+        <div class="form-group">
+
+          <b>Finance Year Start Date :</b>
+
+          <%= f.date_field :finance_start_year_date, class: "form-control datepicker",placeholder: "MM/DD/YYYY" %>
+        </div>
+        
+        <div class="form-group">
+
+          <b>Finance Year End Date :</b>
+
+          <%= f.date_field :finance_end_year_date, class: "form-control datepicker",placeholder: "MM/DD/YYYY"%>
+        </div>
+        
+        <div class="form-group">
+         
+          <b>Language :</b>
+
+          <%= f.select :language,set_language,{prompt:true}, {class: "form-control"} %>
+        </div>
+      </div>
+
+      
+      <div class="col-sm-4 col-md-offset-1">
+        <div class="form-group">
+
+          <b>Time Zone :</b>
+
+          <%= f.select :time_zone, ['Greeneich Mean Time(GMT-GMT+00:00)','Eastern European Time(EET) - GMT+02:00','Pakistan Lahore Time(PLT) - GMT+05:00','Indian Standard Time(IST) - GMT+05:30','Australia Eastern Time(AET) - GMT+10:00'], {:selected => 'Indian Standard Time(IST) - GMT+05:30'}, { class: "form-control"} %>
+        </div>
+
+        <div class="form-group">
+
+          <b>Country :</b>
+        <%= f.select :country,set_country,{prompt:true},{class: "form-control"}%>
+        </div>
+
+        <div class="form-group">
+
+          <b>Upload Logo :</b>
+
+          <%= f.file_field :image, class: "form-control",style: "height: auto"%>
+        </div>
+
+        <div class="form-group">
+
+          <b>Include Grading Systems:</b> <br>
+          <div class= "col-sm-12 col-sm-offset-8">
+          <%= link_to "All", all_general_settings_path,remote:true,class: "btn btn-primary-link btn-xs"%>
+          <%= link_to  "None", none_general_settings_path,remote:true,class: "btn btn-primary-link btn-xs"%></div>
+          <br>
+
+          <p id="grading_system"><%= render 'grading_type'%></p>
+        </div>
+
+        <div class="form-group">
+          <%= f.check_box :addmission_number_auto_increament, {:checked=>true} %>  <b>Enable Auto Increment Student Admission No.</b>
+        </div>
+
+        <div class="form-group">
+          <%= f.check_box :employee_number_auto_increament, {:checked=>true} %> 
+          <b>Enable Auto Increment Employee No.</b>
+        </div>
+        <div class="form-group">
+          <%= f.check_box :enable_news_comment_moderation, {:checked=>false} %> 
+          <b>Enable News Comment Moderation</b>
+        </div>
+      </div>
+
+
+    <div class="col-sm-5 col-sm-offset-5"> 
+      <div class="form-actions">               
+        <%= f.submit 'Update', class: "btn btn-success"%>
+      </div>
+    </div>
+  </fieldset>        
+ <% end %>
+</div>
+</div>

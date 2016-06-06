@@ -1,0 +1,18 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+      <li><%= link_to 'Human Resources',employees_path %></li>
+      <li><%= link_to 'Setting', settings_employees_path %></li>
+     <li>Add Position</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+
+<div id="add_position">
+<%=render 'position'%>
+
+</div>
+<div id="myModal" class="modal fade">
+ </div>
+ 
+

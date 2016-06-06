@@ -1,0 +1,46 @@
+<hr>
+<div class="row">
+  <div class="box col-md-12">
+  <div class="box-inner">
+    <div class="box-header well">
+      <h2>Assign elective subject to students</h2>
+    </div>
+
+<%=form_for(:student_subject, :url => {:action=> 'assign_elective'}) do |f| %>
+    <%= f.hidden_field :subject_id ,value:@subject.id %>
+    <div class="box-content" style="overflow-y: scroll; height:auto">
+      <table id="datatable" class="table table-striped table-bordered responsive">
+        <thead>
+          <tr>
+            <th>Student Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @students.each do |student| %>
+          <tr>
+            <td>
+              <%= student.first_name+" "+student.last_name %>
+            </td>
+            <td class="center">
+            <% studentsubject=StudentSubject.where(student_id:student.id,subject_id:@subject.id)%>
+              <% if studentsubject.empty? %>
+                <%= check_box_tag "students[]", student.id,false,class: 'check_box'%>Assign
+              <%else%>
+                <%= check_box_tag "students[]", student.id,true,class: 'check_box'%>Assign
+              <%end%>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    <div class="row">
+      <div class="col-md-7 pull-right">
+        <%= f.submit "Assign", class: 'btn btn-success'%>
+      </div>
+    </div>
+  <%end%>
+  </div>
+  </div>
+
+</div>

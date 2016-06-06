@@ -1,0 +1,35 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+   <li>News</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+      <%= link_to "View all", display_newscasts_path , class: "btn btn-primary-link btn-xs" %>
+      <%= link_to 'Add News', new_newscast_path, class: "btn btn-primary-link btn-xs" %>
+    </div>
+  </div>
+</div>
+<hr>
+
+<div class="row">
+  <div class="col-md-11 col-md-offset-1">
+    <%= form_for :newscast, url:{action:'select'},method: :get,html:{id: 'newscast_form'},remote:true do |f| %>
+
+      <b>Search News:</b>
+      <%= f.text_field :title,{oninput:"$('#newscast_form').submit();",class: "form-control",placeholder:'News Title',style:"width:300px"}%>
+      <% end %>
+  </div>
+</div>
+
+<div id="newscast_div"></div>
+
+
+
+
+
+

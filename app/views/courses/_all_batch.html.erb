@@ -1,0 +1,22 @@
+<div class="box-content">
+  <table id="datatable" class="table table-striped table-bordered responsive">
+    <thead>
+      <tr>
+        <th>Batch Name</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @batches.each do |batch| %>
+      <tr>
+        <td>
+          <%= batch.name%>
+        </td>
+        <td class="center">
+          <%= check_box_tag "batches[]", batch.id,false,class: 'check_box'%>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

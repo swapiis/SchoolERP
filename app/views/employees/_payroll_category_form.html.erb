@@ -1,0 +1,64 @@
+
+
+<div class="box-inner">
+  <div class="box-header well">
+    <h2>New Category</h2>
+  </div>
+  <div class="box-content">
+    <%= form_for :payslip,url:{action:'create_payslip_category',format:@employee}  do |f| %>
+    
+    <div class="row">
+      
+      
+      <div class="col-md-3 col-md-offset-1">
+        <b>Name:</b>
+        <span style="color:red">*</span></h4>
+      </div>
+      <div class="col-md-6">
+        <%=f.text_field :name,class: "form-control",style:"width:250"%>
+      </div>
+    </div>
+    
+    <br>
+
+    <div class="row">
+      
+     
+      <div class="col-md-3 col-md-offset-1">
+        <b>Amount:</b>
+      </div>
+      <div class="col-md-6">
+        <%=f.text_field :amount, :required=>false,class: "form-control",style:"width:250"%>
+      </div>
+      
+    </div>
+
+    <br>
+    <div class="row">
+     
+      <div class="col-md-offset-1">
+       
+       <%=f.check_box :is_deduction %> 
+       &nbsp;&nbsp;
+       <b>Is Deduction</b>
+       
+     </div>
+     <br>
+     <div class="row">
+      
+      
+      <div class="col-md-offset-5">
+        <%=f.submit "Create",class: "btn btn-primary" %>
+      </div>
+    </div>
+    
+    
+
+    <%end%>
+  </div>
+</div>
+
+
+
+
+

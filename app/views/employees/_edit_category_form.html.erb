@@ -1,0 +1,37 @@
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+  <h3><%= "Editing" %></h3>
+</div>
+
+
+<div class="modal-body">
+<ul class="errors"></ul>
+<%= form_for @employee_category,url:{:action=>'update_category',category_id: @employee_category.id},method: :patch,remote: true do |f|%>
+ 
+        <div class="form-group">
+            <div class="col-md-3"><b>Name:</b></div>
+            <%=f.text_field :name ,:style =>"width: 250px", class: "form-control"%>
+        </div>
+        
+         <div class="form-group">
+           <div class="col-md-3"> <b>prefix:</b></div>
+             <%=f.text_field :prefix ,:style =>"width: 250px", class: "form-control"%>
+        </div>
+
+         <div class="form-group">
+            <div class="col-md-3"><b>status:</b></div>
+             <%= f.radio_button "status", "true", checked: "checked" %>&nbsp;<b>Active</b>&nbsp;&nbsp;
+            <%= f.radio_button "status", "false"%>&nbsp;<b>Inactive</b>
+        </div>
+        <hr>
+         <div class="form-group">
+            <div class="col-md-offset-3">
+           <%= f.submit 'Update', class: "btn btn-success"%>&nbsp;
+        	<%= link_to 'Cancel', '#', class: "btn btn-default",data:{dismiss:"modal"}%>
+            </div>
+        </div>
+   
+<% end %>
+
+</div>

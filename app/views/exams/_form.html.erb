@@ -1,0 +1,49 @@
+<ul class="errors"></ul>
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-6">
+		<div class="box-inner">
+			<div class="box-header well">
+				<h2> Create Exam</h2>
+			</div>
+			<%= form_for [@exam_group,@exam] do |f| %>
+			<fieldset>
+				<%= exam_error_messages! %>
+				<div class="box-content">
+					<div class="row">
+						<div class="col-md-2"></div>
+						<div class="col-md-8">
+							<div class="form-group">
+								<b>Subject ID:</b>
+								<%= f.select :subject_id, @subjects.collect {|s| [s.name,s.id]},{prompt:true},{style: "width: 250px", class: "form-control"} %>
+							</div>
+							<div class="form-group">
+								<b>Start Time:</b>
+								<%=f.date_field :start_time ,style: "width: 250px", class: "form-control",required:true %>
+							</div>
+							<div class="form-group">
+								<b>End Time:</b>
+								<%=f.date_field :end_time ,style: "width: 250px", class: "form-control",required:true%>
+							</div>
+							<% unless @exam_group.exam_type=="Grades"%>
+							<div class="form-group">
+								<b>Maximum Marks:</b>
+								<%=f.text_field :maximum_marks ,style: "width: 250px", class: "form-control", required:true, placeholder: 'Maximum Marks'%>
+							</div>
+							<div class="form-group">
+								<b>Minimum Marks:</b>
+								<%=f.text_field :minimum_marks ,style: "width: 250px", class: "form-control", required:true, placeholder: 'Minimum Marks'%>
+							</div>
+							<%end%>
+							<center>
+								<%= f.submit 'Submit', class: "btn btn-primary" %>
+							</center>
+						</div>
+					</div>
+				</div>
+			</fieldset>
+			<%end%>
+		</div>
+	</div>
+</div>
+

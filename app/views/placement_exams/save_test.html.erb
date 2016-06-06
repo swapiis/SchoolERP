@@ -1,0 +1,47 @@
+
+<hr>
+<div class="row">
+  <div class="box col-md-12">
+    <div class="box-inner">
+      <div class="box-content">
+        <div class="row">
+          <div class="col-md-8">
+            
+          </div><br>
+          
+        </div><hr>q
+        <div class="form-group">
+          <h4 align="center">
+            <font color="brown">Exam Details:</font>
+          </h4>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <div class="col-md-6">
+              <b>your total score is : <%= @score[1] %> out of <%=@placement_exam.question_count%></b></div>
+            </div><br>
+          </div>
+        </div>
+        <% @score[0].each do |s|%>
+                <p><b>your <%= s[0]%> score is : <%= '%.2f'%(s[1])%></b></p>
+                <%Result.create(name:s[0],percentage:s[1])%>
+              <%end%>
+          <%=link_to 'Finish',dashboard_home_index_path,class: "btn btn-primary" %>
+        <hr>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= pie_chart @score[0]%>
+
+<%= line_chart Result.group(:name,:percentage).count %>
+<%= column_chart Result.group(:name,:percentage).count%>
+<%= bar_chart Result.group(:name).group(:percentage).count %>
+<%= line_chart Result.group_by_hour(:created_at).count %>
+<%= line_chart [
+    {name: "Cantidad de voluntarios en estado activo", data: {Time.new => 20} },
+    {name: "Study", data: {Time.new => 30} },
+    {name: "Conversation", data: {Time.new => 50} } ],
+    {library: {hAxis: {title: "Tiempo", format: 'MMM y'}, vAxis: {title: "Valores"}}} %>

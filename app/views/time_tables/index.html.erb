@@ -1,0 +1,104 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li>Timetable</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/><br/>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-3">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "View Timetables", '/time_tables/new'%></h2>
+      </div>
+      <div class="box-content">
+        View the timetable for a class.
+      </div>
+    </div>
+  </div>
+  <div class="box col-md-3">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Teacher Timetable", '/time_tables/teachers_timetable' %></h2> 
+      </div>
+      <div class="box-content">
+        View timetable for teachers.
+      </div>
+    </div>
+  </div>
+  <div class="box col-md-3">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Institutional Timetable",'/time_tables/timetable'%></h2>
+      </div>
+      <div class="box-content">
+        View the entire timetable for a day
+      </div>
+    </div>
+  </div>
+</div>
+<br/>
+<% if can? :create, TimeTable %>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-3">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Create weekdays",'/weekdays'%></h2>
+      </div>
+      <div class="box-content">
+        Create weekdays.
+      </div>
+    </div>
+  </div>
+  <div class="box col-md-3">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Set class timings",'/class_timings' %>
+        </h2>
+      </div>
+      <div class="box-content">
+        Create timetable for all the classes.
+      </div>
+    </div>
+  </div>
+  <div class="box col-md-3">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to " Work Allotment",'/time_tables/work_allotment' %></h2> 
+      </div>
+      <div class="box-content">
+        Assign subjects to teachers.
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+<br/>
+<% if can? :create, TimeTable %>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-3">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Create Timetable",'/time_tables/new_timetable'%></h2>
+      </div>
+      <div class="box-content">
+       Create timetable for all the classes.
+     </div>
+   </div>
+ </div>
+ <div class="box col-md-3">
+  <div class="box-inner2">
+    <div class="box-header well" data-original-title="">
+      <h2><%= link_to "Edit Timetable",edit_timetable_time_tables_path %></h2> 
+    </div>
+    <div class="box-content">
+     Select a class and edit the timetable for that class.
+   </div>
+ </div>
+</div>
+</div>
+<% end %>

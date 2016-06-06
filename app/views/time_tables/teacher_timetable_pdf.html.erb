@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      #heading {
+        width:100%;
+        margin: 0 auto;
+      }
+
+      
+      #head {
+        height: 100px;
+        width: 700px;
+        text-align: center;
+        font-size: 40px;
+        border-color: black;
+
+      }
+      #head_info {
+        text-align: center;
+        font-size: 15px;
+      }
+
+    </style>
+  </head>
+  <%arr=[]%> <% @weekdays.each do |weekday| %>
+            <%arr << @class_timings.count %>
+  <%end%>
+  <body>
+    <div id="heading">
+      <div id="head">
+        <%= @general_setting.school_or_college_name%><br/>
+        <div id="head_info">
+          <%= @general_setting.school_or_college_address%><br/><br/>
+          <%= @general_setting.school_or_college_phone_no%>
+        </div>
+      </div>
+      <hr width="200%">
+  <br/><br/>
+    <table cellpadding="5" cellspacing="5" width="700">
+        <tr>
+        <th colspan="<%=arr.sum%>" bgcolor="99CCFF" align="left">Timetable</th></tr>
+        <tr>
+         <td></td>
+         <% @weekdays.each do |weekday| %>
+            <th colspan="<%=@class_timings.count %>"><%= weekday.weekday%></th>
+          <%end%>
+        </tr>
+        <tr> 
+          <td></td>
+          <% @weekdays.each do |weekday| %>
+            <% @class_timings.each do |c| %>
+              <th>
+                <%=c.full_time%>
+              </th>
+            <%end%>
+          <%end%>
+        </tr>
+       <%@employees.each do |employee|%>
+       <tr>
+         <th><%=employee.first_name%></th>
+            <% @weekdays.each do |weekday| %>
+            <% @class_timings.each do |c| %>
+              <td>
+            <%t=teacher_time_table(employee,c,weekday,@time_table)%>
+              <% unless t.nil?%>
+                <%= t.subject.name %><br/>
+                <%= t.batch.name %>
+              <%end%>
+              </td>
+            <%end%>
+          <%end%>
+       </tr>
+    <%end%>
+  </table>
+    </div>
+   </body>
+ </html>

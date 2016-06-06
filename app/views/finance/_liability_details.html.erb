@@ -1,0 +1,57 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="pull-right">
+    	<%= link_to 'Pdf Report',liability_list_finance_index_path(format:"pdf"),class: "btn btn-primary-link btn-xs"%>
+    	</div>
+	</div>
+</div>
+<hr>
+<div class="row">
+  <div class="box col-md-12">
+	  <div class="box-inner">
+	    <div class="box-header well">
+	      <h2>Liability Details</h2>
+	    </div>
+	    <div class="box-content">
+		    <% unless @liabilities.empty?%>
+		      <table id="datatable" class="table table-striped table-bordered responsive">
+		        <thead>
+		          <tr>
+		            <th>Liability</th>
+								<th>Description</th>
+								<th>Amount</th>
+								<th>Created At</th>
+								<th>Action</th>
+		          </tr>
+		        </thead>
+		        <tbody>
+		        <% @liabilities.each do |l|%>
+						<% if l.is_solved?%>
+		          <tr>
+		            <td class="col-3"><%= link_to l.title+" (solved)",each_liability_view_finance_path(l)%></td>
+									<%else%>
+										<tr>
+										<td class="col-3"><%= link_to l.title,each_liability_view_finance_path(l)%></td>
+									<%end%>
+										<td class="col-3"><%= l.description%></td>
+										<td class="col-3"><%= l.amount%></td>
+										<td class="col-3"><%= l.created_at.to_date%></td>
+		            <td class="center">
+		              <div class="label-success label label-default">
+		              <i class="glyphicon glyphicon-edit icon-white"></i> 
+		              <%= link_to 'Edit',edit_liability_finance_path(l), class: 'a-action', remote:true %></div>
+		              <div class="label-danger label label-default">
+		              <i class="glyphicon glyphicon-trash icon-white"></i> 
+		              <%= link_to 'Delete' ,delete_liability_finance_path(l),method: :delete, data:{confirm:"Are You sure to delete Liability #{l.title}?"}, class: 'a-action'%></div>
+		            </td>
+		          </tr>
+		        <% end %>
+		        </tbody>
+		      </table>
+		    <%else%>
+				<center><h5>No Liability found</h5></center>
+			<%end%>
+	    </div>
+	  </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<div>
+ <ul class="breadcrumb">
+  <li><%= link_to 'Home',dashboard_home_index_path %></li>
+  <li><%= link_to 'Timetable',time_tables_path %></li>
+  <li>View Timetable</li>
+</ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+    <div class="col-md-11 col-md-offset-1">
+      <%= form_for :time,url:{action:'select_time'},method: :get,remote:true,html:{id: "time_form"} do |f| %>
+      <b> Select a Timetable: </b>
+      <%= f.select :id,collect_time_table,{prompt:"Select a Timetable"},{onchange:"time_batch_function();",class: "form-control",style:"width:250px"} %>  
+      <%end%>
+  </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-11 col-md-offset-1">
+      <div id="time_div"></div>
+  </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-12">
+      <div id="batch_div"></div>
+  </div>
+</div>

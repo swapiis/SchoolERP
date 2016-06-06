@@ -1,0 +1,3 @@
+# PlacementNewsHelper
+module PlacementNewsHelper
+end

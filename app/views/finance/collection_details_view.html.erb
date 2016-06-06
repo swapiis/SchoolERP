@@ -1,0 +1,111 @@
+<div id="myModal" class="modal fade"></div>
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Finance',finance_index_path %></li>
+    <li><%= link_to 'Manage Fees',fees_finance_index_path %></li>
+    <li><%= link_to 'Fees Collection',fee_collection_finance_index_path %></li>
+    <li><%= link_to 'Collection Dates',fee_collection_view_finance_index_path %></li>
+    <li>Fee collection details</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+</br>
+<div id="box">
+    <div>
+    	<h4><label  class="field-label label label-default" style="margin-right:100px"><%= t('fee_collection_name') %></label>: 
+     	<label class="infolbl themed_text "> <%= @collection.name %></label></h4>
+    </div>
+    <div>
+    	<h4><label  class="field-label label label-default" style="margin-right:110px"><%= t('fee_category_name') %></label>: 
+     	<label class="infolbl themed_text"><%= @collection.finance_fee_category.name %></label></h4>
+    </div>
+    <div>
+    	<h4><label  class="field-label label label-default" style="margin-right:180px"><%= t('start_date') %></label>: 
+     	<label class="infolbl themed_text"><%= @collection.start_date %></label></h4>
+    </div>
+    <div>
+    	<h4><label  class="field-label label label-default" style="margin-right:185px"><%= t('end_date') %></label>: 
+     	<label class="infolbl themed_text"><%= @collection.end_date %></label></h4>
+    </div>
+    <div>
+    	<h4><label  class="field-label label label-default" style="margin-right:185px"><%= t('due_date') %></label>: 
+     	<label class="infolbl themed_text"><%= @collection.due_date %></label></h4>
+    </div>
+ </div>
+  </br>
+<div class="row">
+  <div class="box col-md-12">
+	  <div class="box-inner">
+	    <div class="box-header well">
+	      <h2>Particular Details</h2>
+	    </div>
+
+	    <div class="box-content">
+	    	<%total=0%>
+		    <% unless @particulars.nil?%>
+		      <table id="datatable" class="table table-striped table-bordered responsive">
+		        <thead>
+		          <tr>
+		            <th>Particular</th>
+								<th>Student Category</th>
+								<th>Student Name</th>
+								<th>Amount(Rs.)</th>
+								<th>Created Date</th>
+		          </tr>
+		        </thead>
+		        <tbody>
+		        <% @particulars.each do |p| %>
+		          <tr>
+		            <td class="col-3"><%= p.name%></td>
+								<td class="col-3"><%= p.category.nil? ? "-": p.category.name%></td>
+								<td class="col-3"><%= p.admission_no.nil? ? "-": p.student_name%></td>
+								<td class="col-3"><%= p.amount%></td>
+								<td class="col-3"><%= p.created_at.to_date%></td>
+		          </tr>
+		          <%total+=p.amount%>
+		        <% end %>
+		        </tbody>
+		      </table>
+		    <%else%>
+				  <center><h5>No particular found for this fee category</h5></center>
+			  <%end%>
+	    </div>
+	  </div>
+  </div>
+</div>
+<div class="row">
+  <div class="box col-md-12">
+	  <div class="box-inner">
+	    <div class="box-header well">
+	      <h2>Discount Details</h2>
+	    </div>
+	    <div class="box-content">
+		    <% unless @discounts.nil?%>
+		      <table id="datatable" class="table table-striped table-bordered responsive">
+		        <thead>
+		          <tr>
+		            <th>Discount Name</th>
+								<th>Student Category</th>
+								<th>Student Name</th>
+								<th>Discount</th>
+		          </tr>
+		        </thead>
+		        <tbody>
+		        <% @discounts.each do |d| %>
+		          <tr>
+		            <td class="col-3"><%= d.name%></td>
+								<td class="col-3"><%= d.category.nil? ? "-": d.category.name%></td>
+								<td class="col-3"><%= d.admission_no.nil? ? "-": d.student_name%></td>
+								<td class="col-3"><%= d.discount.to_s+"%" %></td>
+		          </tr>
+		        <% end %>
+		        </tbody>
+		      </table>
+		    <%else%>
+					<center><h5>No discount found for this fee category</h5></center>
+				<%end%>
+	    </div>
+	  </div>
+  </div>
+</div>

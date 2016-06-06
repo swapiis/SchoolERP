@@ -1,0 +1,17 @@
+<div>
+  <ul class="breadcrumb">
+  <li><%= link_to 'Home',dashboard_home_index_path %></li>
+  <li>Dashboard</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>        
+<br/>
+  <% if current_user.role == 'SuperAdmin' %>
+      <%= render 'dash' %>
+  <% elsif current_user.role == 'Admin' %>
+      <%= render 'dash1' %>
+  <% elsif current_user.role == 'Employee' %>
+      <%= render 'dash2' %>
+  <% else %>
+      <%= render 'dash3' %>
+  <% end %>

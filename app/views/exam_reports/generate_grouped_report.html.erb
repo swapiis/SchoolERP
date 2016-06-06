@@ -1,0 +1,36 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Examination','/exams'%></li>
+      <li><%= link_to 'Report Center', '/exam_reports/report_center' %></li>
+    <li><%= link_to 'Grouped exam report', '/exam_reports/grouped_exam_report' %> </li>
+    <li>Generated report</li>
+    </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+      <%= link_to 'Pdf Report',grouped_exam_students_report_exam_reports_path(batch_id:@batch.id,format:"pdf"), class: "btn btn-primary-link btn-sm" %>
+    </div>
+  </div>
+</div>
+<hr>
+ 
+  <h3 align="center"><%= @batch.name %> - <%= @batch.course.course_name %></h3>
+
+  <div class="row">
+  
+  <div class="col-md-3">
+    <div id="student_list">
+    <%= render 'grouped_exam_student_list' %>
+  </div>
+  </div>
+   <div class="col-md-9">
+  <div id="grouped_exam_report">
+    <%= render 'grouped_exam_report' %>
+  </div>
+  </div>
+  </div> 

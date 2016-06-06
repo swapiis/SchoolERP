@@ -1,0 +1,14 @@
+<%unless @transaction_categories.nil? %>
+	<% @transaction_categories.each do |f| %>
+		<div class="table">
+			<tbody>
+				<tr>
+					<th><%= f.name%></th>
+					<th><%= f.description%></th>
+				</tr>
+			</tbody>	
+		</div>
+	<%end%>
+<%else%>
+	No Record Found
+<%end%>

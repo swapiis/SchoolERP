@@ -1,0 +1,27 @@
+<%@index=0.to_i%>
+<%@rank_levels.each do |r| %>
+  <tr>
+    <% @priority={"index"=>@index}%>
+    <td><%= r.name %></td>
+    <% unless r==@rank_levels.last%>
+      <td><%=link_to '▼',decrease_priority_exam_setting_path(r.course,r,@priority),remote:true%></td>
+    <%else%>
+      <td></td>
+    <%end%>
+    <% unless r==@rank_levels.first%>
+      <td><%=link_to '▲',increase_priority_exam_setting_path(r.course,r,@priority),remote:true%></td>
+    <%else%>
+      <td></td>
+    <%end%>
+    <td class="center">
+      <div class="label-success label label-default">
+        <i class="glyphicon glyphicon-edit icon-white"></i>
+        <%=link_to 'Edit', edit_rank_exam_setting_path(r.course,course_id:r),remote: true,class: "a-action"%>
+      </div>&nbsp;
+      <div class="label-danger label label-default">
+        <i class="glyphicon glyphicon-trash icon-white"></i> 
+        <%= link_to 'Delete',destroy_rank_exam_setting_path(r.id),method: :delete, data: { confirm: "Are you sure to delete"},class: "a-action"%>
+      </div>
+  </tr>   
+  <%@index+=1%>  
+<% end %>

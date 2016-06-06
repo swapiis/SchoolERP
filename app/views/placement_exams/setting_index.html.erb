@@ -1,0 +1,50 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li>Placement Setting</li>
+  </ul>
+</div>
+
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/><br/>
+
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Question",new_question_database_path%></h2>
+      </div>
+      <div class="box-content">
+        Set the Question,number of option , answer 
+      </div>
+    </div>
+  </div>
+ 
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Add Company", companies_path %>
+        </h2>
+      </div>
+      <div class="box-content">
+        Company Details.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Question Type",new_question_type_path%></h2>
+      </div>
+      <div class="box-content">
+        Add Question types here such as Logical, Technical.
+      </div>
+    </div>
+  </div>
+</div>

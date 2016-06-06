@@ -1,0 +1,38 @@
+  <div class="row">
+        <div class="box col-md-12">
+         <div class="box-inner">
+          <div class="box-header well">
+            <h2>Assigned Employee</h2>
+          </div>
+         <div class="box-content">
+
+
+
+
+<%if @assigned_employees.nil? ||@assigned_employees.empty?%>
+		<h4 align="center">No employee assigned yet </h4>
+<%else%>
+ <table id="datatable" class="table table-striped responsive">
+ <thead>
+ 	   <tr>
+            <th>Name</th>
+            <th>Operation</th>
+        </tr>
+
+ </thead>
+ <tbody>
+	<%@assigned_employees.each do |emp|%>
+	<% @employee = Employee.find(emp.employee_id) %>
+	<tr>
+		<td><%=@employee.first_name%></td>
+		<td><div class="label-success label label-default"><%= link_to "Remove",remove_employee_employee_path(@employee,@subject,department_id:@department.id),method: :delete,data: { confirm: 'Are you sure?' } ,remote:true,class: "a-action"%></div></td>
+	</tr>
+</tbody>
+	<%end%>
+	<%end%>
+</table>
+</div>
+</div>
+</div>
+</div>
+

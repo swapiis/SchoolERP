@@ -1,0 +1,17 @@
+<div class="box-inner">
+  
+<div class="box-content">
+      <table class="table table-striped">
+      <tr>
+            <th>Employee Name</th>
+           
+      </tr>
+
+      <%@employees.each do |emp|%>
+          <tr>
+            <ul><td><%=link_to "#{emp.first_name} #{emp.last_name} (#{emp.employee_number})",monthly_payslip_employees_path(emp)%></td></ul>
+         </tr>
+      <%end%>  
+      </table>
+      </div>
+  </div>

@@ -1,0 +1,48 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    
+    <li><%= link_to 'News', newscasts_path%></li>
+    <li>Add News</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/>
+
+<div class="row">
+  <div class="col-md-2"></div>
+    <div class="box col-md-6">
+      <div class="box-inner">
+        <div class="box-header well" data-original-title="">
+            <h2>Add News</h2>
+        </div>
+      <div class="box-content">
+        <%= form_for :newscast, url: newscasts_path do |f| %>
+        <fieldset>
+          <%= news_error!%>
+            
+
+            <div class="col-sm-7 col-sm-offset-1">
+            <div class="form-group">
+              <b>Title: <span style="color:red">*</span></b>
+              <%=f.text_field :title, class: "form-control", style: "width: 350px", placeholder: "News tilte"%>
+            </div>
+              
+            <div class="form-group">
+             <b>Content: <span style="color:red">*</span></b>
+              <%=f.text_area :content,style: 'width:350px;height:200px', placeholder: "News Content", class: "form-control"%>
+            </div>
+          
+            <div class="col-sm-7 col-sm-offset-6"> 
+              <div class="form-actions">               
+                <%= f.submit 'Publish News', class: "btn btn-primary"%>
+                </div>
+            </div>
+                
+              </div>
+            </fieldset>
+            <% end %>
+            </div>
+        </div>
+    </div>
+</div>

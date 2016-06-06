@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      #heading {
+        width:100%;
+        margin: 0 auto;
+      }
+      
+      #head {
+        height: 100px;
+        width: 700px;
+        text-align: center;
+        font-size: 40px;
+        border-color: black;
+
+      }
+      #head_info {
+        text-align: center;
+        font-size: 15px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="heading">
+      <div id="head">
+        <%= @general_setting.school_or_college_name%><br/>
+        <div id="head_info">
+          <%= @general_setting.school_or_college_address%><br/><br/>
+          <%= @general_setting.school_or_college_phone_no%>
+        </div>
+      </div>
+      <hr>
+      <br/><h3><center>Student Fee Stucture</center></h3><br/>
+      <table cellpadding="5" cellspacing="5" width="700">
+        <tr><th colspan="3" bgcolor="99CCFF" align="left">Student Details</th></tr>
+        <tr>
+          <td>Name</td>
+          <td>:</td>
+          <td align="left"><%= @student.first_name.capitalize %> <%= @student.middle_name.capitalize %> <%= @student.last_name.capitalize %>
+          </td>
+        </tr>
+        <tr>  
+          <td>Fee Category Name</td>
+          <td>:</td>
+          <% unless @category.nil? %>
+            <td align="left"><%= @category.name %></td>
+          <%else%>
+            <td>-</td>
+          <%end%>
+        </tr>
+        <tr>
+          <td>Fee Collection Name</td>
+          <td>:</td>
+          <td align="left"><%= @collection.name %></td>
+        </tr>
+        <tr>
+          <td>Start Date</td>
+          <td>:</td>
+          <td align="left"><%= @collection.start_date %></td>
+        </tr>
+        <tr>
+          <td>End Date</td>
+          <td>:</td>
+          <td align="left"><%= @collection.end_date %></td>
+        </tr>
+        <tr>
+          <td>Due Date</td>
+          <td>:</td>
+          <td align="left"><%= @collection.due_date %></td>
+        </tr>
+      </table>
+      <br/><br/>
+      <table cellpadding="5" cellspacing="5" width="700">
+        <%total=0%>
+        <%discount=0%>
+        <%fines=0%>
+        <tr bgcolor="99CCFF">
+          <th width="70">Sr. No.</th>
+          <th>Particular</th>
+          <th width="150">Amount</th>
+        </tr>
+        <% unless @particulars.nil?%>
+          <% @particulars.each_with_index do |p,i|%>
+            <tr>
+              <td><%= i+1%></td>
+              <td><%= p.name%></td>
+              <td align="right"><%= amt=p.amount%></td>
+            </tr>
+            <%total+=amt%>
+          <%end%>
+        <%else%>
+          <h5>No fee collection particulars found</h5>
+        <%end%>
+      </table>
+      <br/><br/>
+      <table cellpadding="5" cellspacing="5" width="700">
+        <% unless @discounts.nil?%>
+          <tr bgcolor="99CCFF">
+            <th width="70">Sr.No.</th>
+            <th>Discount Type</th>
+            <th width="150">Discount</th>
+          </tr>
+          <tr>
+            <% @discounts.each_with_index do |d,i|%>
+              <tr>
+                <td><%= i+1%></td>
+                <td><%= d.name+"("+d.discount.to_s+"%)"%></td>
+                <td align="right"><%= dis=d.collection_discount(total)%></td>
+              </tr>
+              <%discount+=dis%>
+            <%end%>
+          </tr>
+        <%else%>
+          <h5>No fee collection discount found</h5>
+        <%end%>
+      </table>
+      <br/><br/>
+      <table cellpadding="5" cellspacing="5" width="700">
+        <tr>
+          <td align="right"> Total Discount : <%= discount%></td>
+        </tr>
+        <tr>
+          <td align="right"> Fee to paid : <%= total-discount %></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      #heading {
+        width:100%;
+        margin: 0 auto;
+      }
+     
+      #head {
+        height: 100px;
+        width: 700px;
+        text-align: center;
+        font-size: 40px;
+        border-color: black;
+
+      }
+      #head_info {
+        text-align: center;
+        font-size: 15px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="heading">
+      <div id="head">
+        <%= @general_setting.school_or_college_name%><br/>
+        <div id="head_info">
+          <%= @general_setting.school_or_college_address%><br/><br/>
+          <%= @general_setting.school_or_college_phone_no%>
+        </div>
+      </div>
+      <hr>
+      <br/><h3><center>Department Wise Payslip</center></h3><br/>
+      <% unless @payslips.empty?%>
+        <table cellpadding="5" cellspacing="5" width="700">
+          <tr bgcolor="99CCFF">
+            <th>Sl no.</th>
+            <th>Employee</th>
+            <th>Employee No</th>
+            <th>Net Salary</th>
+            <th>Payslip Status</th>
+          </tr>
+          <%employees=1%>
+          <%total_salary=0%>
+          <%approved_salary=0%>
+          <% @payslips.each_with_index do |pid,i|%>
+            <%p=MonthlyPayslip.find(pid)%>
+            <tr>
+              <td><%= i+1 %></td>
+              <td><%= p.employee.first_name+" "+p.employee.last_name %></td>
+              <td><%= p.employee.employee_number%></td>
+              <td><%= p.amount%></td>
+              <td><%= p.is_approved? ? "Approved" : "Pending" %></td>
+            </tr>
+            <%employees+=i%>
+            <%total_salary+=p.amount.to_f%>
+            <% approved_salary+=p.amount.to_f if p.is_approved?%>
+          <%end%>
+        </table>
+        <table cellpadding="5" cellspacing="5" width="700">
+          <tr>
+            <th align="right">
+              Total employees : <%=employees%>
+            </th>
+          </tr>
+          <tr>
+            <th align="right">
+              Total salary : <%=total_salary%>
+            </th>
+          </tr>
+          <tr>
+            <th align="right">
+              Approved Salary : <%= approved_salary%>
+            </th>
+          </tr>
+        </table>
+      <%end%>
+    </div>
+  </body>
+</html>

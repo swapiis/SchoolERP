@@ -1,0 +1,63 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li>Question </li>
+  </ul>
+</div>
+<h4><b>Note:</b>&nbsp;<font color="red">Fields Marked with * must be filled</font></h4>
+<div id="flash"><%= render 'layouts/messages'%></div>
+
+
+<div class="row">
+  <div class="box col-md-12">
+    <div class="box-inner">
+      <div class="box-header well">
+      </div>
+        <div class="box-content">
+<%= form_for @que do |f| %>
+    <fieldset>
+    <% if @que.errors.any? %>
+        <div class="alert alert-danger">
+      <ul>
+      <% @que.errors.full_messages.each do |msg| %>
+              <li style="width:500px" align="left"><%= msg %></li>
+            <% end %>
+          </ul>
+      
+      </div>
+          <% end %>
+          
+      <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-4">
+         <div class="form-group">
+        <b>Question Type:</b>
+       <span style="color:red">*</span>
+         <%=f.select :question_type_id,QuestionType.all.collect{|b|[b.que_type,b.id]},{prompt:true},{class: "form-control"}%>
+       </div>
+
+         <div class="form-group">
+        <b>Enter Question :</b>
+       <span style="color:red">*</span>
+         <%=f.text_area :question,class: "form-control",:cols=>20,:rows=>5%>
+ 
+         <div class="form-group">
+        <b>No of Option:</b>
+       <span style="color:red">*</span>
+         <div id="p"> <%=f.select :no_of_option, [["2"], ["3"],["4"],["5"],["6"]],{prompt:true},{onchange:"var a={id: $(this).val()}; $.get('option',a,function(response){});",class: "form-control"}%>
+    </div><br/>
+    <div id="options"></div>
+        
+      
+</div>
+  <div class="col-sm-5 col-sm-offset-5"> 
+      <div class="form-actions">               
+        <%= f.submit 'Save', class: "btn btn-primary",style:"width:80px"%>
+      </div>
+    </div>
+  </fieldset>        
+ <% end %>
+</div>
+</div>
+</div>
+</div>

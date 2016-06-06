@@ -1,0 +1,55 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Timetable',time_tables_path %></li>
+    <li>Work Allotment</li>
+  </ul>
+</div><div id="flash"><%= render 'layouts/messages'%></div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+      <%= link_to 'Assign Multiple Teacher',subject_assignment_employees_path, class: "btn btn-primary-link btn-xs" %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="box col-md-12">
+    <div class="box-inner">
+      <div class="box-header well">
+        <h2>Work Allotment</h2>
+      </div>
+      
+      <div class="box-content" style="overflow-y:scroll; height:550px">
+        <%=form_for :employees_subjects,:html=>{:id=>'work_allotment_form'} do |f| %>
+        <fieldset>
+
+          <table id="datatable" class="table table-bordered responsive" >
+            <div class="col-md-10 col-md-offset-1">
+              <% @batches.each do |batch| %>
+              <tr><td colspan="2"> 
+               <div class="box-header well"><h2><%= batch.name%></h2>
+               </div></td>
+             </tr>
+             <tr>
+               <% batch.subjects.each do |subj| %>
+               
+               <td><b><%=subj.name%>:</b></td>
+               <td><%=select_tag "employee_subjects[#{subj.id}]",options_for_select([[t('select_employee'),""]]+Employee.all.collect{|c| [c.first_name,c.id]},subj.employees.first.try(:id)),class: "form-control",style:"width:350px"%>
+               </td>
+
+             </tr>
+             <%end%> 
+             <% end %>
+           </div>
+         </table>
+         <p align="center"><%= f.submit 'update',class: "btn btn-success"%></p>
+       </div>
+
+     </fieldset>
+     <% end %>
+ </div>
+ </div>
+</div>
+
+

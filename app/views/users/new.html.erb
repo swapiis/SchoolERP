@@ -1,0 +1,60 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Manage Users','/users'%></li>
+    <li>Make new user</li>
+  </ul>
+</div><div id="flash"><%= render 'layouts/messages'%></div>
+
+<div class="row">
+ <div class="box col-md-2"></div>
+  <div class="box col-md-6">
+  <div class="box-inner">
+    <div class="box-header well">
+      <h2>New User</h2>
+    </div>
+
+    <div class="box-content">
+
+<%= form_for @user do |f| %>
+<fieldset>
+  <%= user_error! %>
+  <div class="col-sm-7 col-sm-offset-1">
+        <div class="form-group">
+         
+          <b>Username:</b>
+             <%= f.text_field :username, class: "form-control", style: "width: 350px", placeholder: ""  %>
+        </div>
+        <div class="form-group">
+        
+               <b>First Name:</b>
+              <%= f.text_field :first_name, class: "form-control", style: "width: 350px", placeholder: "" %>
+        </div>
+        <div class="form-group">
+              <b>Last Name:</b>
+              <%= f.text_field :last_name, class: "form-control", style: "width: 350px", placeholder: "" %>
+              </div>
+        <div class="form-group">
+              <b>Email:</b>
+              <%= f.text_field :email, class: "form-control", style: "width: 350px", placeholder: ""%>
+              </div>
+        <div class="form-group">      
+              <b>Password:</b>
+              <%= f.password_field :password, class: "form-control", style: "width: 350px", placeholder: "" %>
+               <%= f.hidden_field :role, value: 'Admin' %>
+               </div>
+        <div class="form-group">  
+         <div class="col-md-offset-6">    
+            <%= f.submit "Create",class: "btn btn-primary" %>
+            </div>
+        </div>
+        </fieldset>
+
+  <% end  %>
+ 
+  </div>
+  </div>
+  </div>
+  </div>
+
+

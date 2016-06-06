@@ -1,0 +1,89 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Manage User',users_path %></li>
+    <li>User Profile</li>
+  </ul>
+</div><div id="flash"><%= render 'layouts/messages'%></div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+
+      <% if @user.role.eql? "Student" %>
+      <% unless @student.nil? %>
+        <% if @student.status_description.nil? %>
+          <%= link_to "View Profile",profile_student_path(@student), class: "btn btn-primary-link btn-xs" %>
+        <% else %>
+          <%= link_to "View Profile",archived_student_profile_student_path(@student.id), class: "btn btn-primary-link btn-xs"%>
+        <%end%>
+
+        <% if @user.role.eql? "Parent"%>
+        <%@parent = @user.student.take%>
+            <%= link_to "View Profile",profile_student_path(@parent), class: "btn btn-primary-link btn-xs" %>
+        <%end%>
+        
+        <% end %>
+      <% elsif @user.role.eql? "Employee"%>
+        <% unless @employee.nil? %>
+         <%= link_to "View Profile",profile_employees_path(@employee.employee_id), class: "btn btn-primary-link btn-xs"%>
+        <%end%>  
+      <% end %>
+      <%unless @user.role.eql? "Admin"%>
+        <%= link_to "Change Password", change_password_user_path(@user), class: "btn btn-primary-link btn-xs"%>
+         <%= link_to "Edit", edit_user_path(@user), class: "btn btn-primary-link btn-xs"%>
+      <%else%>
+        <% if current_user.id == @user.id || current_user.id == 1%>
+          <%= link_to "Change Password", change_password_user_path(@user), class: "btn btn-primary-link btn-xs"%>
+            <%= link_to "Edit", edit_user_path(@user), class: "btn btn-primary-link btn-xs"%>
+        <%end%>
+      <%end%>
+        <%= link_to "Delete",@user,method: :delete,data:{confirm:"Are you sure to delete User: '#{@user.first_name+" "+@user.last_name}'?"}, class: "btn btn-primary-link btn-xs" %>
+    </div>
+  </div>
+  </div>
+<hr>
+
+<div class="row">
+ <div class="box col-md-2"></div>
+  <div class="box col-md-6">
+  <div class="box-inner">
+    <div class="box-header well">
+      <h2>User Profile</h2>
+    </div>
+
+    <div class="box-content">
+    <fieldset>
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-1">
+        <div class="form-group">
+  
+        <div class="col-sm-4"><b> Username:</b></div>
+          <div class="col-sm-8"><%= @user.username %></div>
+      
+          </div>
+          <br>
+          <div class="form-group">
+          <div class="col-sm-4"><b> Name:</b></div>
+          <div class="col-sm-8"><%= @user.first_name+' '+@user.last_name  %></div>
+          </div>
+          <br>
+          <div class="form-group">
+          <div class="col-sm-4"><b> Role:</b></div>
+          <div class="col-sm-8"><%= @user.role %></div>
+          </div>
+          <br>
+              <div class="form-group">
+          <div class="col-sm-4"><b> Email:</b></div>
+          <div class="col-sm-8"><%= @user.email %></div>
+          </div>
+      </div>
+ </div>
+ </fieldset>
+ </div>
+ </div>
+ </div>
+ </div>
+
+
+

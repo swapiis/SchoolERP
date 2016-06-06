@@ -1,0 +1,28 @@
+
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Finance',finance_index_path %></li>
+    <li><%= link_to 'Employee Payslip',payslip_finance_index_path %></li>
+    <li>View payslip</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-4">
+    <%= form_for :payslip,url:{action:"view_payslip"},remote:true do |f|%>
+    <div class="form-group">
+      <b>Select Department:</b>
+      <%= f.select :department,collect_department,{prompt:true},class: "form-control"%>
+    </div>
+    <div class="form-group">
+      <b>Select Month:</b>
+      <%= f.select :date,collect_salary_month,{prompt:true},class: "form-control"%>
+    </div>
+    <div align="center"><%= f.submit "View",class: "btn btn-default"%>
+    </div>
+        <%end%>
+  </div>
+</div>
+<div id="payslip"></div>

@@ -1,0 +1,68 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Exams',exams_path%></li>
+    <li><%= link_to 'Exam Management',exam_groups_path%></li>
+    <li> Exam Group</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+      <%= link_to 'New Exam Group', new_exam_group_path(@batch), class: "btn btn-primary-link btn-xs" %>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-12">
+    <div class="box-inner">
+      <div class="box-header well">
+        <h2>Exams</h2>
+      </div>
+      <div class="box-content">
+        <table class="table table-striped">
+          <thead>
+            <th>Name</th>
+            <th>Action</th>
+          </thead>
+            <tbody>
+              <%= exam_groups_present %>
+              <% @exam_groups.each do |eg|%>
+                <tr>
+                  <td><%= link_to eg.name ,exams_exam_group_path(eg) %></td>
+                  <td>
+                    <% unless eg.result_published? %>
+                      <div class="label-danger label label-default">
+                        <i class="glyphicon glyphicon-trash icon-white"></i>
+                        <%= link_to 'Delete',eg,method: :delete,
+                        data:{confirm:"Are you sure to delete ExamGroup: #{eg.name}"},class: "a-action"%>
+                      </div>
+                    <%end%>&nbsp;&nbsp;&nbsp;
+                    <% if eg.result_published? %>
+                      <div class="label-success label label-default">
+                        <i class="glyphicon glyphicon-saved icon-white"></i>
+                        <%= link_to 'Result published','#',class: "a-action"%>
+                      </div>
+                    <%else%>
+                      <div class="label-primary label label-default">
+                        <i class="glyphicon glyphicon-check icon-white"></i>
+                        <% if eg.is_published? %>
+                          <%= link_to 'Update exam schedule',publish_exam_exam_groups_path(eg), remote:true, class: "a-action" %>
+                        <%else%>
+                          <%= link_to 'Publish exam schedule',publish_exam_exam_groups_path(eg), remote:true, class: "a-action" %>
+                        <%end%>
+                      </div>
+                    <%end%>
+                  </td>
+                  <td id="publish_exam<%=eg.id%>"%></td>
+                </tr>
+              <%end%>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

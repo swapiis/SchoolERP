@@ -1,0 +1,10 @@
+
+<%= form_for :view_payslip, url:{action:'view_payslip_profile',format:@emp.id},remote:true,html:{id: "user_form"} do |f|%>
+<div class="row">
+	<div class="col-md-10 col-md-offset-2">
+		<b>Select Month:</b>
+
+		<%= f.select :id,  @salary_dates.all.collect {|b| [b.salary_date.strftime("%B %Y")]},{prompt:"Select a Month"},{onchange:"$('#user_form').submit();",class:"form-control",style: "width:250px"}%>
+		<%end%>
+	</div>
+</div>

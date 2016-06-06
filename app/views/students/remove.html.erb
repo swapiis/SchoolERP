@@ -1,0 +1,41 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Student Details',students_path %></li>
+    <li><%= link_to 'Profile',profile_student_path(@student.id)%></li>
+    <li>Remove Student</li>
+  </ul>
+</div><div id="flash"><%= render 'layouts/messages'%></div>
+<div class="box col-md-12">
+  <div class="box-inner">
+    <div class="box-content">
+      <div id="student-details">
+        <h3><%= @student.stud_full_name %></h3>
+        <h4>Admission no : <%= @student.admission_no %></h4>
+        <h4>Class : <%= @student.batch.course.course_name %></h4>
+      </div><hr>
+      <div class="row">
+        <div class="col-md-6">
+          <b>
+            <h3>
+              <%= link_to "Student leaving Institution",change_to_former_students_path(@student) %>
+            </h3>
+          </b>
+          <p><h4>For students leaving the Institution, use this option to remove them from the list of active students and place them in the former students list.</h4></p>
+        </div>
+        <div class="col-md-6">
+          <b>
+            <h3>
+              <%= link_to "Remove student records",delete_students_path(@student) %>
+            </h3>
+          </b>
+          <p>
+            <h4>
+              Completely delete student's records from the Institution's databases. Use this option only if you created the student record by accident and want to remove it completely.
+            </h4>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

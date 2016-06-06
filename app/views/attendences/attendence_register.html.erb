@@ -1,0 +1,29 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Attendance','/attendences'%></li>
+    <li>Attendance Register</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/>
+<div class="row">
+  <div class="col-md-1"></div>
+    <div class="box col-md-8">
+
+<%= form_for :batch, url:{action:'select_subject'},method: :get,remote:true ,html:{id: "course_form"} do |f| %>
+<b>Select a Batch:</b>
+
+<%= f.select :id, @batches.collect {|b| [b.course.course_name+" "+b.course.section_name+" - "+b.name,b.id]},{prompt:true},{onchange:"$('#course_form').submit();",class:"form-control",style: "width: 300px"}%>
+<%end%>
+</div>
+</div>
+
+<div class="row">
+<div class="box col-md-12">
+	<div id="subject_div"></div> 
+</div>
+</div>
+<div id="myModal" class="modal fade"></div>
+
+

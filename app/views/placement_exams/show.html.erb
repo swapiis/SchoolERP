@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Question type:</strong>
+  <%= @placement_exam.question_type %>
+</p>
+
+<p>
+  <strong>Timeperiod:</strong>
+  <%= @placement_exam.timeperiod %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @placement_exam.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @placement_exam.end_date %>
+</p>
+
+<p>
+  <strong>Company:</strong>
+  <%= @placement_exam.company %>
+</p>
+
+<%= link_to 'Edit', edit_placement_exam_path(@placement_exam) %> |
+<%= link_to 'Back', placement_exams_path %>

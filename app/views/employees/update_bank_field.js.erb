@@ -1,0 +1,11 @@
+$("ul.errors").html("")
+<% if  @bank_field.errors.any? %>
+		<%  @bank_field.errors.full_messages.each do |message| %>
+		$("ul.errors").addClass("alert alert-danger alert-dismissable")  
+		$("ul.errors").append($("<li />").html("<%= message.html_safe %>"))
+		<% end %>
+<% else %>
+$('#add_bank_field').html("<%= j render 'bank_field'%>");
+$('#flash').html("<%= j render 'layouts/messages'%>")
+$("#myModal").modal("hide")
+<%end%>

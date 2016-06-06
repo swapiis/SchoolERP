@@ -1,0 +1,37 @@
+<%= form_for(@placement_exam) do |f| %>
+  <% if @placement_exam.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@placement_exam.errors.count, "error") %> prohibited this placement_exam from being saved:</h2>
+
+      <ul>
+      <% @placement_exam.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :question_type_id %><br>
+    <%= f.text_field :question_type_id %>
+  </div>
+  <div class="field">
+    <%= f.label :timeperiod %><br>
+    <%= f.time_select :timeperiod %>
+  </div>
+  <div class="field">
+    <%= f.label :start_date %><br>
+    <%= f.date_select :start_date %>
+  </div>
+  <div class="field">
+    <%= f.label :end_date %><br>
+    <%= f.date_select :end_date %>
+  </div>
+  <div class="field">
+    <%= f.label :company_id %><br>
+    <%= f.text_field :company_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,65 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Settings',setting_index_path %></li>
+    <li><%= link_to 'Manage Course / Batch',course_batch_setting_index_path %></li>
+    <li><%= link_to 'Course',courses_path %></li>
+    <li><%= link_to 'Batch',batches_path%></li>
+    <li><%= link_to 'Batch Transfer',batch_transfers_path%></li>
+    <li>Graduation</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/>
+
+<h4>Graduating Batch: <%= @batch.full_name %></h4>
+  <p>These students will now be trasferred to former students database. Add the status description for the students.</p>
+<br/><br/>
+
+<%= form_for :graduate,:url => {:action=> 'former_student'},method: :get do |f| %>
+      <%= f.text_field :status_description, class: "form-control", placeholder: 'Status description', style: "width:350px"%>
+      <%= f.hidden_field :batch_id, value: @batch.id%>
+
+<hr>
+<div class="row">
+  <div class="box col-md-12">
+  <div class="box-inner">
+    <div class="box-header well">
+      <h2>Student list <span>(From the below list uncheck the students you don't want to transfer to former students.)</span></h2>
+    </div>
+
+    <div class="box-content" style="overflow-y: scroll; height:auto">
+      <table id="datatable" class="table table-striped table-bordered responsive">
+        <thead>
+          <tr>
+            <th>Student Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tr><td colspan="2"><%=graduate_not_found!%></td></tr>
+        <tbody>
+        <% @students.each do |student| %>
+          <tr>
+            <td>
+              <%= student.stud_full_name %>
+            </td>
+            <td class="center">
+              <%= check_box_tag "students[]", student.id,true,class: 'check_box'%>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  </div>
+
+</div>
+<div class="row">
+  <div class="col-md-5"></div>
+  <div class="col-md-5">
+    <%= f.submit "Graduate Student", class: 'btn btn-success'%>
+  </div>
+</div>
+<% end %>

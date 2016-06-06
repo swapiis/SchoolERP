@@ -1,0 +1,27 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li>Manage Users</li>
+  </ul>
+</div><div id="flash"><%= render 'layouts/messages'%></div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+      <%= link_to 'View All',view_all_users_path, class: "btn btn-primary-link btn-xs" %>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-md-2"></div>
+    <div class="box col-md-6">
+    <%= form_for :user, url:{action:'search'}, method: :get,remote:true,html:{id: "user_form"} do |f|%>
+       <b>Search User:</b>
+       <br>
+          <%= text_field_tag :search,"",placeholder:'Search User',oninput:"$('#user_form').submit();",class:"form-control",style: "width: 300px"%>
+        <% end %>
+  </div>
+</div><br/>
+<div id="user_search"></div>
+ 

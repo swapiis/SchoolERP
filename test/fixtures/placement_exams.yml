@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  question_type_id: 
+  timeperiod: 2015-01-19 23:32:41
+  start_date: 2015-01-19
+  end_date: 2015-01-19
+  company_id: 
+
+two:
+  question_type_id: 
+  timeperiod: 2015-01-19 23:32:41
+  start_date: 2015-01-19
+  end_date: 2015-01-19
+  company_id: 

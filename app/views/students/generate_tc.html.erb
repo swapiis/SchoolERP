@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style type="text/css">
+    #heading {
+      width:100%;
+      margin: 0 auto;
+    }
+    #head {
+      height: 100px;
+      width: 700px;
+      text-align: center;
+      font-size: 40px;
+      border-color: black;
+    }
+    #head_info {
+      text-align: center;
+      font-size: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div id="heading">
+    <div id="head">
+      <%= @general_setting.school_or_college_name%><br/>
+      <div id="head_info">
+        <%= @general_setting.school_or_college_address%><br/><br/>
+        <%= @general_setting.school_or_college_phone_no%>
+      </div>
+    </div>
+    <hr>
+    <h2 align="center"><%= t('transfer_certificate') %></h2>
+    <table cellpadding="5" cellspacing="5" width="700">
+      <% c= 'odd' %>
+      <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+        <td ><%= t('name') %></td>
+        <td > <%= @student.first_name+" "+@student.last_name  %> </td>
+      </tr>
+      <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+        <td ><%= t('admission_no') %></td>
+        <td ><%= @student.admission_no %></td>
+      </tr>
+      <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+        <td ><%= t('admission_date') %></td>
+        <td ><%= @student.admission_date %></td>
+      </tr>
+      <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+        <td ><%= t('date_of_birth') %></td>
+        <td ><%= @student.date_of_birth %></td>
+      </tr>
+      <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+        <td ><%= t('last_course') %></td>
+        <td ><%= @student.batch.course.course_name+" "+@student.batch.name %></td>
+      </tr>
+      <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+        <td ><%= t('blood_group') %></td>
+        <td ><%= @student.blood_group %></td>
+      </tr>
+      <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+        <td ><%= t('gender') %></td>
+        <td ><%= @student.gender %></td>
+      </tr>
+      <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+        <td ><%= t('nationality') %></td>
+        <td ><%= @student.nationality.name %></td>
+      </tr>
+      <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+        <td ><%= t('language') %></td>
+        <td ><%= @student.language %></td>
+      </tr>
+      <% if @father %>
+      <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+        <td ><%= t('father_name') %></td>
+        <td ><%= @father.first_name+" "+@father.last_name %></td>
+      </tr>
+      <% elsif @mother %>
+      <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+        <td ><%= t('mother_name') %></td>
+        <td ><%= @mother.first_name+" "+@mother.last_name %></td>
+      </tr>
+      <% else %>
+      <% unless @immediate_contact.nil? %>
+      <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+        <td ><%= @immediate_contact.relation %></td>
+        <td ><%= @immediate_contact.first_name+" "+@immediate_contact.last_name  %></td>
+      </tr>
+      <% end %>
+      <% end %>
+      <% unless @student.category.nil? %>
+      <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+        <td ><%= t('category') %></td>
+        <td ><%= @student.category.name %></td>
+      </tr>
+      <% end %>
+      <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+        <td ><%= t('religion') %></td>
+        <td ><%= @student.religion %></td>
+      </tr>
+      <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+        <td ><%= t('address') %></td>
+        <td ><%= @student.address_line1 %><br/><%= @student.address_line2 %></td>
+      </tr>
+      <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+        <td ><%= t('city') %></td>
+        <td ><%= @student.city %></td>
+      </tr>
+      <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+        <td ><%= t('state') %></td>
+        <td ><%= @student.state %></td>
+      </tr>
+      <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+        <td ><%= t('country') %></td>
+        <td ><%= @student.country.name %></td>
+      </tr>
+      <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+        <td ><%= t('reason_for_leaving') %></td>
+        <td ><%= @student.status_description %></td>
+      </tr>      
+    </table>
+  </div> 
+</body>
+</html>

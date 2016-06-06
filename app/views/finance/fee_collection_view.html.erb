@@ -1,0 +1,30 @@
+<div id="myModal" class="modal fade"></div>
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Finance',finance_index_path %></li>
+    <li><%= link_to 'Manage Fees',fees_finance_index_path %></li>
+    <li><%= link_to 'Fees Collection',fee_collection_finance_index_path %></li>
+    <li>View fee collection dates</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+      <%= link_to 'Create Collection', 'new_fee_collection', class: "btn btn-primary-link btn-xs" %>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-4">
+    <div class="form-group">
+     <b>Select a Batch:</b>
+      <%= select :batch,:id,collect_batch,{prompt:true},{onchange:"var a={id: $('#batch_id').val()};$.get('view_fee_collection',a,function(response){});",class: "form-control"}%>
+    </div>
+  </div>
+</div>
+<div id="list"></div>
+<div id='modal' class="modal fade"></div>

@@ -1,0 +1,119 @@
+
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+     <li><%= link_to 'Human Resources',employees_path %></li>
+     <li><%= link_to 'HR Management',employee_management_employees_path %></li>
+     <li><%= link_to 'Employee Profile',profile_employees_path(@employee.id)%></li>
+     <li>Employee Details Update</li>
+  </ul>
+</div>
+Note:<font color="red">Fields Marked with * must be filled</font>
+<div id="flash"><%= render 'layouts/messages'%></div>
+ 
+
+<div class="row">
+  <div class="box col-md-12">
+    <div class="box-inner">
+      <div class="box-header well">
+        <h2>Employee Details Update</h2>
+       
+      </div>
+        <div class="box-content">
+<%= form_for @employee ,url:{action:'update_edit_profile',format:@employee.id} do |f| %>
+    <fieldset>
+     <% if @employee.errors.any? %>
+        <div class="alert alert-danger" style="width:500px" >
+          <h3>Error prohibited to from being saved:</h3>
+          <ul>
+           <% @employee.errors.full_messages.each do |msg| %>
+              <li style="width:500px" align="left"><%= msg %></li>
+            <% end %>
+          </ul>
+      
+      </div>
+          <% end %>
+          <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-4">
+         <div class="form-group">
+       <b>Date of birth:</b>
+
+         <%=f.date_field :date_of_birth,class: "form-control datepicker",placeholder: "MM/DD/YYYY"%>
+       </div>
+
+         <div class="form-group">
+         <b>Marital Status;</b>
+         <%=select :employee, :marital_status, [["single"], ["married"],["divorced"]],{prompt:"Marital-Status"},{class: "form-control"}%>
+       </div>
+
+          <div class="form-group">
+         <b>Father Name:</b>
+         <%=f.text_field :father_name,placeholder: "Father Name",class: "form-control"%>
+       </div>
+
+    </div>
+
+      <div class="col-sm-1"></div>
+        <div class="col-sm-4">
+          <div class="form-group">
+         <b>Mother Name:</b>
+         <%=f.text_field :mother_name,placeholder: "Mother Name",class: "form-control"%>
+       </div>
+
+        <div class="form-group">
+      <b>Blood Group:</b>
+         <%=f.select :blood_group, ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"],{prompt:"Blood Group"},{class: "form-control"}%>
+       </div>
+
+        <div class="form-group">
+        <b>Country:</b>
+         <%=f.select :country_id,Country.all.collect{|c| [c.name,c.id]},{prompt:"Nationality"},{class: "form-control"}%>
+       </div>
+
+        
+       
+  </div>
+  <div class="col-sm-5 col-sm-offset-5"> 
+      <div class="form-actions">               
+        <%= f.submit 'Update', class: "btn btn-success"%>
+      </div>
+    </div>
+  </fieldset>        
+ <% end %>
+</div>
+</div>
+</div>
+</div>
+
+    
+   
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

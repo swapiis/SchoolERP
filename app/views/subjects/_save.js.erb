@@ -1,0 +1,14 @@
+$("ul.errors").html("")
+<% if @subject.errors.any? %>
+		<% @subject.errors.full_messages.each do |message| %>
+		$("div.errors").addClass("alert alert-danger alert-dismissable")  
+		$("ul.errors").append($("<li />").html("<%= message.html_safe %>"))
+		<% end %>
+<% else %>
+  $("#myModal").modal("hide")
+  $('#subject_div').html("<%= j render 'subject'%>");
+  <% if @elective_subjects.present? %>  
+  $('#elective_div').html("<%= j render 'elective_groups/view_elective_subjects'%>");
+  <% end %>
+  $('#flash').html("<%= j render 'layouts/messages'%>");
+<% end %> 

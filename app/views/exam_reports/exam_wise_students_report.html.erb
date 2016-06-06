@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      #heading {
+        width:100%;
+        margin: 0 auto;
+      }
+
+       
+      #head {
+        height: 100px;
+        width: 700px;
+        text-align: center;
+        font-size: 40px;
+        border-color: black;
+
+      }
+      #head_info {
+        text-align: center;
+        font-size: 15px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="heading">
+      <div id="head">
+        <%= @general_setting.school_or_college_name%><br/>
+        <div id="head_info">
+          <%= @general_setting.school_or_college_address%><br/><br/>
+          <%= @general_setting.school_or_college_phone_no%>
+        </div>
+      </div>
+      <hr>
+      <br/><h3><center>Exam Wise Student Report </center></h3>
+    <br>
+      <h4>Batch:<%= @batch.course.course_name.capitalize+" "+@batch.course.section_name.capitalize+" "+@batch.name.capitalize %></h4>
+<% @students.each do |student|%>
+<% exam_score = [] %>
+<% @exam_group.exams.each do |exam| %>
+  <% exam_score.push exam.exam_scores.find_by_student_id(student.id) unless exam.exam_scores.find_by_student_id(student.id).nil?  %>
+<% end%>
+  <% total_marks_attained = 0 %>
+  <% total_max_marks = 0 %>
+  <br>
+     <b><%= "#{student.first_name+" "+student.last_name}"" - #{student.admission_no}" %>
+     </b>
+      <br>
+  <table cellpadding="4" cellspacing="5" width="700">
+       <tr>
+        <th bgcolor="99CCFF">Subject</th>
+        <% if @exam_group.exam_type == 'Marks' %>
+          <th bgcolor="99CCFF">Marks obtained</th>
+          <th bgcolor="99CCFF">Max</th>
+          <th bgcolor="99CCFF">Percentage(%)</th>
+        <% elsif @exam_group.exam_type == 'Grades' %>
+          <th bgcolor="99CCFF">Grades</th>
+        <% else %>
+          <th bgcolor="99CCFF">Marks obtained</th>
+          <th bgcolor="99CCFF">Max</th>
+          <th bgcolor="99CCFF">Grades</th>
+          <th bgcolor="99CCFF">Percentage(%)</th>
+        <% end %>
+      </tr>
+      <% exam_score.each do |es| %>
+      <% is_valid_subject=1 %>
+          <% unless es.exam.subject.elective_group_id.nil? %>
+            <% is_student_elective = StudentSubject.find_by_student_id_and_subject_id(student.id,es.exam.subject.id) %>
+            <% is_valid_subject = 0 if is_student_elective.nil? %>
+          <% end %>
+          <% unless is_valid_subject == 0 %>
+        <tr class="tr-<%= cycle('odd', 'even') %>">
+          <td > <%= es.exam.subject.name %></td>
+          <% if @exam_group.exam_type == 'Marks' %>
+            <td ><%= es.marks || 'AB' %></td>
+            <% total_marks_attained = total_marks_attained+(es.marks || 0) %>
+            <td ><%= es.exam.maximum_marks %></td>
+            <% total_max_marks = total_max_marks+es.exam.maximum_marks%>
+            <td ><%= es.calculate_percentage %></td>
+          <% elsif @exam_group.exam_type == 'Grades' %>
+            <td ><%= es.grading_level.name || "AB" %></td>
+          <% else %>
+            <td ><%= es.marks || "AB" %></td>
+            <% total_marks_attained = total_marks_attained+(es.marks || 0) %>
+            <td ><%= es.exam.maximum_marks %></td>
+            <% total_max_marks = total_max_marks+es.exam.maximum_marks%>
+            <td ><%= es.grading_level.name || "AB" %></td>
+            <td ><%= es.calculate_percentage %></td>
+          <% end %>
+        </tr>
+      <% end %>
+      <%end%>
+      <br>
+      <% unless @exam_group.exam_type == 'Grades'%>
+        <tr>
+          <td>Total marks:</td>
+          <td><%= total_marks_attained %></td>
+          <td><%= total_max_marks %></td>
+          <%if @exam_group.exam_type=="Marks and Grades"%>
+          <td>-</td>
+          <%end%>
+          <td><%= "%.2f" %(total_marks_attained*100/total_max_marks)+"%" unless total_max_marks == 0 %></td>
+        </tr>
+      <% end %>
+    </table>
+    <%end%>
+</div>
+</body>
+</html>

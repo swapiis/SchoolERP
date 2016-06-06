@@ -1,0 +1,150 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+     <li><%= link_to 'Human Resources',employees_path %></li>
+    <li>
+    <%= link_to 'Department Payslip',department_payslip_employees_path%>
+    </li>
+    <li>Employee Payslip</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="col-md-12">
+  <div class="pull-right">
+<%=link_to 'PDF Report',employee_individual_payslip_pdf_employees_path(payslip:@payslip,format:"pdf"),class: "btn btn-primary-link btn-sm"%>
+</div>
+</div>
+</div>
+<hr/>
+
+
+<% unless flash[:notice].nil? %>   <%end%>
+  <div class="row">
+  <div class="col-md-12">
+<div class="box-inner">
+    <div class="box-header">
+    <%if @payslip.nil? || @payslip.amount.to_i == 0%>
+        <h2>No salary slip found for this employee</h2>
+    <%else%>   
+
+    <%@emp=Employee.find(@payslip.employee_id)%>
+    <%approved=MonthlyPayslip.where(employee_id:@emp.id,is_approved:true).pluck(:is_approved)%>
+    <%if approved[0]==true%>
+        <%status="(Approved)"%>
+    <%else%>
+        <%status="(Pending)"%>
+    <%end%>   
+      <h2>&nbsp;&nbsp;&nbsp;&nbsp;<%=@emp.first_name+" "+@emp.last_name%> -
+      <%="Payslip generated on "+ @payslip.salary_date.to_s+" status "+status%></h2>
+    </div>
+      <div class="box-content" style="overflow-y: scroll; height:auto">
+      <fieldset>
+     
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+    <div class="row">
+      <h4><font color="brown"><b>Earning:</b></font>
+      </h>
+      </div>
+       <div class="row">
+      <table class="table table-stried">
+      <tr>
+         <td width="400px"><b>Category</b></td>
+         <td><b>Amount</b></td>
+      </tr>
+      <%total = 0%>
+      <%individual_earn = 0%>
+      
+        		<%is_deduction=PayrollCategory.where(is_deduction:false)%>
+        	<%is_deduction.each do |c| %>
+      <% val = EmployeeSaleryStructure.where(employee_id:@emp.id,payroll_category_id: c.id).pluck(:amount) %>
+
+      <tr>
+         <td><%=c.name%></td>
+        
+         <td><%='%.02f'%val[0]%></td>
+         <%total+=val[0].to_f%>
+      </tr>
+      <%end%>
+      
+      <%i = IndividualPayslipCategory.where(employee_id:@emp.id,is_deduction:false)%>
+      <% i.each do |p|%>
+         <% individual_earn += p.amount.to_i%>
+         <tr>
+           <td><%=p.name%></td>
+           <td><%=p.amount%></td>
+         </tr>
+      <%end%>
+      <%tot_earn = 0%>
+      <%tot_earn = total + individual_earn%>
+
+      <tr>
+      	<td><%="Total"%></td>
+
+      	<td><%='%.02f'%tot_earn%></td>
+      </tr>
+      	</table>
+        </div>
+    
+      <div class="row">
+      	<h4><font color="brown"><b>Deduction:</b></font></h4>
+      	</div>
+        <div class="row">
+      	<table class="table table-stried pull-right">
+      		<%tot_deduction=0%>
+      		<%is_deduction=PayrollCategory.where(is_deduction:true)%>
+           <%is_deduction.each do |d|%>
+            <% val = EmployeeSaleryStructure.where(employee_id:@emp.id,payroll_category_id:d.id).pluck(:amount)%>
+            
+      		<tr>
+      			<td width="400px"><%=d.name%></td>
+      			<td><%=val[0]%></td>
+      			  <%tot_deduction += val[0].to_f%>
+      		</tr>
+   		
+   			<%end%>
+         
+         <% individual_deduction = 0%>
+         <%i = IndividualPayslipCategory.where(employee_id:@emp.id,is_deduction:true)%>
+         <% i.each do |p|%>
+           <% individual_deduction += p.amount.to_i%>
+           <tr>
+           <td><%=p.name%></td>
+           <td><%=p.amount%></td>
+         </tr>
+      <%end%>
+      <%final_deduction = 0%>
+      <%final_deduction = tot_deduction + individual_deduction%>
+
+      	<tr>
+		      	<td><%="Total"%></td>
+		      	<td><%='%.02f'%final_deduction%></td>
+       </tr>   
+      	</table>
+        </div>
+        <hr>
+        
+        <div class="row">
+        <h3> 
+      	<table class="table table-stried">
+      		
+      	    <%last_total = tot_earn.to_f - final_deduction.to_f%>
+           	<tr>
+		      	<th><%="Total"%>:</th>
+		      	<th><%='%.02f'% last_total %></th>
+          </tr>  
+      	</table></h3>
+     </div>
+
+</div>
+
+</fieldset>
+<%end%>
+</div>
+
+</div>
+
+</div>
+</div>
+

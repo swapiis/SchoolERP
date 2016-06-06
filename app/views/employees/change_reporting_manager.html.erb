@@ -1,0 +1,64 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+     <li>Step 4 - Select Reporting Manager</li>
+  </ul>
+</div>
+
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="box col-md-12">
+  <div class="box-inner">
+    <div class="box-header well">
+      <h2>Select Reporting Manager</h2>
+    </div>
+   <div class="box-content">
+ <table id="datatable" class="table table-bordered responsive">
+<%= form_for :advance_search, url:{action:'search',format:@employee.id}, method: :get,remote:true,html:{id: "user_form"} do |f|%>    
+<tbody>
+ <tr>
+      <td> <b>Selected Manager:</b> <%= @reporting_manager.to_s %></td><td class="col-3"><div class="col-offset-md-3" id="name_emp"></div></td>
+         </tr> 
+        
+        <tr>
+          <td><b>New Manager :</b></td><td class="col-3"><div class="col-offset-md-3" id="name_emp1"></div></td>
+         </tr> 
+  <tr>
+        <td class="col-4"><b>Search by Name:</b></td>
+          <td class="col-4"><%= text_field_tag :search,"",{oninput:"$('#user_form').submit();",class: "form-control"}%></td>
+     </tr>
+
+   <tr>
+         <td class="col-3"><%= f.select :employee_department_id, EmployeeDepartment.all.collect {|b| [b.name,b.id]},{prompt:"select department"},{onchange:"$('#user_form').submit();",class: "form-control"}%></td>
+  
+         <td class="col-3"><%= f.select :employee_category_id, EmployeeCategory.all.collect {|b| [b.name,b.id]},{prompt:"Select Category"},{onchange:"$('#user_form').submit();",class: "form-control"}%></td>
+    
+         <td class="col-3"><%= f.select :employee_position_id,EmployeePosition.all.collect {|b| [b.name,b.id]},{prompt:"Select Position"},{onchange:"$('#user_form').submit();",class: "form-control"}%></td>
+    
+         <td class="col-3"><%= f.select :employee_grade_id, EmployeeGrade.all.collect {|b| [b.name,b.id]},{prompt:"Select Grade"},{onchange:"$('#user_form').submit();",class: "form-control"}%></td>
+     </tr>
+
+   
+  </div>
+  
+<%end%>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="user_search"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

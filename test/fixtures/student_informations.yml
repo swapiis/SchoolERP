@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  year: MyString
+  marks: 9.99
+  student_id: 
+  batch_id: 
+
+two:
+  year: MyString
+  marks: 9.99
+  student_id: 
+  batch_id: 

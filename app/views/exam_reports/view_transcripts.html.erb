@@ -1,0 +1,21 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Examination','/exams'%></li>
+      <li><%= link_to 'Report Center', '/exam_reports/report_center' %></li>
+      <li>View Transcripts</li>
+    </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/>
+ <div class="row">
+  <div class="col-md-1"></div>
+    <div class="box col-md-6"> 
+<%= form_for :transcript, :url=>{:action=>'generate_view_transcripts'},method: :get do |f|%>
+  <b>Select a Batch:</b>
+    <%= f.select :batch_id, Batch.includes(:course).all.collect {|b| [b.course.course_name+" "+b.course.section_name+" - "+b.name,b.id]},{prompt:true},{class:"form-control",style: "width: 300px"}%>
+     <br>
+      <div class="col-md-offset-3"><%= f.submit 'View', class: 'btn btn-default' %></div>
+  <% end %>
+  </div>
+</div> 

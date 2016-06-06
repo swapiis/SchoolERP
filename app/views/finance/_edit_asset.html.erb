@@ -1,0 +1,40 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3><%= "Edit Asset" %></h3>
+    </div>
+    <div class="modal-body">
+    <div class="errors">
+      <ul class="errors"></ul></div>
+      <%= form_for @asset,url:{action: 'update_asset',id:@asset.id},method: :patch,remote: true do |f|%>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-4"><b>Title :</b></div>
+          <div class="col-md-7"><%=f.text_field :title,placeholder:"Title",class: "form-control"%></div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-4"><b>Description :</b></div>
+          <div class="col-md-7"><%= f.text_field :description,placeholder: "Description",class: "form-control"%></div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-4"><b>Amount :</b></div>
+          <div class="col-md-7"><%=f.text_field :amount,placeholder: "Amount",class: "form-control"%></div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-7"><%=f.check_box :is_inactive%>&nbsp;&nbsp;<b>Make Asset Inactive?</b></div>
+        </div><hr/>
+        <div class="row">
+          <div class="col-md-12">
+            <center>
+              <%= f.submit 'Update', class: "btn btn-success"%>&nbsp;
+              <%= link_to 'Cancel', '#', class: "btn btn-default",data:{dismiss:"modal"}%>
+            </center>
+          </div>
+        </div>
+      <%end%>
+    </div>
+  </div>
+</div>

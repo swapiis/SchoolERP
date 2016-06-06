@@ -1,0 +1,83 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Examination',exams_path%></li>
+    <li><%= link_to 'Report Center', report_center_exam_reports_path %></li>
+    <li><%= link_to 'Exam wise report', exam_wise_report_exam_reports_path %> </li>
+    <li>Consolidated Report</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/>
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+      <%= link_to 'Pdf Report',exam_wise_consolidated_report_exam_reports_path(exam_group_id:@exam_group.id,format:"pdf"), class: "btn btn-primary-link btn-sm" %>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-12">
+    <div class="box-inner">
+      <div class="box-header well">
+    <h2><%= @batch.course.course_name+" "+@batch.course.section_name %> <%= @batch.name %> | <%= @exam_group.name %></h2></div>
+    <div class="box-content">
+      <table class="table table-bordered table-hover">
+        <tr class="tr-head">
+          <th >Name</th>
+            <% @exam_group.exams.each do |exam| %>
+              <th ><%= exam.subject.code+" - "+exam.subject.name %><%= "(" + exam.maximum_marks.to_s + ")"  unless exam.maximum_marks.nil? %></th>
+            <% end %>
+            <% if @exam_group.exam_type == "Marks" %>
+              <th >Percentage(%)</th>
+            <%elsif @exam_group.exam_type == "Grades"%>
+              <th ></th>
+            <%else%>
+              <th ></th>
+              <th >Percentage(%)</th>
+            <% end %>
+        </tr>
+        <% @batch.students.each do |student|%>
+          <tr>
+            <td ><%= student.first_name+" "+ student.last_name%></td>
+              <% total_marks = 0 %>
+              <% total_max_marks = 0 %>
+              <% @exam_group.exams.each do |exam| %>
+                <% exam_score = ExamScore.find_by_student_id_and_exam_id(student.id,exam.id) %>
+          <% is_valid_subject=1 %>
+            <% unless exam.subject.elective_group_id.nil? %>
+              <% is_student_elective = StudentSubject.find_by_student_id_and_subject_id(student.id,exam.subject.id) %>
+              <% is_valid_subject = 0 if is_student_elective.nil? %>
+            <% end %>
+          <% unless is_valid_subject == 0 %>
+                <% unless @exam_group.exam_type == "Grades" %>
+                <% if @exam_group.exam_type == "Marks"%>
+                  <td >
+                   <%= exam_score.nil? ? '-' : exam_score.marks || "AB" %>
+                  </td>
+                <% else %>
+                  <td >
+                   <%= exam_score.nil? ? '-' : exam_score.marks.to_s + ' | ' + exam_score.grading_level.name || "AB" %>
+                  </td>
+                <%end%>
+                <%else%>
+                   <td ><%= exam_score.grading_level.name%></td>
+                <% end %>
+                  <% total_marks = total_marks+(exam_score.marks || 0) unless exam_score.nil?  %>
+                  <% total_max_marks = total_max_marks.to_f+exam.maximum_marks.to_f unless exam_score.nil? %>
+            <%else%>
+                <td>-</td>
+            <%end%>
+            <%end%>
+            <% if @exam_group.exam_type == "Marks and Grades"%>
+            <td>-</td>
+            <%end%>
+              <td ><% percentage = total_marks*100/total_max_marks.to_f unless total_max_marks == 0%>
+                  <%= "%.2f" %percentage unless total_max_marks == 0 %></td>
+            </tr>
+             <%end%>
+      </table>
+  </div></div>
+  </div>
+  </div>

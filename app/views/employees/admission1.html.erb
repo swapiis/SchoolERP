@@ -1,0 +1,181 @@
+
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+     <li><%= link_to 'Human Resources',employees_path %></li>
+    <li><%= link_to 'HR Management',employee_management_employees_path %></li>
+  
+     <li>Employee admission(Step 1)</li>
+  </ul>
+</div>
+<h4><b>Note:</b>&nbsp;<font color="red">Fields Marked with * must be filled</font></h4>
+<div id="flash"><%= render 'layouts/messages'%></div>
+
+
+<div class="row">
+  <div class="box col-md-12">
+    <div class="box-inner">
+      <div class="box-header well">
+        <h2>Step 1 - Employee details</h2>
+       
+      </div>
+        <div class="box-content">
+<%= form_for @employee  do |f| %>
+    <fieldset>
+    <% if @employee.errors.any? %>
+        <div class="alert alert-danger">
+         
+          <ul>
+
+           <% @employee.errors.full_messages.each do |msg| %>
+              <li style="width:500px" align="left"><%= msg %></li>
+            <% end %>
+          </ul>
+      
+      </div>
+          <% end %>
+          <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-4">
+         <div class="form-group">
+        <b>Employee Number:</b>
+       <span style="color:red">*</span>
+         <%=f.text_field :employee_number,readonly: true,:value=> @employee.employee_number, class: "form-control"%>
+       </div>
+
+         <div class="form-group">
+        <b>First Name:</b>
+       <span style="color:red">*</span>
+         <%=f.text_field :first_name,placeholder: "First Name", class: "form-control"%>
+       </div>
+
+        <div class="form-group">
+          <b>Last Name:</b>
+       <span style="color:red">*</span>
+         <%=f.text_field :last_name,placeholder: "Last Name", class: "form-control"%>
+       </div>
+
+        <div class="form-group">
+       <b>Gender:</b>&nbsp;&nbsp;&nbsp;
+       <%= f.radio_button  "gender","Male", :checked => "checked" %>&nbsp;&nbsp;<b>Male</b>
+          &nbsp;&nbsp;&nbsp;<%= f.radio_button  "gender","Female"%>&nbsp;&nbsp;<b>Female</b>
+       </div>
+
+        <div class="form-group">
+          <b>Department:</b>
+       <span style="color:red">*</span>
+         <%=f.select :employee_department_id, collect_department_emp,{prompt:true},{class: "form-control"}%>
+       </div>
+
+        <div class="form-group">
+          <b>Category:</b>
+       <span style="color:red">*</span>
+         <%=f.select :employee_category_id, EmployeeCategory.all.collect {|b| [b.name,b.id]},{prompt:true},{class: "form-control"}%>
+       </div>
+
+         <div class="form-group">
+            <b>Grade:</b>
+       <span style="color:red">*</span>
+         <%=f.select :employee_grade_id, EmployeeGrade.all.collect {|b| [b.name,b.id]},{prompt:true},{class: "form-control"}%>
+       </div>
+
+        <div class="form-group">
+            <b>Qualification:</b>
+         <%=f.text_field :qualification,placeholder: "Qualification", class: "form-control"%>
+       </div>
+
+        <div class="form-group">
+            <b>Total Experience:</b>
+       </div>
+        <div class="form-group">
+      <div class="col-sm-6"><%= select :employee, :experience_year, (0..20),{:prompt=>"year"},{class: "form-control"} %></div>
+           <div class="col-sm-6"><%= select :employee, :experience_month, (0..11),{:prompt=>"month"},{class: "form-control"} %></div>
+        </div>
+
+        <div class="form-group">
+            <b>Marital-Status:</b>
+         <%=select :employee, :marital_status, [["Single"], ["Married"],["Divorced"]],{prompt:true},{class: "form-control"}%>
+       </div>
+
+     
+        
+         <div class="form-group">
+            <b>Nationality:</b>
+         <%=f.select :country_id,Country.all.collect{|c| [c.name,c.id]},{prompt:true}, class: "form-control"%>
+       </div>
+       
+</div>
+
+      <div class="col-sm-1"></div>
+      <div class="col-sm-4">
+
+          <div class="form-group">
+          <b> Joining Date:</b>
+       <span style="color:red">*</span>
+        
+        <%= f.text_field :joining_date,class: "form-control datepicker",placeholder: "MM/DD/YYYY"%>
+       </div>
+
+         <div class="form-group">
+          <b>Middle Name:</b>
+         <%=f.text_field :middle_name, :required=>false,placeholder: "Middle Name", class: "form-control"%>
+       </div>
+
+        <div class="form-group">
+          <b>Email:</b>
+       <span style="color:red">*</span>
+         <%=f.text_field :email,placeholder: "Email", class: "form-control"%>
+       </div>
+
+        <div class="form-group">
+          <b>Date of Birth:</b>
+       <span style="color:red">*</span>
+         <%=f.text_field :date_of_birth,class: "form-control datepicker",placeholder: "MM/DD/YYYY"%>
+       </div>
+
+        <div class="form-group">
+          <b>Position:</b>
+       <span style="color:red">*</span>
+         <%=f.select :employee_position_id,EmployeePosition.all.collect {|b| [b.name,b.id]},{prompt:true},{class: "form-control"}%>
+       </div>
+
+        <div class="form-group">
+          <b> Experience Detail:</b>
+         <%=f.text_field :experience_detail,placeholder: "Experience Detail", class: "form-control"%>
+       </div>
+
+        
+
+        <div class="form-group">
+            <b>Father Name:</b>
+         <%=f.text_field :father_name,placeholder: "Father Name", class: "form-control"%>
+       </div>
+           <div class="form-group">
+          <b> Mother Name:</b>
+         <%=f.text_field :mother_name,placeholder: "First Name", class: "form-control"%>
+       </div>
+        <div class="form-group">
+          <b>Blood Group:</b>
+         <%=f.select :blood_group, ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"],{prompt:true},{class: "form-control"}%>
+       </div>
+
+        <div class="form-group">
+         <b>Upload Photo:</b>
+         <%=f.file_field :image,class: "form-control",style: "height: auto"%>
+       </div>
+      </div>
+    <div class="col-sm-5 col-sm-offset-5"> 
+      <div class="form-actions">               
+        <%= f.submit 'Save', class: "btn btn-primary",style:"width:80px"%>
+      </div>
+    </div>
+  </fieldset>        
+ <% end %>
+</div>
+</div>
+</div>
+</div>
+
+    
+   
+ 

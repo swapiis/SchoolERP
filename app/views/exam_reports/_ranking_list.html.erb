@@ -1,0 +1,37 @@
+<% if  @mode.eql? "course" %>
+	<%= form_for :mode3,url:{action: 'generate_ranking_level_report'},html:{id: 'form_mode3'},method: :get do |f| %>
+	<% unless @batch_groups.empty? %>
+	 <div class="label-field-pair">
+	  <%= f.label :select_batch_group %>
+	      <div class="text-input-bg">
+	      <%= f.select :batch_group_id, @batch_groups.collect {|bg| [bg.name,bg.id]},prompt:true %>
+	      </div></div>
+	<%end%>
+	 <div class="label-field-pair">
+	  <%= f.label :select_ranking_level %>
+	      <div class="text-input-bg">
+	      <%= f.select :ranking_level_id, @ranking_levels.collect {|rl| [rl.name,rl.id]},prompt:true%>
+	      </div></div>	
+	<%= f.submit "View", class: "btn btn-default" %>
+	<% end %>
+<%elsif @mode.eql? "batch"%>
+   <%= form_for :ranking_report,url:{action: 'select_rank_mode',format:@batch.id},html:{id: 'form_rank_mode'},remote:true,method: :get do |f| %>
+
+	  <div class="label-field-pair">
+	<%= f.label :select_ranking_level %>
+	      <div class="text-input-bg">
+	      <%= f.select :ranking_level_id, @ranking_levels.collect {|rl| [rl.name,rl.id]},prompt:true%>
+	      </div></div>
+	      <div class="label-field-pair">
+			  <%= f.label :select_ranking_report %>
+			      <div class="text-input-bg">
+			      <%= f.select :rank, ["Overall","Subject wise"],{prompt:true},{onchange:"$('#form_rank_mode').submit();"}%>
+		  </div></div>
+    <%end%>
+    <%= form_for :mode4,url:{action: 'generate_ranking_level_report'},html:{id: 'form_mode4'},method: :get do |f| %>		   
+			<div id="rank_mode"></div>
+	   	  <%= f.submit "View", class: "btn btn-default" %>
+	<%end%>
+<% else %>
+<h4>Please select mode</h4>
+<%end%>

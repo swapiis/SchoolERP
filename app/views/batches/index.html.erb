@@ -1,0 +1,32 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Settings',setting_index_path %></li>
+
+    <li><%= link_to 'Manage Course / Batch',course_batch_setting_index_path %></li>
+
+    <li>Batch</li>
+  </ul>
+</div><div id="flash"><%= render 'layouts/messages'%></div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+      <%= link_to 'Grading System', grading_levels_path, class: "btn btn-primary-link btn-xs" %>
+      <%= link_to 'Batch Transfer', batch_transfers_path, class: "btn btn-primary-link btn-xs" %>
+    </div>
+  </div>
+</div>
+<br/>
+
+<div class="row">
+  <div class="col-md-11 col-md-offset-1">
+    <%= form_for :course, url:{action:'select'},method: :get,remote:true,html:{id: "course_form"} do |f| %>
+    <b>Select a Course: </b>
+      <%= f.select :id,collect_course_batch,{prompt:'Select a Course'},{onchange:"batch_fun();",class: "form-control",style:"width:300px"}%>       
+    <% end %>
+  </div>
+</div>
+
+<div id="batch_div"></div>
+

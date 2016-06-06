@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      #heading {
+        width:100%;
+        margin: 0 auto;
+      }
+
+      
+      #head {
+        height: 100px;
+        width: 700px;
+        text-align: center;
+        font-size: 40px;
+        border-color: black;
+
+      }
+      #head_info {
+        text-align: center;
+        font-size: 15px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="heading">
+      <div id="head">
+        <%= @general_setting.school_or_college_name%><br/>
+      </div>  
+      <div id="head_info">
+          <%= @general_setting.school_or_college_address%><br/>
+          <%= @general_setting.school_or_college_phone_no%>
+      </div>
+    </div>  
+    <hr>
+    <h3><center>Attendance Report</center></h3>
+    
+    <h4><%= @batch.course.course_name.capitalize+" "+@batch.course.section_name.capitalize+" "+@batch.name.capitalize+" | "+ @start_date.to_s+" - "+@end_date.to_s%></h4>
+
+      <table cellpadding="5" cellspacing="5" width="650">
+        <tr>
+        <th bgcolor="99CCFF">Name</th>
+        
+        <th bgcolor="99CCFF">Total</th>
+        <th bgcolor="99CCFF">Present</th>
+        <th bgcolor="99CCFF">Percentage(%)</th>
+  </tr>
+  <% @students.each do |student|%>
+    <% total_days=0 %><% absent_days=0 %>
+    <%unless @time_table_entries.nil? %>
+    <% (@start_date.to_date..@end_date.to_date).each do |date| %>
+      <%is_holiday=false%>
+            <% @batch_events.each do |be|%>
+              <% if be.event.start_date<=date and be.event.end_date>=date and be.event.is_holiday=true %>
+                <% is_holiday=true%>
+              <%end%>
+            <%end%>
+      <% @time_table_entries.each do |d| %>
+      <% if I18n.l(date.to_date,:format=>"%A")==d.weekday.weekday %>
+          <% total_days+=1 %>
+          <% @attendence=Attendence.find_by_student_id_and_time_table_entry_id_and_month_date(student.id,d.id,date.to_date) %>
+          <% unless @attendence.nil? %>
+                    <% absent_days+=1 %>
+                <%end%>
+        <%end%>
+        <%end%>
+        <% if is_holiday==true%>
+                <% total_days-=1 %>
+            <%end%>
+    <%end%>
+    <%end%>
+    <% present_days=total_days-absent_days unless total_days==0 %>
+  <tr>
+    <td align="center"><%= student.first_name+" "+student.last_name%></td>
+    <td align="center"><%= total_days%></td>
+    <td align="center"><%= present_days%></td>
+    <td align="center"><%= "%.2f" %(present_days*100/total_days)+"%" unless total_days==0 %></td>
+  </tr>
+  <%end%>
+          </table>
+</div>
+
+</body>
+</html>

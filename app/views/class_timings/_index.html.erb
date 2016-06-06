@@ -1,0 +1,16 @@
+<% @class_timings.each do |c| %>
+          <tr>
+            <td><%= c.name %></td>
+            <td><%= c.start_time.strftime("%I:%M %p")%></td>
+            <td><%= c.end_time.strftime("%I:%M %p")%></td>
+            <td class="center">
+              <div class="label-success label label-default">
+              <i class="glyphicon glyphicon-edit icon-white"></i> 
+              <%= link_to 'Edit',edit_batch_class_timing_path(c.batch,c),remote: true,class: "a-action"%></div>
+
+              <div class="label-danger label label-default">
+              <i class="glyphicon glyphicon-trash icon-white"></i> 
+              <%=link_to 'Delete',[c.batch,c],method: :delete, data: { confirm: "Are you sure to delete #{c.name} Class Timing?" },class: "a-action"%></div>
+            </td>
+          </tr>
+        <% end %>

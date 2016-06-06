@@ -1,0 +1,7 @@
+<% if @type=="Student" %>
+$('#hidden').html("<%= j render 'admission_text_tag'%>")
+<% elsif @type=="Student Category" %>
+$('#hidden').html("<%= j render 'category_tag' %>")
+<%else%>
+$('#hidden').html("")
+<% end %>

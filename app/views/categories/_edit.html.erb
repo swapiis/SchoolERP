@@ -1,0 +1,21 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4><b>Edit Category</b></h4>
+        </div>
+        <div class="modal-body">
+        <ul class="errors"></ul>
+        <%= form_for @category, remote:true do |f| %>
+            <div class="form-group">
+             <b>Edit Category:</b>
+              <%= f.text_field :name, class: "form-control"%>
+            </div>
+            <hr>
+            <div align="center">
+              <%= f.submit 'update', class: "btn btn-success"%>
+              <%= link_to 'Close', '#', class: "btn btn-default", :'data-dismiss'=>"modal"%>
+            </div>
+        <% end %>
+        </div>
+    </div>
+</div>

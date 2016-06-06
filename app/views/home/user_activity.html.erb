@@ -1,0 +1,47 @@
+<div>
+	<ul class="breadcrumb">
+		<li><%= link_to 'Home',dashboard_home_index_path %></li>
+		<li>User Activity</li>
+	</ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<hr>
+<div class="form-group">
+  <h4><b><font color="brown">User Details:</font></b></h4>
+</div>
+<div class="row">
+	<div class="col-md-3"><b>Activity Date:</b> </div>
+	<div class="col-md-3"><%= @activity.created_at %></div>
+	<div class="col-md-3"><b>User School/College:</b></div>
+	<div class="col-md-3"><%= @activity.user.general_setting.school_or_college_name %></div>
+	<div class="col-md-3"><b>User Full Name:</b></div>
+	<div class="col-md-3"><%= @activity.user.full_name %></div>
+	<div class="col-md-3"><b>UserName:</b></div>
+	<div class="col-md-3"><%= @activity.user.username %></div>
+	<div class="col-md-3"><b>User Role:</b></div>
+	<div class="col-md-3"><%= @activity.user.role %></div>
+	<div class="col-md-3"><b>User Email:</b></div>
+	<div class="col-md-3"><%= @activity.user.email %></div>
+	<div class="col-md-3"><b>User current sign in at:</b></div>
+	<div class="col-md-3"><%= @activity.user.current_sign_in_at %></div>
+	<div class="col-md-3"><b>User last sign in at:</b></div>
+	<div class="col-md-3"><%= @activity.user.last_sign_in_at %></div>
+	<div class="col-md-3"><b>User current sign in ip:</b></div>
+	<div class="col-md-3"><%= @activity.user.current_sign_in_ip %></div>
+	<div class="col-md-3"><b>User last sign in ip:</b></div>
+	<div class="col-md-3"><%= @activity.user.last_sign_in_ip %></div>
+</div>
+<hr>
+<div class="form-group">
+  <h4><b><font color="brown">Activity Details:</font></b></h4>
+</div>
+<div class="row">
+	<div class="col-md-3"><b>Action:</b> </div>
+	<div class="col-md-3"><%= @activity.action %></div>
+	<div class="col-md-3"><b>Model Name:</b></div>
+	<div class="col-md-3"><%= @activity.modelname %></div>
+  <% @model.each_pair do |k, v|%>
+  	<div class="col-md-3"><b><%= k %></b></div>
+	<div class="col-md-3"><%= v ? v : '-' %></div>
+  <%end%>
+</div>

@@ -1,0 +1,60 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li>Settings</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/><br/>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Manage Course / Batch", '/setting/course_batch'%></h2>
+      </div>
+      <div class="box-content">
+        Add a new Course or Batch for this academic year.
+      </div>
+    </div>
+  </div>
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Manage Student Category",'/categories' %>
+        </h2>
+      </div>
+      <div class="box-content">
+        Add student category.
+      </div>
+    </div>
+  </div>
+</div>
+<br/><br/><br/>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Manage Subject","/subjects" %></h2> 
+      </div>
+      <div class="box-content">
+        Manage subjects corresponding to different courses.
+      </div>
+    </div>
+  </div>
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "General Settings", "/general_settings/new"%></h2>
+      </div>
+      <div class="box-content">
+        Set general configurations related to institution.
+      </div>
+    </div>
+  </div>
+</div>
+
+

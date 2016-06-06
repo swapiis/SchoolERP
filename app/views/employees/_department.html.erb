@@ -1,0 +1,132 @@
+
+<div class="row">
+<div class="col-md-3"></div>
+<div class="box col-md-6">
+  <div class="box-inner">
+    <div class="box-header well">
+      <h2>Employee Department</h2>
+    </div>
+  <div class="box-content">
+ <%= form_for @employee_department_new, url:{action:'add_department'},remote:true do |c|%>
+ <div class="errors">
+<ul class="errors"></ul></div>
+   <fieldset>
+	 <div class="form-group">
+          <div class="col-md-3"><b>Name:</b></div>
+         <div class="col-md-8"><%=c.text_field :name, placeholder: "Name", class: "form-control"%></div>
+      </div>
+      <br><br>
+      <div class="form-group">
+          <div class="col-md-3"><b>Code:</b></div>
+         <div class="col-md-8"><%=c.text_field :code, placeholder: "Code", class: "form-control"%></div>
+      </div>
+      <br><br>
+      <div class="form-group">
+         <div class="col-md-3"><b>Status:</b></div>
+        <div class="col-md-8"><%= c.radio_button "status", "true", checked: "checked" %> &nbsp;<b>Active</b>&nbsp;&nbsp;
+        <%= c.radio_button "status", "false"%> &nbsp;<b>Inactive</b></div>
+       </div>
+   <br><br>
+   <div class="col-sm-4 col-sm-offset-4"> 
+       <div class="form-actions">               
+        <%= c.submit 'Create', class: "btn btn-primary"%>
+      </div>
+      </div>
+   </fieldset>
+    </div>
+  </div>
+ </div>
+</div>
+    <% if @departments1.empty? and @departments2.empty?%>
+          <h3 align="center">No records</h3>
+    <%else%>
+<div class="row">
+  <div class="col-sm-6">
+     <div class="form-group">
+       <div class="row">
+        <div class="box col-md-12">
+         <div class="box-inner">
+          <div class="box-header well">
+            <h2>Active Department</h2>
+          </div>
+         <div class="box-content" style="overflow-y: scroll; height:280px">
+    
+      
+       <table id="datatable" class="table table-striped responsive">
+         <thead>
+               <tr>
+                 <th>Name</th>
+                 <th>Operation</th>
+               </tr>
+
+             </thead>
+             <tr><td colspan="2"><%=department1_not_found!%></td></tr>
+          <tbody>
+           <%@departments1.each do |c| %>
+			<tr>
+			<td class="col-3"><%=c.name%> (<%=c.code%>)</td>
+			<td class="center">
+              <div class="label-success label label-default">
+              <i class="glyphicon glyphicon-edit icon-white"></i> 
+              <%= link_to 'Edit',edit_department_employee_path(c),remote: true,class: "a-action"%></div>
+
+              <div class="label-danger label label-default">
+              <i class="glyphicon glyphicon-trash icon-white"></i> 
+              <%= link_to 'Delete' ,destroy_department_employee_path(c),
+                    method: :delete, data: { confirm: "Are you sure to delete #{c.name}?" },class: "a-action"%></div>
+            </td>
+			</tr>
+	    	<%end%>
+          </tbody>
+       </table>
+      </div>
+    </div>
+  </div>
+ </div>
+</div>
+</div>
+   <div class="col-sm-6">
+     <div class="form-group">
+       <div class="row">
+         <div class="box col-md-12">
+           <div class="box-inner">
+            <div class="box-header well">
+              <h2>Inactive Department</h2>
+             </div>
+          <div class="box-content" style="overflow-y: scroll; height:280px">
+             <table id="datatable" class="table table-striped responsive">
+         <thead>
+               <tr>
+                 <th>Name</th>
+                 <th>Operation</th>
+               </tr>
+
+             </thead>
+            <tr><td colspan="2"><%=department2_not_found!%></td></tr>
+          <tbody>
+           <%@departments2.each do |c| %>
+			<tr>
+			<td class="col-3"><%=c.name%> (<%=c.code%>)</td>
+			<td class="center">
+              <div class="label-success label label-default">
+              <i class="glyphicon glyphicon-edit icon-white"></i> 
+              <%= link_to 'Edit',edit_department_employee_path(c),remote: true,class: "a-action"%></div>
+
+              <div class="label-danger label label-default">
+              <i class="glyphicon glyphicon-trash icon-white"></i> 
+              <%= link_to 'Delete' ,destroy_department_employee_path(c),
+                    method: :delete, data: { confirm: "Are you sure to delete #{c.name}?" },class: "a-action"%></div>
+            </td>
+            </tr>
+	    	<%end%>
+          </tbody>
+       </table>
+    <%end%>
+ <%end%>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>

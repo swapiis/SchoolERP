@@ -1,0 +1,92 @@
+ <% unless @students.empty?  %>
+
+    <div class="info">
+      <div class="info-left">
+        <div class="info1">
+          <h4><label  class="field-label label label-default" style="margin-right:100px" >Name</label>: <label class="infolbl themed_text "> <%= @student.first_name.capitalize+" "+@student.last_name.capitalize %></label></h4>
+        </div>
+        <div class="info1">
+          <h4><label class="field-label label label-default" style="margin-right:90px">Course</label>: <label class="infolbl themed_text"> <%= @student.batch.course.course_name %></label></h4>
+        </div>
+      </div>
+      <div class="info-right">
+        <div class="info1">
+          <h4><label class="field-label label label-default" style="margin-right:35px">Addmission No</label>: <label class="infolbl themed_text" > <%= @student.admission_no  %></label></h4>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="box-inner">
+          <% general_subjects = @batch.subjects.where(elective_group_id:nil) %>
+          <% student_electives = StudentSubject.where(student_id: @student.id,batch_id: @batch.id) %>
+          <% elective_subjects = [] %>
+          <% student_electives.each do |elect| %>
+            <% elective_subjects.push Subject.find(elect.subject_id) %>
+          <% end %>
+          <% @subjects = general_subjects + elective_subjects %>
+          <% unless @subjects.empty? %>
+
+            <div class="box-header well"><h2><%= "(Code -"+@batch.course.code+") "+@batch.name.capitalize %></h2></div>
+            <div class="box-content">
+            <% total_credits=0 %>
+          
+            <table  class="table table-bordered">
+              <tr>
+                <th>Subject Code</th>
+                <th>Subject Title</th>
+                <th>Percentage(%)</th>
+              </tr>
+        <% max_total = 0 %>
+        <% marks_total = 0 %>
+        <% @mark = 0 %>
+        <% @total = 0 %>
+        
+         <% @subjects.each do |subject| %>
+               <% @exam_groups.each do |exam_group| %>
+
+               <% @exam = Exam.find_by_subject_id_and_exam_group_id(subject.id,exam_group.id) %>
+              <%unless @exam.nil?%>
+                <% exam_score = ExamScore.find_by_student_id_and_exam_id(@student.id,@exam.id) unless @exam.nil? %>
+                <% max_total += @exam.maximum_marks.to_f %>
+                <% marks_total += exam_score.marks.to_f %>
+                <% @mark += exam_score.marks.to_f %>
+                <% @total += @exam.maximum_marks.to_f %>
+              <%end%>
+              <% end %>
+                  <tr class="tr-<%= cycle('odd', 'even') %>">
+                    <td class="col-1"> <%= subject.code %></td>
+                    <td class="col-3"> <%= subject.name %></td>
+                    <td class="col-3"><%=marks_total==0 ? "AB" : "%.2f" %(marks_total*100/max_total)+"%"%></td>
+                    </tr>
+          <% max_total = 0 %>
+          <% marks_total = 0 %>
+        
+                <% end %>
+               
+            </table>
+<hr>
+                <div class="row">
+               
+              
+                <div class="col-md-6">
+                  <h4>
+                    <b> 
+                      <%unless @total==0%>
+                      Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%="%.2f" %(@mark*100/@total)+"%"%>
+                      <%else%>
+                      Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=" "%>
+                      <%end%>
+                    </b>
+                  </h4>
+                </div>
+                </div>
+              
+                
+           <%else%>
+           <h4>Subject Not Found</h4>
+           <%end%>
+           </div>
+</div>
+
+
+<% end %>

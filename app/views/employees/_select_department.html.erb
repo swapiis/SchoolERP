@@ -1,0 +1,14 @@
+
+<br/>
+<div class="row">
+  <div class="col-md-11 col-md-offset-1">
+
+  <%= form_for :subject_assignment, url:{action:'list_emp',format:@subject}, method: :get,remote:true,html:{id: "user_form2"} do |f|%>
+  		<b>Select a Department:</b>
+      <%= f.select :id, EmployeeDepartment.all.collect {|b| [b.name,b.id]},{prompt:"Select a Department"},{onchange:"$('#user_form2').submit();",class: "form-control",style:"width:300px"} %>  
+    <%end%>
+  </div>
+</div>
+		<div id="emp_list"></div>
+   		<div id="assigned_emp"></div>
+

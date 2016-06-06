@@ -1,0 +1,80 @@
+<div class="form-group">
+    <h4><b><u><font color="brown">Employee General Details:</font></u></b></h4>
+</div>
+
+<div class="row">
+
+<div class="col-md-6">
+  <div class="form-group">
+    <div class="col-md-6"><b>Joining Date:</b> </div>
+        <div class="col-md-6"><%= @employee.joining_date %></div>
+  </div>
+<br>
+  <div class="form-group">
+    <div class="col-md-6"><b>Department:</b> </div>
+        <div class="col-md-6"><%= @employee.employee_department.name%></div>
+  </div>
+<br>
+  <div class="form-group">
+    <div class="col-md-6"><b>Category:</b> </div>
+        <div class="col-md-6"><%= @employee.employee_category.name%></div>
+  </div>
+<br>
+  <div class="form-group">
+    <div class="col-md-6"><b>Position:</b> </div>
+        <div class="col-md-6"><%= @employee.employee_position.name %></div>
+  </div>
+<br>
+  <div class="form-group">
+    <div class="col-md-6"><b>Grade:</b> </div>
+        <div class="col-md-6"><%= @employee.employee_grade.name %></div>
+  </div>
+
+  <br>
+    <div class="form-group">
+    <div class="col-md-6"><b>Job Title:</b> </div>
+        <div class="col-md-6"><%= @employee.job_title %></div>
+  </div>
+  </div>
+
+
+  <div class="col-md-6">
+
+  <div class="form-group">
+    <div class="col-md-6"><b>Email:</b> </div>
+        <div class="col-md-6"><%= @employee.email %></div>
+  </div>
+<br>
+  <div class="form-group">
+    <div class="col-md-6"><b>Gender:</b> </div>
+        <div class="col-md-6"><%= @employee.gender %></div>
+  </div>
+<br>
+  <div class="form-group">
+    <div class="col-md-6"><b>Status:</b> </div>
+        <div class="col-md-6"><%= @employee.status %></div>
+  </div>
+<br>
+  <div class="form-group">
+    <div class="col-md-6"><b>Qualification:</b> </div>
+        <div class="col-md-6"><%= @employee.qualification %></div>
+  </div>
+<br>
+  <div class="form-group">
+    <div class="col-md-6"><b>Total Experience:</b> </div>
+        <div class="col-md-6"><%= @employee.experience_year.to_s+" Year"%> <%=@employee.experience_month.to_s+" Month"%></div>
+  </div>
+<br>
+  <div class="form-group">
+    <div class="col-md-6"><b>Experience Information:</b> </div>
+        <div class="col-md-6"><%= @employee.experience_detail %></div>
+  </div>
+
+</div>
+</div>
+<br/>
+<div class="row">
+<div class="col-md-5"></div>
+  <div class="col-md-3">
+<%= link_to 'PDF Report',employee_profile_employees_path(employee_id:@employee,format: "pdf"),class: "btn btn-success" %></div>
+</div>

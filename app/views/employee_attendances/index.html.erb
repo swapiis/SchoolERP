@@ -1,0 +1,59 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path%></li>
+     <li><%= link_to 'Human Resources',employees_path%></li>
+    <li>Employee Attendance</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/><br/>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%=link_to "Add Leave Types",'employee_attendances/new_leave_type'%></h2>
+      </div>
+      <div class="box-content">
+       Add and Edit Employee Leave Types
+      </div>
+    </div>
+  </div>
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Attendance Register",attendence_register_employee_attendances_path%>
+        </h2>
+      </div>
+      <div class="box-content">
+        Register Attendance
+      </div>
+    </div>
+  </div>
+</div>
+<br/><br/><br/>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Attendance Report",'employee_attendances/attendance_report' %></h2> 
+      </div>
+      <div class="box-content">
+      Attendance Report
+      </div>
+    </div>
+  </div>
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%=link_to "Reset Leave",'employee_attendances/manual_reset'%></h2>
+      </div>
+      <div class="box-content">
+         Reset Employee Leaves
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path%></li>
+     <li><%= link_to 'Human Resources',employees_path %></li>
+    <li><%= link_to 'HR Management',employee_management_employees_path %></li>
+    <li>Edit Privileges</li>
+ </ul>
+ </div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+
+<%= form_for :edit_privilege ,url:{action:'update_privilege',format: @employee.id} do |f| %>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+<table class="table table-striped">
+<tbody>    
+    <tr><td class="col-4"><b><%= "Set Privilege for "+@employee.first_name%></b></td></tr>
+     <tr align="center"><td colspan="4"><%=f.submit "Update",class: "btn btn-primary" %></td></tr>
+</tbody>
+</table>
+
+<div class="pull-right">
+            <b>Select:</b>
+             <%= link_to 'all','#',{onclick:"
+              event.preventDefault();
+              $('.check_box').prop('checked', true);" , class: "btn btn-primary-link btn-xs"}%>
+
+            <%= link_to 'none','#',{onclick:"
+              event.preventDefault();
+              $('.check_box').prop('checked', false);",class: "btn btn-primary-link btn-xs"}%>
+          </div>
+
+<table class="table table-striped">
+    <tbody>
+     <%@privilege_tags.each do |p_t|%>
+     <tr>      
+          <td><b><%=p_t.name_tag%></b></td>
+          <%p_t.privileges.each do |i|%>
+          <td><b><%=i.name%></b></td>
+          <td><%= check_box_tag "privilege[#{p_t.id}]name[]",[i.id],false,class: "check_box"%></td>
+          <%end%>
+
+     </tr>
+     <%end%>
+     </tbody>
+</table>
+<%end%>
+
+</div>
+</div>

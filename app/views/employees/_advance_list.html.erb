@@ -1,0 +1,25 @@
+
+<div class="col-md-1"></div>
+<table align="center" class="table table-stripped" style="width:1000px">
+  <% if @employee.nil? %>
+  <h4 align="center">No Record Found </h4>
+  <% else %>
+  <% if @employee.empty? %>
+  <h4 align="center">No Record Found </h4>
+  <% else %>
+  <tr>
+    <th>Employee Name</th>
+    <th>Employee Id</th>
+    <th>Employee Deprtment</th>
+  </tr>
+
+  <%@employee.each do |emp|%>
+  <tr>
+    <td col-md-2><%= emp.first_name%></td>
+    <td col-md-2><%= emp.employee_number%></td>
+    <td col-md-2><%= emp.employee_department.name%></td>
+  </tr>
+  <%end%>  
+</table>
+<% end %>
+<%end%>

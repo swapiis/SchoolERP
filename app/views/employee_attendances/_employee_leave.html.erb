@@ -1,0 +1,136 @@
+
+<div class="row">
+
+<div class="box col-md-7 col-md-offset-2">
+  <div class="box-inner">
+    <div class="box-header well">
+      <h2>Add new leave types</h2>
+    </div>
+  <div class="box-content">
+ <%= form_for @new_leave_type ,url:{action: 'add_leave_type'},remote:true do |c|%>
+   <fieldset>
+  
+ <div class="errors">
+<ul class="errors"></ul></div>
+
+   <div class="form-group">
+        <div class="col-md-3 col-md-offset-1"><b>Leave Name:</b></div>
+        <div class="col-md-6"><%=c.text_field :name, placeholder: "Leave Name", class: "form-control"%></div>
+      </div>
+      <br><br>
+      <div class="form-group">
+        <div class="col-md-3 col-md-offset-1"><b>Leave Code:</b></div>
+        <div class="col-md-6"><%=c.text_field :code, placeholder: "Leave Code", class: "form-control"%></div>
+      </div>
+      <br><br>
+       <div class="form-group">
+        <div class="col-md-3 col-md-offset-1"><b>Maximum Leave Count:</b></div>
+        <div class="col-md-6"><%=c.text_field :max_leave_count, placeholder: "Max Leave Count", class: "form-control"%></div>
+      </div>
+      <br><br>
+      <div class="form-group">
+        <div class="col-md-6 col-md-offset-1"><%=c.check_box :enable_carry_forward, :checked => false%>&nbsp;&nbsp;<b>Enable Carry Forward</b></div></div>
+         
+    
+        <br>
+      <div class="form-group">
+          <div class="col-md-3 col-md-offset-1"><b>Status:</b></div>
+        <div class="col-md-6"> <%= c.radio_button "status", "true", checked: "checked" %>&nbsp; <b>Active</b>&nbsp;&nbsp;
+        <%= c.radio_button "status", "false"%>&nbsp; <b>Inactive</b></div>
+       </div>
+   <br><br>
+      <div class="col-sm-4 col-sm-offset-5"> 
+       <div class="form-actions">               
+        <%= c.submit 'Create', class: "btn btn-primary"%>
+      </div>
+      </div>
+  </fieldset>
+  </div>
+  </div>
+  </div>
+  </div>
+<div class="row">
+  <div class="col-sm-6">
+     <div class="form-group">
+       <div class="row">
+        <div class="box col-md-12">
+         <div class="box-inner">
+          <div class="box-header well">
+            <h2>Active Leave</h2>
+          </div>
+         <div class="box-content">
+     <table id="datatable" class="table table-striped table-bordered responsive">
+         <thead>
+               <tr>
+                 <th>Name</th>
+                 <th>Operation</th>
+               </tr>
+         </thead>
+         
+          <tbody>
+            <% @active_leaves.each do |c| %>
+      <tr>
+      <td class="col-3"><%=c.name%>-<%=c.code%></td>
+      <td class="center">
+              <div class="label-success label label-default">
+              <i class="glyphicon glyphicon-edit icon-white"></i> 
+              <%= link_to 'Edit',edit_leave_type_employee_attendance_path(c),remote:true,class: "a-action"%></div>
+
+              <div class="label-danger label label-default">
+              <i class="glyphicon glyphicon-trash icon-white"></i> 
+              <%= link_to 'Delete',destroy_leave_type_employee_attendance_path(c),
+                    method: :delete, data: { confirm: "Are you sure to delete #{c.name}?" },class: "a-action"%></div>
+                    </td>
+        </tr>
+        <%end%>
+          </tbody>
+       </table>
+      </div>
+    </div>
+  </div>
+ </div>
+</div>
+</div>
+   <div class="col-sm-6">
+     <div class="form-group">
+       <div class="row">
+         <div class="box col-md-12">
+           <div class="box-inner">
+            <div class="box-header well">
+              <h2>Inactive Leave</h2>
+             </div>
+          <div class="box-content">
+             <table id="datatable" class="table table-striped table-bordered responsive">
+             <thead>
+               <tr>
+                 <th>Name</th>
+                 <th>Operation</th>
+               </tr>
+
+             </thead>
+             
+             <tbody>
+               <%@inactive_leaves.each do |c| %>
+      <tr>
+      <td class="col-3"><%=c.name%>-<%=c.code%></td>
+      <td class="center">
+              <div class="label-success label label-default">
+              <i class="glyphicon glyphicon-edit icon-white"></i> 
+              <%= link_to 'Edit',edit_leave_type_employee_attendance_path(c),remote:true,class: "a-action"%></div>
+
+              <div class="label-danger label label-default">
+              <i class="glyphicon glyphicon-trash icon-white"></i> 
+              <%= link_to 'Delete',destroy_leave_type_employee_attendance_path(c),                    method: :delete, data: { confirm: "Are you sure to delete #{c.name}?" },class: "a-action"%></div>
+            </td>
+      </tr>
+        <%end%>
+       </tbody>
+    </table>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <%end%>

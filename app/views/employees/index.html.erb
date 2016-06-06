@@ -1,0 +1,85 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li>Human Resources</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/>
+<% if can? :create, Employee%>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Setting",settings_employees_path %></h2>
+      </div>
+      <div class="box-content">
+       HR Setting
+      </div>
+    </div>
+  </div>
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Employee Management",employee_management_employees_path %>
+        </h2>
+      </div>
+      <div class="box-content">
+       Manage All Employees
+      </div>
+    </div>
+  </div>
+</div>
+<br/><br/>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Employee Leave Management",'employee_attendances' %></h2> 
+      </div>
+      <div class="box-content">
+     Manage all employee attendance and leaves
+      </div>
+    </div>
+  </div>
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Create Payslip",payslip_employees_path%></h2>
+      </div>
+      <div class="box-content">
+   Create Employee Monthly Payslips
+      </div>
+    </div>
+  </div>
+</div>
+<br/><br/>
+<%end%>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Search Employee",search_employee_employees_path %></h2> 
+      </div>
+      <div class="box-content">
+          Search For Employees
+      </div>
+    </div>
+  </div>
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Employee payslip",department_payslip_employees_path %></h2>
+      </div>
+      <div class="box-content">
+        View Department Wise Payslip
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li>Placement</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/><br/>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Setting",setting_index_placement_exams_path%></h2>
+      </div>
+      <div class="box-content">
+        Set the Question Paper.
+      </div>
+    </div>
+  </div>
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Publish News", placement_news_index_path %>
+        </h2>
+      </div>
+      <div class="box-content">
+        Publish new regarding exam.
+      </div>
+    </div>
+  </div>
+</div>
+<br/><br/>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Create Exam",create_exam_placement_exams_path %></h2> 
+      </div>
+      <div class="box-content">
+        Create Exam for Placement
+      </div>
+    </div>
+  </div>
+
+
+   <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Exam-Result",publish_result_placement_exams_path %></h2> 
+      </div>
+      <div class="box-content">
+        Display Results of conducted exam
+      </div>
+    </div>
+  </div>
+  </div>
+

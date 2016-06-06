@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+.page {
+    width:100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+
+
+.hor_line{
+    width:100%;
+    background: #ADACAB;
+    height: 1px;
+}
+
+#title h1{
+    margin-bottom: 2px;
+    font-weight: normal;
+
+}
+
+#main_info h4{
+    color: #555555;
+    margin-top: 5px;
+    font-weight: normal;
+}
+
+#main_info h2{
+    margin-bottom: 2px;
+    font-weight: normal;
+
+}
+
+
+.odd{
+    height:auto;
+    background: #EEEEEE;
+    
+}
+
+.even{
+    
+    height:auto;
+    background: #fff;
+    
+    
+}
+
+.even td{
+   
+   padding: 12px 12px 12px 15px;
+  border-left:  1px solid #ADACAB;
+  border-bottom: 1px solid #ADACAB;
+  width: 150px;
+}
+
+.odd td{
+  padding: 12px 12px 12px 15px;
+  border-left:  1px solid #ADACAB;
+  border-bottom: 1px solid #ADACAB;
+  width: 150px;
+
+}
+
+table#pdf-table{
+   border: 1px solid #ADACAB;
+   border-left: 0px solid #ADACAB;
+}
+
+</style>
+</head>
+<body>
+<% index = 0 %>
+<% @employees.each do |emp| %>
+  <div class="page">
+    <div class="hor_line"></div>
+    <div id="title">
+    <h1 align="center">Axenic School</h1>
+    <h2><%= 'Employee' %>-<%= 'Advanced Search' %></h2>
+    </div>
+    <div class="hor_line"></div>
+    <div id ="main_info">
+      
+    </div>
+    <div class="report">
+      <table id="pdf-table" width="100%">
+        <% c= 'odd' %>
+        <tr class="table-header"><td class="col-pdf">Employee No.</td><td class="col-pdf">Name</td><td class="col-pdf">Department</td></tr>
+        <% emp.each.each_with_index do |s,i| %>
+          <% emp=Employee.find(s)%>
+          <tr class="<%= cycle((["odd","even"]-[c]).first,c) %>">
+            <td class="col-pdf"><%= index+=1 %></td>
+            <td class="col-pdf"><%= emp.first_name+" "+emp.last_name %></td>
+            <td class="col-pdf"><%= emp.employee_department.name %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+<% end %>
+</body>
+</html>
+
+
+0

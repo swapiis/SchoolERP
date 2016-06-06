@@ -1,0 +1,112 @@
+<br/><br>
+<div class="row">
+  <div class="box-inner" style="width:100%">
+    <div class="box-header well">
+      <h2>Employee Attendance</h2>
+    </div>
+<div class="box-content">
+
+ <div id="calendar" class="fc fc-ltr">
+
+ <div class="row">
+        <div class="col-md-12">
+          <div align="center">
+         
+           <h3> <%= link_to "◄ Previous", display_employee_attendance_path(@deparment.id,nextdate:(@today-1.month)),remote:true,class: "fc-button fc-button-prev fc-state-default"%>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <span align="center"><%=@today.strftime("%B %Y") %></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <%= link_to "Next ► ", display_employee_attendance_path(@deparment.id,nextdate:(@today+1.month)),remote:true  ,class: "fc-button fc-button-prev fc-state-default"%>
+         
+          <div class="pull-right">
+            <span class="fc-button fc-button-month fc-state-default fc-corner-left fc-state-active" unselectable="on">Month View</span>
+          </div>
+          </h3>
+          </div>
+           </div>
+</div>
+
+<br>
+ <div class="fc-content" style="position: relative;">
+    <div class="fc-view fc-view-month fc-grid" style="position:relative; overflow-x: scroll">
+<table class="table table-bordered" class="fc-border-separate" cellspacing="0" >
+<thead>
+  <tr>
+    <th>Name</th>
+    <% current_day = Date.today  %>
+    <% (@start_date..@end_date).each do |date| %>
+      <% if current_day.strftime("%a %d %y") == date.strftime("%a %d %y") %>
+        <th class="head-td-date active" ><div class="day themed_text"><%= I18n.l(date,:format=>"%a")  %></div> <div class="date"> <%= I18n.l(date,:format=>"%d") %></div></th>
+      <% else %>
+        <th><div class="day themed_text"><%= I18n.l(date,:format=>"%a") %></div> <div class="date"> <%=  I18n.l(date,:format=>"%d") %></div></th>
+      <% end %>
+      <% end%>
+ </tr>
+ </thead>
+ <tbody >
+    <% @employees.each do |employee| %>
+    
+    <tr class="tr-<%= cycle('odd', 'even')  %>">
+      <th class="td-name">
+        <%= employee.first_name %>&nbsp;<%= employee.last_name %>
+       </th>
+      <% (@start_date..@end_date).each do |date| %>
+        <% @absent = emp_absent(employee,date) %>
+      <% if current_day.strftime("%a %d %y") == date.strftime("%a %d %y") %>
+
+        <td style="background-color:lightgrey" id="attendance-employee-<%= employee.id %>-day-<%= date %>" class="td-mark active">
+
+        
+          <% else %>
+        <td id="attendance-employee-<%= employee.id %>-day-<%= date %>" class="td-mark">
+            <% end %>
+        <div align="center">       
+          <% unless @absent.nil? %>
+            <%= link_to 'X',edit_attendance_employee_attendance_path(@absent),remote:true%>
+          <% else %>
+            <%= link_to '-',new_attendance_employee_attendance_path( 
+            employee.id,attendance_date:date), remote:true %>
+          <% end %>
+
+
+  
+        </div>
+        </td>
+      <% end %>
+    </tr>
+ 
+<% end %>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

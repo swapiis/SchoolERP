@@ -1,0 +1,125 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Examination','/exams'%></li>
+    <li><%= link_to 'Exam Management','/exam_groups'%> </li>
+    <li><%= link_to 'Exam Group', exam_group_path(@exam.exam_group.batch)%> </li>
+    <li><%= link_to 'Exam',exams_exam_group_path(@exam.exam_group.id)%></li>
+    <li>Exam Score</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="col-md-12">	
+    <div class="box-inner">	
+      <div class="box-header well">
+        <h2>Exam Score</h2>
+      </div>
+      <% if @students.empty? %>
+       <h4><center>No student found</center></h4>
+      <%else%>
+        <%= errors_messages! %>
+        <%=form_for :exams,url:{action:'update_exam_score',id:@exam.id},method: :patch do |f| %>  
+        <br><br>
+        <div class="box-content">
+          <fieldset>
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="form-group">
+                <div class="col-md-2">  
+                  <b>Exam Name:</b>  
+                </div>
+                <div class="col-md-2">  
+                  <%= @exam.exam_group.name %>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="form-group">
+                <div class="col-md-2">  
+                  <b>Subject Name:</b>
+                </div>
+                <div class="col-md-3">  
+                  <%= @exam.subject.name %>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-12">
+                <table class="table table-striped">        
+                  <thead>
+                    <tr>
+                      <th >Student Name</th>
+                      <th >Marks</th>
+                      <th >Remarks</th>
+                      <th ><%= 'Grades' unless @exam.exam_group.exam_type=="Marks"%></th>
+                    </tr> 
+                  </thead>
+                  <% @students.each do |student| %>
+                  <% exam_score=ExamScore.find_by_exam_id_and_student_id(@exam.id,student.id)%>
+                  <tbody>
+                    <tr>
+                      <% unless exam_score.nil? %>
+                      <% unless exam_score.is_failed? %>
+                      <td class="col-2">
+                        <font color="green">
+                          <%= f.label "#{student.first_name+" "+student.last_name}" %>
+                        </font>
+                      </td>
+                      <%else%>
+                      <td class="col-2">
+                        <font color="red">
+                          <%= f.label "#{student.first_name+" "+student.last_name}" %>
+                        </font>
+                      </td>
+                      <%end%>
+                      <%else%>
+                      <td class="col-2">
+                        <%= f.label "#{student.first_name+" "+student.last_name}" %>
+                      </td>
+                      <%end%>
+                      <% unless exam_score.nil? %>
+                      <% unless @exam.exam_group.result_published? %>
+                      <td><%= f.text_field "exam[#{student.id}][marks]",value:exam_score.marks,class: "form-control",placeholder:"Marks"%></td>
+                      <td><%= f.text_field "exam[#{student.id}][remarks]",value:exam_score.remarks,class: "form-control",placeholder:"Remark"%></td>
+                      <% if exam_score.grading_level.nil? %>
+                      <td><%= f.text_field "exam[#{student.id}][grades]",readonly:true,style:"width:50px",class: "form-control" unless @exam.exam_group.exam_type=="Marks"%></td>
+                      <%else%>
+                      <td><%= f.text_field "exam[#{student.id}][grades]",value:exam_score.grading_level.name,readonly:true,style:"width:50px",class: "form-control" unless @exam.exam_group.exam_type=="Marks"%></td>
+                      <%end%>
+                      <%else%>
+                      <td><%= f.text_field "exam[#{student.id}][marks]",value:exam_score.marks,readonly:true,class: "form-control",placeholder:"Marks"%></td>
+                      <td><%= f.text_field "exam[#{student.id}][remarks]",value:exam_score.remarks,readonly:true,class: "form-control",placeholder:"Remark"%></td>
+                      <% if exam_score.grading_level.nil? %>
+                      <td><%= f.text_field "exam[#{student.id}][grades]",readonly:true,style:"width:50px",class: "form-control" unless @exam.exam_group.exam_type=="Marks"%></td>
+                      <%else%>
+                      <td><%= f.text_field "exam[#{student.id}][grades]",value:exam_score.grading_level.name,readonly:true,style:"width:50px",class: "form-control" unless @exam.exam_group.exam_type=="Marks"%></td>
+                      <%end%>
+                      <%end%>
+                      <%else%>
+                      <td><%= f.text_field "exam[#{student.id}][marks]",class: "form-control",placeholder:"Marks"%></td>
+                      <td><%= f.text_field "exam[#{student.id}][remarks]",class: "form-control",placeholder:"Remark"%></td>
+                      <td><%= f.text_field "exam[#{student.id}][grades]",readonly:true,style:"width:50px",class: "form-control" unless @exam.exam_group.exam_type=="Marks"%></td>
+                      <%end%>   
+                    </tr>
+                  </tbody>
+                  <%end%> 
+                  <tr class="tr-head">
+                    <td colspan="4" align="center">
+                      <%= f.submit 'Submit', class: "btn btn-primary"%>
+                      <%= link_to 'Finish',exams_exam_group_path(@exam.exam_group), class: "btn btn-default"%>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <%end%>
+      <%end%>  
+    </div>
+  </div>
+</div>

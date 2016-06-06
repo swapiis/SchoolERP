@@ -1,0 +1,10 @@
+$("ul.errors").html("")
+<% if @liability.errors.any? %>
+		<% @liability.errors.full_messages.each do |message| %>
+		$("ul.errors").addClass("alert alert-danger alert-dismissable")  
+		$("ul.errors").append($("<li align ='center' style = 'width:300px'/>").html("<%= message.html_safe %>"))
+		<% end %>
+<% else %>
+  $("#Modal").modal("hide")
+  $('#flash').html("<%= j render 'layouts/messages'%>") 
+<% end %>

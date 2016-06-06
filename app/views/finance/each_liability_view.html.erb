@@ -1,0 +1,45 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Finance',finance_index_path %></li>
+    <li><%= link_to 'Asset liability management',asset_liability_finance_index_path %></li>
+    <li><%= link_to 'Liability',liability_finance_index_path %></li>
+    <li><%= link_to 'Liability View',view_liability_finance_index_path %></li>
+    <li>Liability</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="box col-md-12">
+    <div class="box-inner">
+      <div class="box-header well">
+        <h2><%= @liability.title%></h2>
+      </div>
+      <div class="box-content">
+        <div class="row">
+          <div class="col-sm-1"></div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <table align="center" class="table" style="width:500px">
+                <tbody><tr class="tr-blank"></tr>
+                  <tr class="tr-head">
+                    <td class="col-2"><b>Liability Name:</b></td>
+                    <td class="col-2"><%= @liability.title%></td></tr>
+                  <tr class="tr-head">
+                    <td class="col-2"><b>Description:</b></td>
+                    <td class="col-2"><%= @liability.description %></td></tr>
+                  <tr class="tr-head">
+                    <td class="col-2"><b>Amount:</b></td>
+                    <td class="col-2"><%= @liability.amount%></td></tr>
+                  <tr class="tr-head">
+                    <td class="col-2"><b>Created at:</b></td>
+                    <td class="col-2"><%= I18n.l(@liability.created_at,:format=>"%A, %d %B, %Y") %></td></tr>
+                </tbody>
+                </table> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

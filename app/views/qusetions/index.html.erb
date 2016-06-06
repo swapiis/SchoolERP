@@ -1,0 +1,29 @@
+<h1>Listing qusetions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Question</th>
+      <th>Question type</th>
+      <th>Question count</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @qusetions.each do |qusetion| %>
+      <tr>
+        <td><%= qusetion.question %></td>
+        <td><%= qusetion.question_type %></td>
+        <td><%= qusetion.question_count %></td>
+        <td><%= link_to 'Show', qusetion %></td>
+        <td><%= link_to 'Edit', edit_qusetion_path(qusetion) %></td>
+        <td><%= link_to 'Destroy', qusetion, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Qusetion', new_qusetion_path %>

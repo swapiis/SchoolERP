@@ -1,0 +1,67 @@
+<div class="row">
+  <div class="box col-md-12">
+    <div class="box-inner">
+      <div class="box-header well">
+        <h2><%= @student.first_name+" "+@student.last_name%></h2>
+      </div>
+      <div class="box-content">
+        <div class="form-group"><b>Fee Collection Name:</b>&nbsp;&nbsp;<span>:</span><%= @collection.name %></div>
+        <% unless @category.nil? %>
+          <div class="form-group"><b>Fee Category Name:</b>&nbsp;&nbsp;<span>:</span><%= @category.name %></div>
+        <% end %>
+        <div class="form-group"><b>Start Date:</b>&nbsp;&nbsp;<span>:</span><%= @collection.start_date %></div>
+        <div class="form-group"><b>End Date:</b>&nbsp;&nbsp;<span>:</span><%= @collection.end_date %></div>
+        <div class="form-group"><b>Due Date:</b>&nbsp;&nbsp;<span>:</span><%= @collection.due_date %></div>
+        <br/>
+        <br/>
+        <table align="center" class="table table-striped table-bordered" style="width:80%">
+        <%total=0%>
+        <%discount=0%>
+        <%fines=0%>
+          <tr class="tr-head">
+          <th>Sl no</th>
+          <th>Particular</th>
+          <th>Amount(Rs.)</th>
+          </tr>
+        <tr><td colspan="3"></td></tr>
+        <% unless @particulars.nil?%>
+            <% @particulars.each_with_index do |p,i|%>
+              <tr>
+              <td class="col-3"><%= i+1%></td>
+              <td class="col-3"><%= p.name%></td>
+              <td class="col-3"><%= amt = p.amount%></td>
+              </tr>
+            <%total+=amt%>
+            <%end%>
+        <%end%>
+        <tr><td colspan="3"></td></tr>
+        <tr><td colspan="2" align="right"><b>Total Fees:</b></td><td><%= total%></td></tr>
+        <tr><td colspan="3"></td></tr>
+        <tr class="tr-head"><th colspan="3"><b>Discount:</b></th></tr>
+        <% unless @discounts.nil?%>
+            <% @discounts.each_with_index do |d,i|%>
+              <tr>
+              <td class="col-3"><%= i+1%></td>
+              <td class="col-3"><%= d.name+"("+d.discount.to_s+"%)"%></td>
+              <td class="col-3"><%= dis=d.collection_discount(total)%></td>
+              </tr>
+              <%discount+=dis%>
+            <%end%>
+        <%end%>
+        <tr><td colspan="3"></td></tr>
+        <tr><td colspan="2" align="right"><b>Total Discount:</b></td><td><%= discount%></td></tr>
+        <tr><td colspan="3"></td></tr>
+        <tr><td colspan="3"></td></tr>
+        <tr><td colspan="2" align="right"><b>Fee to be paid:</b></td><td><%= total-discount %></td></tr>
+        <tr><td colspan="3"></td></tr>
+        <tr><td colspan="3"></td></tr>
+        </table>
+        <br/>
+          <div align="center">
+          <%= link_to 'Pdf Report',fee_structure_finance_index_path(student_id:@student.id,collection_id:@collection.id,format:"pdf"),class: "btn btn-success"%>
+          </div>
+        <br/><br/>
+      </div>
+    </div>
+  </div>
+</div>

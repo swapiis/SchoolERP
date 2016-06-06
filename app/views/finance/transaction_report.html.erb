@@ -1,0 +1,42 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Finance',finance_index_path %></li>
+    <li><%= link_to 'Transaction',transactions_finance_index_path %></li>
+    <li>View transaction report</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="box col-md-7 col-md-offset-2">
+    <div class="box-inner">
+      <div class="box-header well">
+        <h2>Select Date </h2>
+      </div>
+
+      <div class="box-content">
+      <%= form_for :transaction, url:{action: 'transactions_list'} do |f| %>
+    <fieldset>
+     
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-5">
+          <div class="form-group">
+            <b>Start Date:</b>
+            <%= f.date_field :start_date,class: "form-control datepicker",placeholder: "MM/DD/YYYY"%>
+          </div>
+          <div class="form-group">
+             <b>End Date:</b>
+            <%= f.date_field :end_date,class: "form-control datepicker",placeholder: "MM/DD/YYYY"%>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-offset-5">
+          <%= f.submit 'View', class: "btn btn-default"%>
+      </div>
+    </fieldset>        
+  <% end %>
+</div>
+</div>
+</div>
+</div>

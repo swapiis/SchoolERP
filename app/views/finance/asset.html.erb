@@ -1,0 +1,36 @@
+<div id="myModal" class="modal fade"></div>
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Finance',finance_index_path %></li>
+    <li><%= link_to 'Asset liability management',asset_liability_finance_index_path %></li>
+    <li>Asset</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/><br/>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Create Asset",new_asset_finance_index_path,remote:true%></h2>
+      </div>
+      <div class="box-content">
+        Create new assets.
+      </div>
+    </div>
+  </div>
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "View Asset",view_asset_finance_index_path %>
+        </h2>
+      </div>
+      <div class="box-content">
+        View assets.
+      </div>
+    </div>
+  </div>
+</div>

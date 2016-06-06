@@ -1,0 +1,12 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Finance',finance_index_path %></li>
+    <li><%= link_to 'Asset liability management',asset_liability_finance_index_path %></li>
+    <li><%= link_to 'Asset',asset_finance_index_path %></li>
+    <li>Asset view</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div id="assets"><%= render 'asset_details'%></div>
+<div id="modal" class="modal fade"></div>

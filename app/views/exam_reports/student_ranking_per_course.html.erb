@@ -1,0 +1,28 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Examination','/exams'%></li>
+    <li><%= link_to 'Report Center', '/exam_reports/report_center' %></li>
+    <li> Student Ranking Per Course</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="col-md-1"></div>
+    <div class="box col-md-6">
+   
+ 
+   <% unless flash[:notice_rank_course].nil? %>
+    <div class="alert alert-danger" align="center" style="width:100%"> <%= flash[:notice_rank_course] %> </div>
+    <%end %>
+    <%= form_for :rank_report, :url=>{:action=>'generate_student_ranking_report2'},method: :get do |f|%>
+  
+
+  <b>Select Course:</b>
+     
+      <%= f.select :course_id, @courses.collect {|c| [c.course_name+" "+c.section_name,c.id]},{prompt:true},{class:"form-control",style: "width: 300px"}%>
+      <br>
+      <div class="col-md-offset-3"><%= f.submit 'View', class: 'btn btn-default' %></div>
+  <% end %>
+  </div>
+</div> 

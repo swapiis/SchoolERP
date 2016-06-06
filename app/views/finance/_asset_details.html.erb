@@ -1,0 +1,59 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="pull-right">
+    	<%= link_to 'Pdf Report',asset_list_finance_index_path(format:"pdf"),class: "btn btn-primary-link btn-xs"%>
+    	</div>
+	</div>
+</div>
+<hr>
+<div class="row">
+  <div class="box col-md-12">
+	  <div class="box-inner">
+	    <div class="box-header well">
+	      <h2>Asset Details</h2>
+	    </div>
+	    <div class="box-content">
+		    <% unless @assets.empty?%>
+		      <table id="datatable" class="table table-striped table-bordered responsive">
+		        <thead>
+		          <tr>
+		            <th>Asset</th>
+								<th>Description</th>
+								<th>Amount</th>
+								<th>Created At</th>
+								<th>Action</th>
+		          </tr>
+		        </thead>
+		        <tbody>
+		        <% @assets.each do |a|%>
+						<% if a.is_inactive?%>
+		          <tr>
+		            <td class="col-3"><%= link_to a.title+" (inactive)",each_asset_view_finance_path(a)%></td>
+									<%else%>
+										<tr>
+										<td class="col-3"><%= link_to a.title,each_asset_view_finance_path(a)%></td>
+									<%end%>
+										<td class="col-3"><%= a.description%></td>
+										<td class="col-3"><%= a.amount%></td>
+										<td class="col-3"><%= a.created_at.to_date%></td>
+		            <td class="center">
+		              <div class="label-success label label-default">
+		              <i class="glyphicon glyphicon-edit icon-white"></i> 
+		              <%= link_to 'Edit',edit_asset_finance_path(a), class: 'a-action', remote:true%>
+		              </div>
+
+		              <div class="label-danger label label-default">
+		              <i class="glyphicon glyphicon-trash icon-white"></i> 
+		              <%= link_to 'Delete' ,delete_asset_finance_path(a),method: :delete, data:{confirm:"Are You sure to delete Asset '#{a.title}'?"},class: 'a-action'%></div>
+		            </td>
+		          </tr>
+		        <% end %>
+		        </tbody>
+		      </table>
+		    <%else%>
+					<center><h5>No asset found</h5></center>
+				<%end%>
+	    </div>
+	  </div>
+  </div>
+</div>

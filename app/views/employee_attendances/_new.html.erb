@@ -1,0 +1,38 @@
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+   <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  <h3><%= "Attendance for #{ @employee.first_name}" %></h3>
+</div>
+<div class="modal-body">
+<div class="errors">
+	<ul class="errors"></ul>
+</div>
+<%= form_for @attendance,remote:true  do |c|%>
+
+ <%= c.hidden_field :employee_id, :value => @employee.id %>
+    <%= c.hidden_field :attendance_date, :value => @date %>
+  <table class="table" align="center">
+    
+     <tr>
+       <td><b>Leave Type:</b></td>
+         <td><%= c.select :employee_leave_type_id,emp_leave_type,{prompt:'Select leave type'},{class: 'form-control'}%></td>
+     </tr>
+    <tr>
+      <td><b>Reason for Absence:</b></td>
+      <td><%= c.text_field :reason, class: 'form-control', placeholder: 'Reason for absence'%></td>
+    </tr>
+    <tr>        
+   <td colspan="2"><%= c.check_box :is_half_day,:checked => false %>
+    <b>Half Day</b></td>
+    </tr>
+    <tr><td colspan="2"><hr></td></tr>
+    <tr>
+    <td colspan="2" align="center"><%= c.submit 'Create', class: "btn btn-primary"%>
+        	<%= link_to 'Cancel', '#', class: "btn btn-default",data:{dismiss:"modal"}%></td>
+        </tr>
+
+</table>
+<% end %>
+
+</div></div></div>

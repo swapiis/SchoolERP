@@ -1,0 +1,39 @@
+<hr>
+<div class="row">
+  <div class="box col-md-12">
+  <div class="box-inner">
+    <div class="box-header well">
+      <h2>Batch Details</h2>
+    </div>
+
+    <div class="box-content" style="overflow-y: scroll; height:auto">
+      <table id="datatable" class="table table-striped table-bordered responsive">
+        <thead>
+          <tr>
+            <th>Batch Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @course.batches.each do |batch| %>
+          <tr>
+            <td>
+              <%=link_to batch.batch_course_code, display_batch_path(batch) %>
+            </td>
+            <td class="center">
+              <div class="label-success label label-default">
+              <i class="glyphicon glyphicon-edit icon-white"></i> 
+              <%= link_to 'Edit', edit_batch_path(batch),class: "a-action"%></div>
+
+              <div class="label-danger label label-default">
+              <i class="glyphicon glyphicon-trash icon-white"></i> 
+              <%= link_to 'Delete' ,batch,method: :delete, data: { confirm: "Are you sure to delete Batch #{batch.course.course_name+" "+batch.course.section_name+" - "+batch.name }?" }, class: "a-action"%></div>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  </div>
+</div>

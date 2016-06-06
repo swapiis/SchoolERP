@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      #heading {
+        width:100%;
+        margin: 0 auto;
+      }
+
+       
+      #head {
+        height: 100px;
+        width: 700px;
+        text-align: center;
+        font-size: 40px;
+        border-color: black;
+
+      }
+      #head_info {
+        text-align: center;
+        font-size: 15px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="heading">
+      <div id="head">
+        <%= @general_setting.school_or_college_name%><br/>
+      </div>  
+      <div id="head_info">
+          <%= @general_setting.school_or_college_address%><br/>
+          <%= @general_setting.school_or_college_phone_no%>
+      </div>
+    </div>  
+      <hr>
+     <br/><h3><center>Subject-wise Ranking Report </center></h3>
+    <br>
+
+      <h4>Batch:<%= @batch.course.course_name.capitalize+" "+@batch.course.section_name.capitalize+" "+@batch.name.capitalize+" | "+@subject.name%></h4>
+
+      
+ <br>
+  <table cellpadding="4" cellspacing="5" width="700">
+       <tr>
+        <th bgcolor="99CCFF">Sr.No.</th>
+        <th bgcolor="99CCFF">Admission No</th>
+        <th bgcolor="99CCFF">Student Name</th>
+
+          <% ranks = [] %>
+          <% rank_students=[] %>
+          <% group_ranks=[] %>
+          <% @exam_groups.each do |exam_group| %>
+            <% grouped_exams=GroupedExamReport.where(subject_id:@subject.id,exam_group_id:exam_group.id,batch_id:@batch.id)%>
+                <% grouped_exams.each do |ge|%>
+                    <% ranks<<[ge.student_id,ge.marks.to_f]%>
+                  <%end%>
+                  <% ranks.sort_by{|r| r[1]}.reverse.each do |rank|%>
+                      <% rank_students<<rank[0]%>
+                  <%end%>
+                  <% group_ranks<<[exam_group.id,rank_students] %>
+                  <% ranks = [] %>
+                  <% rank_students=[] %>
+          <th bgcolor="99CCFF"><%= exam_group.name %></th>
+          <%end%>
+        </tr>
+        <% @students.reverse.each_with_index do |student,i| %>
+            <% is_valid_subject=1 %>
+            <% unless @subject.elective_group_id.nil? %>
+                <% is_student_elective = StudentSubject.find_by_student_id_and_subject_id(student.id,@subject.id) %>
+                <% is_valid_subject = 0 if is_student_elective.nil? %>
+            <% end %>
+            <% unless is_valid_subject == 0 %>
+            <tr class="tr-<%= cycle('odd', 'even') %>">
+            <td align="center"><%= i+1 %></td>
+            <td align="center"><%= student.admission_no.present? ? student.admission_no : "-" %></td>
+            <td align="center"><%= student.first_name+" "+student.last_name %></td>
+            <% @exam_groups.each do |exam_group| %>
+              <td align="center">
+                <% group_ranks.each do |group_rank|%>
+                    <% if exam_group.id==group_rank[0]%>
+                      <% group_rank[1].each_with_index do |rank,ind|%>
+                        <% if student.id==rank%>
+                          <%=ind+1%>
+                        <%end%>
+                      <%end%>
+                    <%end%>
+                   
+                <%end%>
+              </td>        
+              <%end%>
+            </tr>
+            <%end%>
+        <% end %>
+      </table>
+</div>
+
+</body>
+</html>

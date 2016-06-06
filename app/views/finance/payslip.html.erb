@@ -1,0 +1,34 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Finance',finance_index_path %></li>
+    <li>Employee Payslips</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/><br/>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "View Payslip",'view_monthly_payslip'%></h2>
+      </div>
+      <div class="box-content">
+        View employee monthly payslip.
+      </div>
+    </div>
+  </div>
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "One click approve payslip",'approve_monthly_payslip' %>
+        </h2>
+      </div>
+      <div class="box-content">
+        Approve monthly payslip.
+      </div>
+    </div>
+  </div>
+</div>

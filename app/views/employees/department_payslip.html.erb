@@ -1,0 +1,39 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+     <li><%= link_to 'Human Resources',employees_path %></li>
+    <li>Department Payslip</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/>
+ 
+ <div class="row">
+
+  <div class="col-md-11 col-md-offset-1">
+  <%= form_for :view_payslip, url:{action:'select_month'},method: :get,remote:true,html:{id: "user_form2"} do |f|%>
+
+	
+	    <b>Select a Department:</b>
+		    <%= f.select :id, EmployeeDepartment.all.collect {|b| [b.name,b.id]},{prompt:true},{onchange:"$('#user_form2').submit();",class:"form-control",style: "width:250px"}%>
+
+	 <%end%>
+</div>
+</div>
+<br>
+<div class="row">
+ <div class="col-md-11 col-md-offset-1">
+   		<div id="payslip"></div>
+  </div>
+  </div>
+ <br>
+  <div class="row">
+
+  <div class="col-md-12">      
+      <div id="payslip_disp"></div>
+    </div>
+    </div>
+ 
+   	
+
+   		

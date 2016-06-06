@@ -1,0 +1,82 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Student Details',students_path %></li>
+    <li><%= link_to 'Student Profile',profile_student_path(@student.id)%></li>
+    <li><%= link_to 'Reports Center',report_students_path(@student.id)%></li>
+    <li>Acadenic Report</li>
+  </ul>
+</div><div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+      <%= link_to 'Pdf Report',{action:'academic_report',format:"pdf",subject_id:@subject.id,student_id:@student.id}, class: "btn btn-primary-link btn-sm" %>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="row">
+<div class="col-md-3"></div>
+<div class="col-md-8">
+  <h3><%= @batch.course.course_name+" "+ @batch.course.section_name%>|<%= @batch.name %>|<%= @subject.name %></h3>
+</div>
+</div>
+  <div class="row">
+  <div class="col-md-1"></div>
+    <div class="box col-md-10">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+              <h2><%= "#{@student.first_name+" "+@student.last_name}"" - #{@student.admission_no}" %></h2>
+            </div>
+          <div class="box-content" style="overflow-y: scroll; height:auto">
+          <table id="datatable" class="table table-striped">
+            <thead>
+            <tr>
+              <th>Exam Name</font></th>
+              <th>Marks</font></th>
+              <th>Maximum Marks</font></th>
+              <th>Grades</font></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @exam_groups.each do |exam_group| %>
+                <tr class="tr-<%= cycle('odd', 'even') %>">
+                <td class="col-3"><%= exam_group.name %></td>
+                <% unless exam_group.result_published?%>
+                  <td colspan="3">Exam Result Not Published</td>
+                  <%else%>
+                  <% exam = Exam.find_by_subject_id_and_exam_group_id(@subject.id,exam_group.id) %>
+                  <% exam_score = ExamScore.find_by_student_id_and_exam_id(@student.id,exam.id) unless exam.nil? %>
+                <% unless exam.nil? %>
+                  <% if exam_group.exam_type == 'Marks' %>
+                    <td class="col-3">
+                      <%= exam_score.nil? ? '-' : "#{exam_score.marks || "-"}"%>
+                    </td>
+                    <td class="col-3">
+                      <%= exam_score.nil? ? '-' : "#{exam.maximum_marks || "-"}"%>
+                    </td>
+                    <td>-</td>
+                  <% elsif exam_group.exam_type == 'Grades'%>
+                    <td>-</td>
+                    <td>-</td>
+                    <td class="col-3">
+                      <%= exam_score.nil? ? '-' : (exam_score.grading_level.name || '-') %></td>
+                  <% else %>
+                    <td class="col-3">
+                      <%= exam_score.nil? ? '-' : "#{exam_score.marks || "-"}"%>
+                    </td>
+                    <td class="col-3">
+                      <%= exam_score.nil? ? '-' : "#{exam.maximum_marks || "-"}"%>
+                    </td>
+                    <td> <%= exam_score.nil? ? '-' : (exam_score.grading_level.name || '-') %></td>
+                    <% end %>
+                  <% end %>
+                  <%end%>
+                    </tr>
+                <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

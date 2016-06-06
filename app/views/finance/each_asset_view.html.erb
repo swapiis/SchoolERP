@@ -1,0 +1,45 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Finance',finance_index_path %></li>
+    <li><%= link_to 'Asset liability management',asset_liability_finance_index_path %></li>
+    <li><%= link_to 'Asset',asset_finance_index_path %></li>
+    <li><%= link_to 'Asset View',view_asset_finance_index_path %></li>
+    <li>Asset</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="box col-md-12">
+    <div class="box-inner">
+      <div class="box-header well">
+        <h2><%=@asset.title%></h2>
+      </div>
+      <div class="box-content">
+        <div class="row">
+          <div class="col-sm-1"></div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <table align="center" class="table" style="width:500px">
+                <tbody><tr class="tr-blank"></tr>
+                  <tr class="tr-head">
+                    <td class="col-2"><b>Asset Name:</b></td>
+                    <td class="col-2"><%= @asset.title%></td></tr>
+                  <tr class="tr-head">
+                    <td class="col-2"><b>Description:</b></td>
+                    <td class="col-2"><%= @asset.description %></td></tr>
+                  <tr class="tr-head">
+                    <td class="col-2"><b>Amount:</b></td>
+                    <td class="col-2"><%= @asset.amount%></td></tr>
+                  <tr class="tr-head">
+                    <td class="col-2"><b>Created at:</b></td>
+                    <td class="col-2"><%= I18n.l(@asset.created_at,:format=>"%A, %d %B, %Y") %></td></tr>
+                </tbody>
+                </table> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

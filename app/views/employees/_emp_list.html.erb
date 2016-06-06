@@ -1,0 +1,47 @@
+<br/>
+<div class="row">
+  <div class="col-sm-6">
+     <div class="form-group">
+
+<div class="row">
+        <div class="box col-md-12">
+         <div class="box-inner">
+          <div class="box-header well">
+            <h2>Assign New</h2>
+          </div>
+         <div class="box-content">
+ <table id="datatable" class="table table-striped responsive">
+ <thead>
+ 	   <tr>
+            <th>Name</th>
+            <th>Operation</th>
+        </tr>
+
+ </thead>
+ <tbody>
+	<%@employees.each do |emp|%>
+	<%is_assigned=EmployeeSubject.find_by_employee_id_and_subject_id(emp.id,@subject.id)%>
+	<%if is_assigned.nil?%>
+		<tr>
+			<td><%=emp.first_name%></td>
+			<td><div class="label-success label label-default"><%= link_to "Assign",assign_employee_employee_path(emp,@subject,department_id:@department.id),method: :post,remote:true,class: "a-action"%></div></td>
+		</tr>
+	<%end%>
+	<%end%>
+
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="col-sm-6">
+     <div class="form-group">
+<div id="assigned_emp"></div>
+</div>
+</div>
+</div>
+<div id="emp_list"></div>
+

@@ -1,0 +1,30 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Student Details',students_path %></li>
+    <li><%= link_to 'Profile',profile_student_path(@student.id)%></li>
+    <li>Remove Student</li>
+  </ul>
+</div><div id="flash"><%= render 'layouts/messages'%></div>
+<div class="box col-md-1"></div>
+<div class="box col-md-10">
+  <div class="box-inner">
+    <div class="box-content">
+      <div id="student-details">
+        <h3><%= @student.stud_full_name %></h3>
+        <h4>Admission no : <%= @student.admission_no %></h4>
+        <h4>Class : <%= @student.batch.course.course_name %></h4>
+      </div><hr>
+      <div class="row">
+        <div class="col-md-9">
+          <b><h3>Delete student</h3></b>
+          <p><h4>Completely delete student's records from the school's databases. Use this option only if you created the student record by accident and want to remove it completely.</h4></p>
+          <p>(Warning: All records will be deleted for the student and cannot be recovered.)</p><br>
+          <div class="col-md-4">
+            <%= link_to 'Delete',@student,method: :delete,data:{confirm:'Are you sure want to delete?'},class:"btn btn-danger" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

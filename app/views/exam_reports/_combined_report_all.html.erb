@@ -1,0 +1,29 @@
+<%= form_for :combined_report, url:{:action=>'generate_combined_report',format:@batch.id},method: :get do |f| %>
+
+ <div class="grades">
+  <div class="label-field-pair">
+    <label for="configuration_grading_systems">Class designations:</label>
+  </div>
+  <div class="fee_category_scroll">
+    <div class="sel-list">
+    Select: <%= link_to 'All',all_exam_reports_path(@batch),remote:true%>,
+    <%= link_to 'None',none_exam_reports_path(@batch),remote:true%>
+    </div>
+    <div id="all_class_designations"><%= render 'class_designation'%></div>
+  </div>
+</div><br/><br/>
+
+<div class="grades">
+  <div class="label-field-pair">
+    <label for="configuration_grading_systems">Ranking levels:</label>
+  </div>
+  <div class="fee_category_scroll">
+    <div class="sel-list">
+   	Select: <%= link_to 'All',all1_exam_reports_path(@batch),remote:true%>,
+    <%= link_to 'None',none1_exam_reports_path(@batch),remote:true%>
+    </div>
+    <div id="all_ranking_levels"><%= render 'ranking_level'%></div>
+  </div>
+</div><br/><br/>
+<div align="center"><%= f.submit "View", class: "btn btn-default" %></div>
+<%end%>

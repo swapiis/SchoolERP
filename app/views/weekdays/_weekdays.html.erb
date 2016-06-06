@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="box col-md-12">
+  <div class="box-inner">
+     <div class="box-header well">
+      <h2>Weekdays</h2>
+      </div>
+    <div class="box-content">
+<% week =[] %>
+<% @days.each do |dr| %>
+  <% week.push dr %>
+<% end %>
+<%=form_for :weekday, :url => {:action=> 'create'},remote:true do |f| %>
+<%= f.hidden_field :batch_id, :value => @batch.id%>
+    
+<table id="datatable" class="table table-striped table-bordered responsive">
+<hr>
+	<tbody> 
+    <% @days.each do |w| %>
+     <tr>
+        <% q = w.to_i %>
+        <th><%= @day[q] %></th>
+<% @weekday= weekday_batch(@batch,@day[q])%>
+    <% if @weekday.nil? %>
+        <td><%= check_box_tag "weekdays[]", w,false%></td>
+    <%else%>
+        <td><%= check_box_tag "weekdays[]", w,true%></td>
+    <%end%>
+     </tr> 
+    <% end %>
+    </tbody>
+    </table>
+
+  <% if Weekday.where(batch_id:@batch.id).present?%>
+      <p align="center"><%= submit_tag "Save",data: {confirm: "This will delete all previous timetable entries, Are you sure to delete?"},:class=>'btn btn-primary' %></p>
+  <%else%>
+    <p align="center"><%= submit_tag "Save",:class=>'btn btn-primary' %></p>
+  <%end%>
+<% end %>
+</div>
+</div>
+</div>
+</div>
+</div>

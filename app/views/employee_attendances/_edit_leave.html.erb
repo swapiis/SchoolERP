@@ -1,0 +1,46 @@
+
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+  <h3><%= "Editing" %></h3>
+</div>
+<div class="modal-body">
+	<ul class="errors"></ul>
+
+<%= form_for @edit_leave_type,url:{:action=>'update_leave_type'},method: :patch ,remote:true do |c|%>
+  <table class="table">
+
+    <tr>
+      <td><b>Leave Name:</b></td>
+      <td><%= c.text_field :name, class: 'form-control'%></td>
+    </tr>
+
+    <tr>
+      <td><b>Leave Code:</b></td>
+      <td><%= c.text_field :code, class: 'form-control'%></td>
+      </tr>
+
+       <tr>
+      <td><b>Maximum Leave Count:</b></td>
+      <td><%= c.text_field :max_leave_count, class: 'form-control'%></td>
+      </tr>
+       <tr>
+            
+        <td><b>Enable Carry Forward:</b></td>
+        <td><%= c.check_box :enable_carry_forward%> </td>
+        </tr>
+     <tr>
+      <td><b>Status:</b></td>
+      <td><%= c.radio_button "status", "true", checked: "checked" %> &nbsp;<b>Active</b>&nbsp;&nbsp; 
+      <%= c.radio_button "status", "false"%> &nbsp;<b>Inactive</b></td>
+    </tr>
+    
+    <tr>
+    <td colspan="2" align="center"><%= c.submit 'Update', class: "btn btn-success"%>
+        	<%= link_to 'Cancel', '#', class: "btn btn-default",data:{dismiss:"modal"}%></td>
+        </tr>
+
+</table>
+<% end %>
+
+</div></div></div>

@@ -1,0 +1,53 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Human Resources',employees_path %></li>
+    <li><%= link_to 'HR Management',employee_management_employees_path %></li>
+    <li><%= link_to 'Employee admission(Step 1)',admission1_employees_path %></li>
+    <li><%= link_to 'Step 2',admission2_employees_path(@employee.id)%></li>
+    <li><%= link_to 'Step 3',admission3_employees_path(@employee.id)%></li>
+    <li>Step 4</li>
+  </ul>
+</div>
+
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="box col-md-12">
+  <div class="box-inner">
+    <div class="box-header well">
+      <h2>Select Reporting Manager</h2>
+    </div>
+   <div class="box-content">
+ <table id="datatable" class="table table-striped responsive">
+
+<%= form_for :advance_search, url:{action:'search',format:@employee.id}, method: :get,remote:true,html:{id: "user_form"} do |f|%>
+    <tbody>   
+      <tr>
+        <td colspan="4"><%= t('selected_manager : ') %><div id="name_emp1"></div></td>
+      </tr>          
+      <tr>
+     	  <td colspan="4">
+        <b>Search by Name:</b>
+          <%= text_field_tag :search,"",{oninput:"$('#user_form').submit();",class: 'form-control', placeholder: 'Search by name',style: 'width:250px'}%></td></tr>
+   	  <tr>
+         <td class="col-3"><%= f.select :employee_department_id, EmployeeDepartment.all.collect {|b| [b.name,b.id]},{prompt:"Select Department"},{onchange:"$('#user_form').submit();", class: 'form-control'}%></td>
+  
+         <td class="col-3"><%= f.select :employee_category_id, EmployeeCategory.all.collect {|b| [b.name,b.id]},{prompt:"Select Category"},{onchange:"$('#user_form').submit();", class: 'form-control'}%></td>
+    
+         <td class="col-3"><%= f.select :employee_position_id,EmployeePosition.all.collect {|b| [b.name,b.id]},{prompt:"Select Position"},{onchange:"$('#user_form').submit();", class: 'form-control'}%></td>
+    
+         <td class="col-3"><%= f.select :employee_grade_id, EmployeeGrade.all.collect {|b| [b.name,b.id]},{prompt:"Select Grade"},{onchange:"$('#user_form').submit();", class: 'form-control'}%></td>
+     </tr>
+
+   
+  </div>
+  
+<%end%>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="user_search"></div>
+</div>

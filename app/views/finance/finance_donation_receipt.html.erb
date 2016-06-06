@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      #heading {
+        width:100%;
+        margin: 0 auto;
+      }
+    
+      #head {
+        height: 100px;
+        width: 700px;
+        text-align: center;
+        font-size: 40px;
+        border-color: black;
+
+      }
+      #head_info {
+        text-align: center;
+        font-size: 15px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="heading">
+      <div id="head">
+        <%= @general_setting.school_or_college_name%><br/>
+        <div id="head_info">
+          <%= @general_setting.school_or_college_address%><br/><br/>
+          <%= @general_setting.school_or_college_phone_no%>
+        </div>
+      </div>
+      <hr>
+      <br/><h3><center>Donation Receipt</center></h3><br/>
+      <table cellpadding="5" cellspacing="5" width="700">
+        <tr><th colspan="2" bgcolor="99CCFF" align="left">Donation Receipt</th></tr>
+        <tr>
+          <th align="left">Donor : </th>
+          <td> <%= @donation.donor %></td>
+        </tr>
+        <tr>
+          <th align="left">Description : </th>
+          <td><%= @donation.description %></td>
+        </tr>
+        <tr>  
+          <th align="left">Amount : </th>
+          <td><%= @donation.amount %></td>
+        </tr>
+        <tr>
+          <th align="left">Transaction Id : </th>
+          <td><%=  @donation.finance_transaction.id %></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      #heading {
+        width:100%;
+        margin: 0 auto;
+      }
+      #head {
+        height: 100px;
+        width: 700px;
+        text-align: center;
+        font-size: 40px;
+        border-color: black;
+      }
+      #head_info {
+        text-align: center;
+        font-size: 15px;
+      }
+    </style>
+  </head>
+  <body>
+     <div id="heading">
+        <div id="head">
+          <%= @general_setting.school_or_college_name%><br/>
+        </div>  
+        <div id="head_info">
+            <%= @general_setting.school_or_college_address%><br/>
+            <%= @general_setting.school_or_college_phone_no%>
+        </div>
+      </div>  
+      <hr>
+      <br/>
+      <h3><center>Course-wise Ranking Report </center></h3>
+      <h4>Course:<%= @course.course_name.capitalize+" "+@course.section_name.capitalize%></h4>
+      <table cellpadding="4" cellspacing="5" width="700">
+        <tr bgcolor="99CCFF">
+          <th>Sr.No.</th>
+          <th>Admission no</th>
+          <th>Student Name</th>  
+          <th>Batch</th>       
+          <th>Marks</th>
+          <th>Rank</th>
+        </tr>
+        <%ranks=[]%>  
+        <% total_mark=0%>                                                   
+        <% @batches.each do |batch| %>
+            <% batch.students.each do |student| %>
+           <% grouped_exams=GroupedExamReport.where(student_id:student.id,batch_id:batch.id)%>
+           <% grouped_exams.each do |ge|%>
+            <% subject=Subject.find(ge.subject_id)%>
+             <% is_valid_subject=1 %>
+            <% unless subject.elective_group_id.nil? %>
+              <% is_student_elective = StudentSubject.find_by_student_id_and_subject_id(student.id,subject.id) %>
+              <% is_valid_subject = 0 if is_student_elective.nil? %>
+            <% end %>
+            <% unless is_valid_subject == 0 %>
+                <% total_mark+=ge.marks%>
+            <%end%>
+           <%end%>
+           <%ranks<<[student.id,total_mark.to_f]%>
+            <% total_mark=0%>
+          <% end %>
+          <%end%>
+        <% rank_students=ranks.sort_by{|r| r[1]}.reverse%>
+         <%  rank_students.each_with_index do |rank,i| %>
+             <% student=Student.find(rank[0])%>
+          <tr class="tr-<%= cycle('odd', 'even') %>">
+            <td align="center"><%= i+1 %></td>
+            <td align="center"><%= student.admission_no.present? ? student.admission_no : "-" %></td>
+            <td align="center"><%= student.first_name+" "+student.last_name %></td>
+            <td align="center"><%= student.batch.name %></td>
+            <td align="center"><%= rank[1] %></td>
+            <td align="center"><%= i+1 %></td>
+          </tr>
+        <% end %>
+          </table>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<% unless @collections.nil? %>
+  <div class="row">
+  	<div class="col-sm-1"></div>
+  	<div class="col-sm-4">
+    	<div class="form-group">
+      	<b>Select Fee Collection Date:</b>
+      	<%= select :collection,:id,collect_collection,{prompt:true},{onchange:"var a={id: $('#collection_id').val()};$.get('student_fees',a,function(response){});",class: "form-control"}%>
+    	</div>
+  	</div>
+	</div>
+<%end%>
+

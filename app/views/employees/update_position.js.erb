@@ -1,0 +1,11 @@
+$("ul.errors").html("")
+<% if  @employee_position.errors.any? %>
+		<%  @employee_position.errors.full_messages.each do |message| %>
+		$("ul.errors").addClass("alert alert-danger alert-dismissable")  
+		$("ul.errors").append($("<li />").html("<%= message.html_safe %>"))
+		<% end %>
+<% else %>
+$('#add_position').html("<%= j render 'position'%>");
+$("#myModal").modal("hide")
+$('#flash').html("<%= j render 'layouts/messages'%>")
+<%end%>

@@ -1,0 +1,82 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Examination','/exams'%></li>
+     
+    <li><%= link_to 'Report Center', '/exam_reports/report_center' %></li>
+    <li><%= link_to 'Student Ranking Per Attendance', '/exam_reports/student_ranking_per_attendance' %> </li>
+    
+    <li>Generate Report</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/>
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+      <%= link_to 'Pdf report',attendance_wise_ranking_report_exam_reports_path(batch_id:@batch.id,start_date:@start_date,end_date:@end_date,format:"pdf"), class: "btn btn-primary-link btn-sm" %>
+    </div>
+  </div>
+</div> 
+<hr>
+
+<div class="row">
+    <div class="col-md-12">
+    <div class="box-inner">
+      <div class="box-header well">
+    <h2>Overall Ranking Per Attendance: <%= @batch.course.course_name+" "+@batch.course.section_name+" - "+@batch.name+" | "+ @start_date.to_s+" - "+@end_date.to_s %></h2></div>
+    <div class="box-content">
+
+          <table class="table table-bordered">
+            <tr>
+              <th>Sr.No.</th>
+              <th>Admission No.</th>
+              <th>Student Name</th>  
+              <th>Working Days</th>       
+              <th>Attended</th>
+              <th>Percentage</th>
+              <th>Rank</th>
+            </tr>
+            <%attendence=[]%>
+            <% @students.each_with_index do |student,i| %>
+                <% total_days=0 %><% absent_days=0 %>
+                <% (@start_date..@end_date).each do |date| %>
+                <%is_holiday=false%>
+                <% @batch_events.each do |be|%>
+                  <% if be.event.start_date<=date and be.event.end_date>=date and be.event.is_holiday=true %>
+                    <% is_holiday=true%>
+                  <%end%>
+                <%end%>
+                  <% @weekdays.each do |d| %>
+                    <% if I18n.l(date.to_date,:format=>"%A")==d.weekday %>
+                      <% total_days+=1 %>
+                    <%end%>
+                    <%end%>
+                <% @attendence=Attendence.find_by_student_id_and_month_date(student.id,date.to_date) %>
+                    <% unless @attendence.nil? %>
+                      <% absent_days+=1 %>
+                    <%end%>
+                    <% if is_holiday==true%>
+                        <% total_days-=1 %>
+                    <%end%>
+                <%end%>
+                <% present_days=total_days-absent_days unless total_days==0%>
+                <% attendence<<[student,total_days,present_days]%>
+            <%end%>
+          <%attendence.sort_by{|r| r[2]}.reverse.each_with_index do |student,i|%>
+              <tr class="tr-<%= cycle('odd', 'even') %>">
+                <td ><%= i+1 %></td>
+                <td ><%= student[0].admission_no%></td>
+                <td ><%= student[0].first_name+" "+student[0].last_name %></td>
+                <td ><%= student[1] %></td>
+                <td ><%= student[2] %></td>
+                <td ><%= "%.2f" %(student[2]*100/student[1])+"%" unless student[1]==0 %></td>
+                <td ><%= i+1 %></td>
+              </tr>
+            <% end %>
+          </table>
+    </div>
+    </div>
+    </div>
+    </div>
+    

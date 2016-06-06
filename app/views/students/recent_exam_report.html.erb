@@ -1,0 +1,120 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Student Details',students_path %></li>
+    <li><%= link_to 'Profile',profile_student_path(@student.id)%></li>
+    <li><%= link_to 'Reports Center',report_students_path(@student.id)%></li>
+    <li>Recent Exam Report</li>
+  </ul>
+</div><div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+      <% if @exam_group.result_published? %>
+      <%= link_to 'Pdf Report',{action:'student_exam_report',format:"pdf",exam_group_id:@exam_group.id,student_id:@student.id},class: "btn btn-primary-link btn-sm" %>
+      <%end%>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-12">
+    <div class="box-inner">
+      <div class="box-header well">
+        <h2></h2>
+      </div>
+      <div class="box-content" style="overflow-y: scroll; height:auto">
+        <fieldset>
+          <% if @exam_group.result_published? %>
+            <h4>
+              <%= @batch.course.course_name+" "+ @batch.course.section_name%>|<%= @batch.name %>
+            </h4>
+            <% exam_score = [] %>
+            <% @exam_group.exams.each do |exam| %>
+              <% exam_score.push exam.exam_scores.find_by_student_id(@student.id) unless exam.exam_scores.find_by_student_id(@student.id).nil?  %>
+            <% end%>
+            <% total_marks_attained = 0 %>
+            <% total_max_marks = 0 %>
+            <div id="score-table" style="width:80%">
+              <div class="custom_header" align="left">
+                <b>
+                  <span class="student">
+                    <%= "#{@student.first_name+" "+@student.last_name}"" - #{@student.admission_no}" %>
+                  </span>
+                </b>
+              </div>
+              <hr>
+              <table class="table table-bordered ">
+                <tr class="tr-head">
+                  <th class="col-3">Subject</th>
+                  <% if @exam_group.exam_type == 'Marks' %>
+                    <th>Marks obtained</th>
+                    <th>Max</th>
+                    <th>Percentage(%)</th>
+                  <% elsif @exam_group.exam_type == 'Grades' %>
+                    <th>Grades</th>
+                  <% else %>
+                    <th>Marks obtained</th>
+                    <th>Max</th>
+                    <th>Grades</th>
+                    <th>Percentage(%)</th>
+                  <%end%>
+                </tr>
+                <% exam_score.each do |es| %>
+                  <% is_valid_subject=1 %>
+                    <% unless es.exam.subject.elective_group_id.nil? %>
+            <% is_student_elective = StudentSubject.find_by_student_id_and_subject_id(@student.id,es.exam.subject.id) %>
+            <% is_valid_subject = 0 if is_student_elective.nil? %>
+          <% end %>
+          <% unless is_valid_subject == 0 %>
+        <tr class="tr-<%= cycle('odd', 'even') %>">
+          <td class="col-2"> <%= es.exam.subject.name %></td>
+          <% if @exam_group.exam_type == 'Marks' %>
+            <td class="col-1"><%= es.marks || '-' %></td>
+            <% total_marks_attained = total_marks_attained+(es.marks || 0) %>
+            <td class="col-1"><%= es.exam.maximum_marks %></td>
+            <% total_max_marks = total_max_marks+es.exam.maximum_marks%>
+            <td class="col-1"><%= es.calculate_percentage %></td>
+          <% elsif @exam_group.exam_type == 'Grades' %>
+            <td class="col-1"><%= es.grading_level.name || "-" %></td>
+          <% else %>
+            <td class="col-1"><%= es.marks || "-" %></td>
+            <% total_marks_attained = total_marks_attained+(es.marks || 0) %>
+            <td class="col-1"><%= es.exam.maximum_marks %></td>
+            <% total_max_marks = total_max_marks+es.exam.maximum_marks%>
+            <td class="col-1"><%= es.grading_level.name || "-" %></td>
+            <td class="col-1"><%= es.calculate_percentage %></td>
+          <% end %>
+        </tr>
+      <% end %>
+      <%end%>
+      <tr class="tr-blank"></tr>
+      <% unless @exam_group.exam_type == 'Grades'%>
+        <tr class="tr-head">
+          <td>Total marks:</td>
+          <td><%= total_marks_attained %></td>
+          <td><%= total_max_marks %></td>
+          <%if @exam_group.exam_type=="Marks and Grades"%>
+          <td>-</td>
+          <%end%>
+          <td><%= "%.2f" %(total_marks_attained*100/total_max_marks)+"%" unless total_max_marks == 0 %></td>
+        </tr>
+      <%else%>
+        <tr class="tr-head">
+          <td>Final Grade:</td>
+          <td>-</td>
+        </tr>
+      <% end %>
+    </table>
+</div>
+<%else%>
+<div id="score-table" style="width:80%">
+    <div class="custom_header">
+    <h4 align="center">Exam Result Not Published</h4>
+</div></div>
+<%end%>
+</fieldset>
+</div>
+</div>
+</div>
+</div>

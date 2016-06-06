@@ -1,0 +1,13 @@
+$("ul.errors5").html("")
+<% if  @employee_grade.errors.any? %>
+		<%  @employee_grade.errors.full_messages.each do |message| %>
+		$("ul.errors").addClass("alert alert-danger alert-dismissable")  
+		$("ul.errors5").append($("<li />").html("<%= message.html_safe %>"))
+		<% end %>
+<% else %>
+$('#add_grade').html("<%= j render 'grade'%>");
+$('#grade_details').html("<%= j render 'grade_details'%>");
+$('#flash').html("<%= j render 'layouts/messages'%>")
+$('#myModal').modal("hide")
+<%end%>
+	

@@ -1,0 +1,100 @@
+
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li>Add Company Name</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/>
+<div class="row">
+  <div class="col-md-2"></div>
+    <div class="box col-md-6">
+      <div class="box-inner">
+        <div class="box-header well" data-original-title="">
+            <h2>Add Company Name</h2>
+        </div>
+      <div class="box-content">
+        <%= form_for @company do |f| %>
+        <fieldset>
+          <% if @company.errors.any? %>
+            <div class="alert alert-danger">
+              <ul><% @company.errors.full_messages.each do |msg| %><li style="width:300px"><%= msg %></li><% end %></ul>
+            </div>
+          <%end%>
+          <div class="col-sm-7 col-sm-offset-1">
+            <div class="form-group">
+              <b>Name: <span style="color:red">*</span></b>
+              <%=f.text_field :name, class: "form-control", style: "width: 350px", placeholder: "Company Name"%>
+            </div>
+              
+            <div class="form-group">
+              <b>Criteria</b>
+              <%=f.text_area :criteria,style: 'width:350px;height:200px', placeholder: "Company Criteria ", class: "form-control"%>
+            </div>
+
+            <div class="col-sm-7 col-sm-offset-6"> 
+              <div class="form-actions">               
+                <%= f.submit 'Create', class: "btn btn-primary"%>
+                </div>
+            </div>
+                
+              </div>
+            </fieldset>
+            <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+  <div class="col-sm-12">
+     <div class="form-group">
+       <div class="row">
+        <div class="box col-md-12">
+         <div class="box-inner">
+          <div class="box-header well">
+            <h2>Company Name</h2>
+          </div>
+         <div class="box-content" style="overflow-y: scroll; height:280px">
+     
+       <table id="datatable" class="table table-striped table-bordered responsive">
+         <thead>
+               <tr>
+                <th>Name</th>
+                <th>Criteria</th>
+                <th colspan="2">Action</th>
+               </tr>
+
+             </thead>
+           
+          <tbody>
+            <%  @companies.each do |company|
+              %>
+
+      <tr>
+      <td><%= company.name %></td>
+        <td><%= company.criteria %></td>
+      <td class="center">
+              <div class="label-success label label-default">
+              <i class="glyphicon glyphicon-edit icon-white"></i> 
+              <%=  link_to 'Edit', edit_company_path(company),remote:true,class: "a-action"%></div>
+
+              <div class="label-danger label label-default">
+              <i class="glyphicon glyphicon-trash icon-white"></i> 
+
+              <%= link_to 'Destroy',company, method: :delete, data: { confirm: 'Are you sure?' },class: "a-action"%></div>
+            </td>
+      </tr>
+        <%end%>
+          </tbody>
+       </table>
+      </div>
+    </div>
+  </div>
+ </div>
+</div>
+ </div>
+
+ <div id="modal" class="modal fade"></div>

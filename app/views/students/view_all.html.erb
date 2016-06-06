@@ -1,0 +1,19 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Student Details',students_path %></li>
+   <li>View Details</li>
+  </ul>
+</div><div id="flash"><%= render 'layouts/messages'%></div>
+<br/><br/>
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+		<%= form_for :batch, url:{action:'select'},method: :get,remote:true,html:{id: "batch_form_this"} do |f| %>
+		<b>Select a Batch:</b>
+	    <%= f.select :id, @batches.collect {|b| [b.course.course_name+" "+b.course.section_name+" - "+b.name,b.id]},{prompt:true},{onchange:"$('#batch_form_this').submit();",class: "form-control",style:"width:300px"}%>
+		<% end %>
+	</div>
+</div>
+<div id="student_view_all">
+</div>

@@ -1,0 +1,59 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Settings',setting_index_path %></li>
+    <li><%= link_to 'Manage Course / Batch',course_batch_setting_index_path %></li>
+    <li><%= link_to 'Course',courses_path %></li>
+    <li><%= link_to 'Batches',course_path(@course)%></li>
+    <li>Batch Group</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/>
+
+<div class="row">
+    <div class="box col-md-6">
+      <div class="box-inner">
+          <div class="box-header well" data-original-title="">
+            <h2>Batch Group</h2>
+          </div>
+
+          <div class="box-content">
+          <%= form_for @batch_group,url:{action:'create_batch_group'} do |c| %>
+
+          <fieldset>
+          <%=grouped_batch_error!%>
+          <%= c.hidden_field :course_id, value: @course.id%>
+          <div class="col-sm-12">
+            <div class="form-group">
+
+              <b>Name:</b>                     
+              <%=c.text_field :name ,:style =>"width: 350px", class: "form-control", placeholder: "Batch Group Name"%>
+            </div>
+            <div class="pull-right">
+              <b> Select:</b>
+            <%= link_to "All",assign_all_course_path(@course),remote:true,class: "btn btn-primary-link btn-xs"%>
+            <%= link_to "None",remove_all_course_path(@course),remote:true,class: "btn btn-primary-link btn-xs" %></div>
+            <br>
+
+            <div id="batch_view"><%= render 'all_batch' %></div>
+          <div class="col-sm-offset-5"> 
+            <div class="form-actions">               
+              <%=c.submit 'Submit', class: "btn btn-primary"%>
+            </div>
+          </div>
+          
+          </div>
+          </fieldset>
+          <% end %>
+          </div>
+      </div>
+    </div>
+  
+  <div class="box col-md-6">  
+    <div id="batch_group_details">
+      <%= render 'batch_group'%>
+    </div>
+  </div>
+</div>
+<div id="Modal" class="modal fade"></div>

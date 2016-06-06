@@ -1,0 +1,38 @@
+
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  <h3><%= "Edit attendance for #{@employee.first_name}" %></h3>
+</div>
+<div class="modal-body">
+<div class="errors2">
+	<ul class="errors2"></ul>
+</div>
+<%= form_for  @attendance,url:{:action=>'update_att'},method: :patch ,remote:true do |c|%>
+  <table class="table" align="center">  
+
+    <tr>
+       <td><b>Leave Type:</b></td>
+         <td><%= c.select :employee_leave_type_id,emp_leave_type,{prompt:'Select leave type'},{class: 'form-control'}%></td>
+         
+     </tr>
+    <tr>
+      <td><b>Reason for Absence:</b></td>
+      <td><%= c.text_field :reason, class: 'form-control', placeholder: 'Reason for absence'%></td>
+    </tr>
+     <tr>        
+   <td colspan="2"><%= c.check_box :is_half_day %>
+    <b>Half Day</b></td>
+    </tr>
+    <tr>
+<%if @reset_count.leave_taken.to_f==0.0%>
+    <td>  <%= link_to 'Delete', destroy_attendance_employee_attendance_path( @attendance),method: :delete, data: { confirm: "Are you sure to delete"},remote:true,class: "btn btn-danger"%></td>
+  <%else%>
+       <td colspan="2" align="center"><%= c.submit 'Update', class: "btn btn-primary"%>&nbsp;&nbsp;&nbsp;<%= link_to 'Delete', destroy_attendance_employee_attendance_path( @attendance),method: :delete, data: { confirm: "Are you sure to delete"},remote:true,class: "btn btn-success"%></td>
+      <%end%>
+        </tr>
+
+</table>
+<%end%>
+</div></div></div>

@@ -1,0 +1,77 @@
+ <div>
+	<ul class="breadcrumb">
+		<li><%= link_to 'Home',dashboard_home_index_path %></li>
+		<li><%= link_to 'Student Details',students_path %></li>
+		<li>Advance Search</li>
+	</ul>
+</div><div id="flash"><%= render 'layouts/messages'%></div>
+<br/><br/>
+<div class="row">
+	<div class="col-md-1"></div>
+	<div class="box col-md-10">
+		<div class="box-inner">
+			<div class="box-header well" data-original-title="">
+		</div>
+			<div class="box-content">
+				<%=form_for :search ,url:{action:'advanced_student_search'},method: :get do |f| %>
+				<fieldset>
+					<div class="col-sm-6">
+						<div class="form-group">
+							<b>Student Name:</b>
+							<%=f.text_field :name, placeholder:'Student Name', class: "form-control"%>
+						</div>
+						<div class="form-group">
+							<b>Course Name:</b>
+							<%=f.select :course_id, @courses.collect {|c| [c.course_name,c.id]},{prompt:true}, 
+							{onchange:"var a={
+								id: $('#search_course_id').val()
+							};
+							$.get('batch_details',a,function(response){
+							});", class: 'form-control'}%>
+						</div>
+						<div class="form-group">
+							<b>Batch Name:</b>
+							<div id="batch_view"><%=select :batch,:id,Batch.all.collect {|b| [b.name,b.id]},{prompt:true},{class:"form-control"}%>
+							</div>
+						</div>
+						<div class="form-group">
+							<b>Category:</b>
+							<%=f.select :category_id, Category.all.collect {|c| [c.name,c.id]},{prompt:true},{class:"form-control"} %>
+						</div>
+						<div class="form-group">
+							<%=f.radio_button :gender,"All", :checked => "checked" %>&nbsp;<b>All</b>&nbsp;&nbsp;
+							<%=f.radio_button :gender,"Male"%>&nbsp;<b>Male</b>&nbsp;&nbsp;
+							<%=f.radio_button :gender,"Female"%>&nbsp;<b>Female</b>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<b>Blood Group:</b>
+							<%=f.select :blood_group, ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"],{prompt:true},{class:"form-control"}%>
+						</div>
+						<div class="form-group">
+							<b>Country:</b>
+							<%=f.select :country_id, Country.all.collect {|c| [c.name,c.id]},{prompt:true},{class:"form-control"}%>
+						</div>
+						<div class="form-group">
+							<b>Admission Date:</b>
+							<%=f.date_field :admission_date,class: "form-control datepicker",placeholder: "MM/DD/YYYY"%>
+						</div>
+						<div class="form-group">
+							<b>Date of Birth:</b>
+							<%=f.date_field :date_of_birth,class: "form-control datepicker",placeholder: "MM/DD/YYYY"%>
+						</div>
+						<div class="form-group">
+							<b>Status:</b>&nbsp;
+							<%= f.radio_button :status,"present",:checked => "checked"%>&nbsp;Present&nbsp;&nbsp;
+							<%= f.radio_button  :status,"former"%>&nbsp;Former&nbsp;&nbsp;
+							<%= f.radio_button  :status,"all"%>&nbsp;All
+						</div>
+					</div>
+					<div align="center"><%= f.submit 'Search', class: "btn btn-primary"%></div>
+					<%end%>	
+				</fieldset>
+			</div>
+		</div>
+	</div>
+</div>

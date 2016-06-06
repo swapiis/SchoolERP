@@ -1,0 +1,104 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Finance',finance_index_path %></li>
+    <li><%= link_to 'Transction',transactions_finance_index_path %></li>
+    <li><%= link_to 'Compare transction report',compare_report_finance_index_path %></li>
+    <li>Transaction comparision list</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="box col-md-12">
+	  <div class="box-inner">
+	    <div class="box-header well">
+	      <h2>Report for the period from <%=@start_date1%> to <%=@end_date1%></h2>
+	    </div>
+	    <div class="box-content">
+		    <% unless @categories.nil? %><%total1=0%>
+		      <table id="datatable" class="table table-striped table-bordered responsive">
+		        <thead>
+		          <tr>
+		            <th>Sl no.</th>
+								<th>Particulars</th>
+								<th>Expenses (Rs.)</th>
+								<th>Incomes (Rs.)</th>
+		          </tr>
+		        </thead>
+		        <tbody>
+		        <% @categories.each_with_index do |c,i|%>
+		        	<tr>
+			          <td><%= i+1 %></td>
+			          <% unless c.is_income?%>
+									<td><%=link_to c.name,expense_details_finance_index_path(start_date:@start_date1,end_date:@end_date1,category:c.id)%></td>
+								<%else%>
+									<td><%=link_to c.name,income_details_finance_index_path(start_date:@start_date1,end_date:@end_date1,category:c.id)%></td>
+								<%end%>
+									<td><%= expense=c.category_amount(@start_date1,@end_date1) unless c.is_income? %></td>
+									<td><%= income=c.category_amount(@start_date1,@end_date1) if c.is_income? %></td>
+			        </tr>
+			        <% total1-=expense unless c.is_income? %>
+							<% total1+=income if c.is_income? %>
+		        <% end %>
+		        <tr>
+							<td></td>
+							<td><b>Grand Total</b></td>
+							<td></td>
+							<td><b><%= total1%></b></td>
+						</tr>
+		        </tbody>
+		      </table>
+		    <%else%>
+					<center><h5>No transaction found</h5></center>
+				<%end%>
+	    </div>
+	  </div>
+  </div>
+</div>
+<div class="row">
+  <div class="box col-md-12">
+	  <div class="box-inner">
+	    <div class="box-header well">
+	      <h2>Report for the period from <%=@start_date2%> to <%=@end_date2%></h2>
+	    </div>
+	    <div class="box-content">
+		    <% unless @categories.nil? %><%total2=0%>
+		      <table id="datatable" class="table table-striped table-bordered responsive">
+		        <thead>
+		          <tr>
+		            <th>Sl no.</th>
+								<th>Particulars</th>
+								<th>Expenses (Rs.)</th>
+								<th>Incomes (Rs.)</th>
+		          </tr>
+		        </thead>
+		        <tbody>
+		        <% @categories.each_with_index do |c,i|%>
+		        	<tr>
+			          <td><%= i+1 %></td>
+			          <% unless c.is_income?%>
+									<td><%=link_to c.name,expense_details_finance_index_path(start_date:@start_date2,end_date:@end_date2,category:c.id)%></td>
+								<%else%>
+									<td><%=link_to c.name,income_details_finance_index_path(start_date:@start_date2,end_date:@end_date2,category:c.id)%></td>
+								<%end%>
+									<td><%= expense=c.category_amount(@start_date2,@end_date2) unless c.is_income? %></td>
+									<td><%= income=c.category_amount(@start_date2,@end_date2) if c.is_income? %></td>
+			        </tr>
+			        <% total2-=expense unless c.is_income? %>
+							<% total2+=income if c.is_income? %>
+		        <% end %>
+		        <tr>
+							<td></td>
+							<td><b>Grand Total</b></td>
+							<td></td>
+							<td><b><%= total2%></b></td>
+						</tr>
+		        </tbody>
+		      </table>
+		    <%else%>
+					<center><h5>No transaction found</h5></center>
+				<%end%>
+	    </div>
+	  </div>
+  </div>
+</div>

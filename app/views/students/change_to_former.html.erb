@@ -1,0 +1,38 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Student Details',students_path %></li>
+    <li><%= link_to 'Profile',profile_student_path(@student.id)%></li>
+    <li><%= link_to 'Remove Student',remove_students_path(@student.id)%></li>
+    <li>Leaving School</li>
+  </ul>
+</div><div id="flash"><%= render 'layouts/messages'%></div>
+<div class="box col-md-2"></div>
+<div class="box col-md-8">
+  <div class="box-inner">
+    <div class="box-content">
+      <div id="student-details">
+        <h3><%= @student.stud_full_name %></h3>
+        <h4>Admission no : <%= @student.admission_no %></h4>
+        <h4>Class : <%= @student.batch.course.course_name %></h4>
+      </div><hr>
+      <div id="remove-student">
+        <% unless flash[:notice].nil? %>
+          <p class="flash-msg"> <%= flash[:notice] %> </p>
+        <%end%>
+        <h5>
+          For students leaving the school, use this option to remove them from the list of active students and place them in the former students list.
+        </h5>
+      </div><br>
+      <%= form_for @archived_student,url:{action: 'archived_student_create',format:@student.id} do |f| %>
+        <div class="form-group">
+          <b><h4>Reason For Leaving:</h4></b>
+          <%=f.text_area :status_description,class: "form-control",style: "width:60%" %>
+        </div>
+        <div class="form-group">
+          <%=f.submit "Remove",class: "btn btn-danger" %>
+        </div>
+      <%end%>
+    </div>
+  </div>
+</div>

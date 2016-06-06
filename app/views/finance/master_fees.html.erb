@@ -1,0 +1,56 @@
+<div id="myModal" class="modal fade"></div>
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Finance',finance_index_path %></li>
+    <li><%= link_to 'Manage Fees',fees_finance_index_path %></li>
+    <li>Create Fees</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-3">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to 'Create Category',new_master_category_finance_index_path,remote:true%></h2>
+      </div>
+      <div class="box-content">
+        Create master category.
+      </div>
+    </div>
+  </div>
+  <div class="box col-md-3">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to 'Create Particular',new_fees_particular_finance_index_path %>
+        </h2>
+      </div>
+      <div class="box-content">
+        Create particular category.
+      </div>
+    </div>
+  </div>
+  <div class="box col-md-3">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to 'Create Discount',new_fee_discount_finance_index_path %></h2>
+      </div>
+      <div class="box-content">
+        Create fees discount.
+      </div>
+    </div>
+  </div>
+</div>
+</br>
+
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+      <%= form_for :batch, url:{action:'fees_list'},method: :get,remote:true,html:{id: 'form_batch'} do |f| %>
+       <%= f.select :id, collect_batch,
+        {prompt:'Select a batch'},{onchange:"$('#form_batch').submit();",class: "form-control",style:"width:350px"}%>       
+      <%end%>
+    </div>
+</div>
+<div id="list"></div>

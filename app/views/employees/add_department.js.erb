@@ -1,0 +1,11 @@
+$("ul.errors").html("")
+<% if  @employee_department.errors.any? %>
+		<%  @employee_department.errors.full_messages.each do |message| %>
+		$("div.errors").addClass("alert alert-danger alert-dismissable")  
+		$("ul.errors").append($("<li align ='left' style = 'width:300px'/>").html("<%= message.html_safe %>"))
+		<% end %>
+<% else %>
+$('#flash').html("<%= j render 'layouts/messages'%>")
+
+$('#add_department').html("<%= j render 'department'%>");
+<%end%>

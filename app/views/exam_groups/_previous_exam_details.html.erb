@@ -1,0 +1,26 @@
+<div class="box-inner">
+  <div class="box-header well">
+    <h2>Previous Details</h2>
+  </div>
+<div class="box-content">
+<table class="table table-striped" >
+<thead>
+  <tr>
+    <th>Subject Name</th>
+	  <th>Maximum Marks</th>
+	  <th>Minimum Marks</th>
+  </tr>
+  </thead>
+  <tbody>
+  <%= exams_present%>
+  <% @exams.each do |exam| %>
+  	<tr>
+    	<td><%= link_to exam.subject.name , previous_exam_scores_exam_groups_path(exam) %></td>	
+  		<td><%= exam.maximum_marks%></td>
+  		<td><%= exam.minimum_marks%></td>
+		</tr>
+  <%end%>
+  </tbody>
+</table>
+</div>
+</div>

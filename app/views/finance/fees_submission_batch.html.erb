@@ -1,0 +1,22 @@
+<div id="myModal" class="modal fade"></div>
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Finance',finance_index_path %></li>
+    <li><%= link_to 'Manage Fees',fees_finance_index_path %></li>
+    <li><%= link_to 'Fees submission',fees_submission_finance_index_path %></li>
+    <li>Fees submission by batch</li>
+  </ul>
+</div>
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-4">
+    <div class="form-group">
+      <b>Select a Batch:</b>
+      <%= select :batch,:id,collect_batch,{prompt:true},{onchange:"var a={id: $('#batch_id').val()};$.get('fee_collection_date',a,function(response){});",class: "form-control"}%>
+    </div>
+  </div>
+</div>
+<div id="collection"><%= render 'fee_collection_date'%></div>
+<div id="fees_details"></div>
+

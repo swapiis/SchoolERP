@@ -1,0 +1,33 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Human Resources','/employees'%></li>
+    <li><%= link_to 'Create Payslip',payslip_employees_path%></li>
+    <li><%= link_to 'Select Employee',select_employee_department_employees_path%> </li>
+    <li>Monthly Payslip</li>
+  </ul>
+</div><div id="flash"><%= render 'layouts/messages'%></div>
+<br/>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="pull-right">
+       <%= link_to 'Add new Category',payroll_category_employees_path(@employee),remote:true ,class: "btn btn-primary-link btn-sm"%>
+      </div>
+      </div>
+      </div>
+ <hr>
+
+<div class="row">
+<div class="col-md-2"></div>
+<div class="col-md-7">
+  <div id="payslip"><%= render 'monthly_payslip_form'%></div>
+</div>
+</div>
+<script type="text/javascript">
+window.onload = function()
+{ 
+  $('.datepicker').datepicker();
+};
+ 
+</script>

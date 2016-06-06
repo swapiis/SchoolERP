@@ -1,0 +1,66 @@
+<div class="row">
+  <div class="box col-md-12">
+    <div class="box-inner">
+      <div class="box-header well">
+        <h2>Institutional Timetable</h2>
+      </div>
+      <div class="box-content">
+        <div class="row">
+          <div class="col-md-12">
+            <div align="center">
+
+             <h3> <%= link_to "◄ Previous", display_institutional_time_table_time_tables_path(:next=>(@today-1.day)),remote:true,class: "fc-button fc-button-prev fc-state-default"%>
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <span align="center"><%= I18n.l(@today,:format=>" %d %B %Y") %></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <%= link_to "Next ► ", display_institutional_time_table_time_tables_path(:next=>(@today+1.day)),remote:true  ,class: "fc-button fc-button-prev fc-state-default"%>
+
+              <div class="pull-right">
+                <span class="fc-button fc-button-month fc-state-default fc-corner-left fc-state-active" unselectable="on">Day View</span>
+              </div>
+            </h3>
+          </div>
+        </div>
+      </div>
+    <table id="datatable" class="table table-striped table-bordered responsive">
+        <tbody>
+           <%flag=0%>
+          <%@time_table.each do |t| %>
+          <%@time_table_entries=time_table_id(t)%>
+          <%@time_table_entries.each do |time|%>
+          <% timing = class_timing_id(time)%>
+          <% present=institutional_time_table(time) %>  
+          <%if time.weekday.weekday==I18n.l(@today,:format=>"%A")%>
+          <tr>
+
+      <th> 
+         
+         <%if flag==0%>
+            <%=time.batch.name%>
+            <%flag=1%>
+            <%@temp=time.batch.name%>
+            <%elsif%>
+              <%@temp!=time.batch.name%>
+              <%=time.batch.name%>
+              <%flag=0%>
+          <%end%>
+      </th>
+           
+            <td><%=timing.full_time%><hr>
+             <%=present.subject.name%><br/>
+             <%=present.employee.first_name%>
+           </td>
+         </tr>
+         <%end%>
+         <%end%>
+         <%end%>
+         <tr><td><%='No Time Assign For These Days' if @time_table_entries.blank?%></td></tr>
+       </tbody>
+     </table>
+   </div>
+ </div>
+</div>
+</div>
+
+
+
+
