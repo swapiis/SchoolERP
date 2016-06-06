@@ -59,3 +59,11 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
 gem 'jquery-validation-rails', '~> 1.13.1'
 gem 'yard'
 
+group :development, :test do
+  gem 'postgresql'
+end
+
+group :production do
+  gem 'postgresql'
+  gem 'rails_12factor'
+end
