@@ -75,6 +75,7 @@
                       <div class="fc-day-number">
                     <%=link_to dt,new_event_path(current_date), style: 'font-size:20px'%>
                       </div>
+                      
                       <% @event=Event.where("start_date<=? AND end_date>=?",current_date,current_date)%>
                       <div class="fc-day-content">
                       <% @event.each do |event|%>

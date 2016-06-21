@@ -1,6 +1,6 @@
 # Events Controller
 class EventsController < ApplicationController
-  
+ 
   # create event object
   # get date on whcih we want to create event
   def new
@@ -13,6 +13,7 @@ class EventsController < ApplicationController
   # from private method params_event and
   # create action is saving our new Event to the database.
   def create
+
     @event = Event.new(params_event)
     if @event.save
       flash[:notice] = 'Event created successfully'

@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gem 'rails'
 # Use postgresql as the database for Active Record
 gem 'mysql2'
+gem 'pg'
 # Use SCSS for stylesheets
 gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
@@ -11,14 +12,14 @@ gem 'uglifier'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer',  platforms: :ruby
+# gem 'therubyracer',  platforms: :ruby
 gem 'paperclip'
 gem 'imagemagick-binaries'
 gem 'aws-sdk'
 gem 'devise'
 gem 'cancan'
 gem 'pdfkit'
-gem 'wkhtmltopdf-binary'
+gem 'wkhtmltopdf-binary-edge'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
@@ -59,3 +60,11 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
 gem 'jquery-validation-rails', '~> 1.13.1'
 gem 'yard'
 
+group :development, :test do
+  gem 'pry-byebug'
+end
+
+group :production do
+  gem 'rails_12factor'
+  gem 'pry-byebug'
+end
