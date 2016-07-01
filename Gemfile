@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'rails'
 # Use postgresql as the database for Active Record
 gem 'mysql2'
-gem 'pg'
+# gem 'pg'
 # Use SCSS for stylesheets
 gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
@@ -15,7 +15,7 @@ gem 'coffee-rails'
 # gem 'therubyracer',  platforms: :ruby
 gem 'paperclip'
 gem 'imagemagick-binaries'
-gem 'aws-sdk'
+# gem 'aws-sdk'
 gem 'devise'
 gem 'cancan'
 gem 'pdfkit'
