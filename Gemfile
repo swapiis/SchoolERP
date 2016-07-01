@@ -19,6 +19,7 @@ gem 'imagemagick-binaries'
 gem 'devise'
 gem 'cancan'
 gem 'pdfkit'
+gem 'date_validator', '~> 0.8.1'
 gem 'wkhtmltopdf-binary-edge'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

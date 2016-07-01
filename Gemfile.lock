@@ -86,6 +86,8 @@ GEM
     coffee-script-source (1.9.0)
     colorize (0.7.5)
     daemon_controller (1.2.0)
+    date_validator (0.8.1)
+      activemodel
     devise (3.4.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -271,6 +273,7 @@ DEPENDENCIES
   capistrano-rails
   chartkick
   coffee-rails
+  date_validator (~> 0.8.1)
   devise
   groupdate (~> 2.1.1)
   html5_validators

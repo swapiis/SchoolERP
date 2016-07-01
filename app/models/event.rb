@@ -12,11 +12,12 @@ class Event < ActiveRecord::Base
   def create_event(batches, departments)
     if is_common?
       common_to_all
-    else
+    else 
       batches_event(batches)
       departments_event(departments)
     end
   end
+
   
   # event created for all batches and department
   def common_to_all

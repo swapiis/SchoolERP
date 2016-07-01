@@ -4,7 +4,8 @@ class CreateEmployeeDepartments < ActiveRecord::Migration
       t.string :code
       t.string :name
       t.boolean :status
-
+       t.references :batch, index: true
+      t.references :event, index: true
       t.timestamps
     end
   end

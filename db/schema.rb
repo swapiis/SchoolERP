@@ -156,7 +156,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.datetime "updated_at"
   end
 
-  add_index "batch_events", ["batch_id"], name: "index_batch_events_on_batch_id", using: :btree
+  add_index "batch_events", ["batch_id"], name: "index_batch_eventSees_on_batch_id", using: :btree
   add_index "batch_events", ["event_id"], name: "index_batch_events_on_event_id", using: :btree
 
   create_table "batch_fee_collection_discounts", force: :cascade do |t|
