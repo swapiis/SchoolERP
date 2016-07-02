@@ -31,7 +31,7 @@ Note:&nbsp;&nbsp;<font color="red">Fields marked with * must be filled</font>
                     <div class="form-group">
                       <b>Admission Date:</b>
                       <span style="color:red">*</span>
-                      <%=f.date_field :admission_date ,:value => time,class: "form-control"%>
+                      <%=f.text_field :admission_date ,:value => time,class: "form-control datepicker"%>
                     </div>
                   </div>
                 </div>
@@ -62,7 +62,7 @@ Note:&nbsp;&nbsp;<font color="red">Fields marked with * must be filled</font>
                     <div class="form-group">
                       <b>Course and Batch:</b>
                       <span style="color:red">*</span>
-                      <%=f.select :batch_id,["2000","2001","2002"],{prompt:true}, {class: "form-control"}%>
+                      <%=f.select :batch_id,collect_course,{prompt:true}, {class: "form-control"}%>
                       
                     </div>
                   </div>
@@ -70,7 +70,7 @@ Note:&nbsp;&nbsp;<font color="red">Fields marked with * must be filled</font>
                     <div class="form-group">
                       <b>Date of Birth:</b>
                       <span style="color:red">*</span>
-                      <%=f.date_field :date_of_birth , class: "form-control"%>
+                      <%=f.text_field :date_of_birth , class: "form-control datepicker"%>
                     </div>
                   </div>
                 </div>
