@@ -4,7 +4,7 @@
 				<table>
 				  <tr>
 				    <td><b>Salary Date:</b></td>
-				    <td><%=f.date_field :joining_date,:value => Time.now.strftime('%Y-%m-%d')%></td>
+				    <td><%=f.date_field :joining_date, :value => Time.now.strftime('%Y-%m-%d'), class: 'form-control datepicker' %></td>
 				  </tr>
 
 				  <tr>
