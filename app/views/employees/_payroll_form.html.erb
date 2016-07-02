@@ -1,0 +1,91 @@
+<ul class="errors"></ul>
+
+<%= form_for @payroll_category_new, url:{action:'add_payroll_category'},remote:true do |c|%>
+	<table class="table" style="width:500px" align="center">
+	<tbody>
+		<tr><td><b>Category Name:</b></td>
+		<td><%= c.text_field :name%></td></tr>
+		<tr><td><b>Percentage:</b></td>
+		<td><%= c.text_field :percentage%></td></tr>
+
+		<tr><td><b>Percentage Of:</b></td>
+		<td><%= c.select :payroll_category_id,PayrollCategory.all.collect {|e| [e.name,e.id]},{prompt:true},:style =>"width: 175px"%></td></tr>
+
+		<tr><td><b>Status:</b></td>
+		<td> <%= c.radio_button "status", "true", checked: "checked" %> <b>Active</b> 
+		<%= c.radio_button "status", "false"%>
+		 <b>Inactive</b></td></tr>
+
+		<tr><td colspan="3" align="center"><%= c.check_box :is_deduction%>  <b>Is deduction?</b></td></tr>	
+
+		<tr>
+			<td colspan="3" align="center"><%= c.submit 'Create', class: "btn btn-primary"%></td>
+		</tr>
+</tbody>
+</table>
+<%end%>
+
+<% if @payroll_categories1.empty? and @payroll_categories2.empty?%>
+<h3 align="center">No records</h3>
+<%else%>
+<table align="center" class="table table-hover table-bordered" style="width:800px">
+
+	<tr class="tr-head"><th colspan="4">Earnings</th>
+    </tr>
+	<tbody class="product-index">
+
+	<%@payroll_categories1.each do |c| %>
+			<tr>
+			<td class="col-3"><%=c.name%></td>
+			<td class="center">
+              <div class="label-success label label-default">
+              <i class="glyphicon glyphicon-edit icon-white"></i> <%= link_to 'Edit',edit_payroll_category_employee_path(c),remote:true,class: "a-action"%></div></td>
+              <td class="center">
+              <div class="label-danger label label-default">
+              <i class="glyphicon glyphicon-edit icon-white"></i>
+			<%= link_to 'Delete' ,destroy_payroll_category_employee_path(c),remote:true,method: :delete, data: { confirm: "Are you sure to delete #{c.name}?"},class: "a-action"%></div></td>	 
+			<% if c.status? %>
+			<td class="center">
+              <div class="label-success label label-default">
+              <i class="glyphicon glyphicon-edit icon-white"></i><%= link_to 'Active',active_payroll_category_employee_path(c),remote:true, data:{confirm: "Are you sure you want to activate this Category?"},class: "a-action"%></div></td>	
+			<% else %>
+			<td class="center">
+              <div class="label-danger label label-default">
+              <i class="glyphicon glyphicon-edit icon-white"></i><%=link_to 'Inactive',inactive_payroll_category_employee_path(c),remote:true, data:{confirm: "Are you sure you want to inactivate?"},class: "a-action"%></div></td>
+			<%end%> 
+			</tr>
+		<%end%>
+		
+	 </tbody>
+</table>
+<table align="center" class="table table-hover table-bordered" style="width:800px">
+
+	<tr class="tr-head"><th colspan="4">Deductions</th>
+    </tr>
+	<tbody class="product-index">
+	<%@payroll_categories2.each do |c| %>
+			<tr>
+			<td class="col-3"><%=c.name%></td>
+			<td class="center">
+              <div class="label-success label label-default">
+              <i class="glyphicon glyphicon-edit icon-white"></i><%= link_to 'Edit',edit_payroll_category_employee_path(c),remote:true,class: "a-action"%></div></td>
+			<td class="center">
+              <div class="label-danger label label-default">
+              <i class="glyphicon glyphicon-edit icon-white"></i><%= link_to 'Delete' ,destroy_payroll_category_employee_path(c),remote:true,method: :delete, data: { confirm: "Are you sure to delete #{c.name}?"},class: "a-action"%></div></td>	
+			 <% if c.status? %>
+			<td class="center">
+              <div class="label-success label label-default">
+              <i class="glyphicon glyphicon-edit icon-white"></i><%= link_to 'Active',active_payroll_category_employee_path(c),remote:true, data:{confirm: "Are you sure you want to inactivate?"},class: "a-action"%></div></td>	
+			<% else %>
+			<td class="center">
+              <div class="label-danger label label-default">
+              <i class="glyphicon glyphicon-edit icon-white"></i><%=link_to 'Inactive',inactive_payroll_category_employee_path(c),remote:true, data:{confirm: "Are you sure you want to inactivate?"},class: "a-action"%></div></td>
+			<%end%>
+			</tr>
+		<%end%>
+		
+	 </tbody>
+</table>
+<%end%>
+
+

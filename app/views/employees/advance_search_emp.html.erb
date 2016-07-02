@@ -1,0 +1,84 @@
+
+<div>
+  <ul class="breadcrumb">
+   <li><%= link_to 'Home',dashboard_home_index_path %></li>
+     <li><%= link_to 'Human Resources',employees_path %></li>
+     <li><%= link_to 'Employee Search',search_employee_employees_path %></li>
+      <li><%= link_to 'Advance Search', advance_search_employees_path %></li>
+    <li>Advanced Search Result</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right"><%= link_to "Search Again", 'advance_search',class: "btn btn-primary-link btn-xs"%>
+    <% if @employees.present? %>
+    <%employees=[]%>
+    <% @employees.each do |e|%>
+        <% employees<< e %>
+    <%end%>
+    <%end%>
+    <%= link_to "View Pdf Report",{:action =>'advance_search_result_pdf',format:"pdf", :employees=> employees, :search=> @search},method: :post,class: "btn btn-primary-link btn-xs"%>
+</div>
+</div>
+</div>
+<hr>
+
+
+<% if @employees.nil? or @employees.empty? %>
+  <div align="center"><h4>No Employees found</h4></div>
+<% else %>
+<div class="row">
+  <div class="col-md-2"></div>
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+            <h2>You searched for</h2>&nbsp;&nbsp; <%= @search %>
+           </div>
+      <div class="box-content">
+        <table id="datatable" class="table table-striped table-bordered responsive">
+        <thead>
+      <tr class="tr-head">
+        <th class="col-1">
+         Employee Id
+        </th>
+        <th class="col-3">
+          Employee Name
+        </th>
+        <th class="col-3">
+         Employee Department
+        </th>
+        <th>Action</th></tr>
+        </thead>
+        <tbody>
+         <tr class="tr-blank"></tr>
+      <% @employees.each_with_index do |emp,i| %>
+        <tr class="tr-<%= cycle('odd', 'even') %>">
+          <td class="col-1">
+            <%= emp.employee_number %>
+          </td>
+          <td class="col-3">
+            <%= emp.first_name + " " + emp.last_name%>
+          </td>
+          <td class="col-3">
+          <%=  emp.employee_department.name unless emp.employee_department.nil?%>
+          </td>
+          <td class="col-3">
+            <%if Employee.where(id:emp.id).present?%>
+                <%= link_to 'View Profile' ,profile_employees_path(emp)%>
+            <%else%>
+               <%= link_to 'View Profile' ,archived_employee_profile_employees_path(emp)%>
+            <%end%>
+          </td>
+
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+</div>
+</div>
+</div>
+

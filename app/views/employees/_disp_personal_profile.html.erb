@@ -1,0 +1,54 @@
+
+
+<div class="form-group">
+    <h4><b><u><font color="brown">Employee Personal Profile:</font></u></b></h4>
+</div>
+
+<div class="row">
+
+<div class="col-md-6">
+  <div class="form-group">
+    <div class="col-md-6"><b>Date of Birth:</b> </div>
+        <div class="col-md-6"><%= @employee.date_of_birth%></div>
+  </div>
+<br>
+  <div class="form-group">
+    <div class="col-md-6"><b>Marital-Status:</b> </div>
+        <div class="col-md-6"><%= @employee.marital_status%></div>
+  </div>
+<br>
+  <div class="form-group">
+    <div class="col-md-6"><b>Father Name:</b> </div>
+        <div class="col-md-6"><%= @employee.father_name%></div>
+  </div>
+<br>
+  </div>
+  <div class="col-md-6">
+
+  <div class="form-group">
+    <div class="col-md-6"><b>Mother Name :</b> </div>
+        <div class="col-md-6"><%=@employee.mother_name %> </div>
+  </div>
+<br>
+  <div class="form-group">
+    <div class="col-md-6"><b>Blood Group:</b> </div>
+        <div class="col-md-6"><%=@employee.blood_group%> </div>
+  </div>
+<br>
+  <div class="form-group">
+    <div class="col-md-6"><b>Nationality:</b> </div>
+        <div class="col-md-6"><%=@country%></div>
+  </div>
+<br>
+</div>
+</div>
+<div class="row">
+<div class="col-md-5"></div>
+  <div class="col-md-3">
+
+<%= link_to 'Edit',edit_personal_profile_employees_path(@employee),class: "btn btn-success" %>&nbsp;&nbsp;
+<%= link_to 'PDF Report',personal_profile_pdf_employees_path(employee_id:@employee.id,format:"pdf"),class: "btn btn-primary" %>
+</div>
+</div>
+
+</div>

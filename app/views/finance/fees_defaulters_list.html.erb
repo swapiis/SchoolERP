@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      #heading {
+        width:100%;
+        margin: 0 auto;
+      }
+      
+      #head {
+        height: 100px;
+        width: 700px;
+        text-align: center;
+        font-size: 40px;
+        border-color: black;
+
+      }
+      #head_info {
+        text-align: center;
+        font-size: 15px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="heading">
+      <div id="head">
+        <%= @general_setting.school_or_college_name%><br/>
+        <div id="head_info">
+          <%= @general_setting.school_or_college_address%><br/><br/>
+          <%= @general_setting.school_or_college_phone_no%>
+        </div>
+      </div>
+      <hr>
+      <br/><h3><center></center></h3><br/>
+      <table cellpadding="5" cellspacing="5" width="700">
+      <% unless @students.nil?%>    
+        <tr bgcolor="99CCFF">
+          <th>Sl no</th>
+          <th>Admission no</th>
+          <th>Student Name</th>
+        </tr>
+        <% @students.each_with_index do |s,i|%>
+          <%@fee=FinanceFee.find_by_student_id_and_finance_fee_collection_id(s.id,@collection.id)%>
+          <% unless @fee.is_paid? %>
+            <tr>
+              <td><%= i+1 %></td>
+              <td><%= s.admission_no%></td>
+              <td><%= s.first_name+" "+s.last_name %></td>
+            </tr>
+          <%end%>
+        <%end%>
+      <%end%>
+      </table>
+      <br/><br/>
+    </div>
+  </body>
+</html>

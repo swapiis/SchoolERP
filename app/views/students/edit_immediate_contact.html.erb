@@ -1,0 +1,34 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Student Details',students_path %></li>
+    <li><%= link_to 'Profile',profile_student_path(@student.id)%></li>
+    <li>Edit Emergency Contact</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-7">
+    <div class="box-inner">
+      <div class="box-content">
+        <fieldset>
+          <h4>Select one of the contact for Emergency Contact:</h4>
+          <br>
+   	      <%= form_for @student, url:{action:'update_immediatecontact'},method: :patch do |f| %>
+   	        <%= hidden_field_tag :id,@student.id %>	
+	          <% @student.guardians.each do|g|%>
+              <b>
+                <h4>
+                  <%= f.radio_button "immediate_contact",g.id, :checked =>true%>
+  			          <%= g.first_name+" "+g.last_name+" - "+g.relation %>
+                </h4>
+              </b><br>
+	          <%end%>
+		        <div align="center"><%= f.submit 'Finish',class: "btn btn-default"%></div>	
+          <%end%>
+        </fieldset>
+      </div>	
+    </div>
+  </div>
+</div>

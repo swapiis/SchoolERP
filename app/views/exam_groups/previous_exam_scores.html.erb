@@ -1,0 +1,98 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Exams',exams_path%></li>
+    <li><%= link_to 'Exam Management',exam_groups_path%></li>
+    <li><%= link_to 'Previous Exam Data',previous_exam_data_exam_groups_path%></li>
+    <li> Previous Exam Score</li>
+  </ul>
+</div><div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="col-md-12"> 
+    <div class="box-inner"> 
+      <div class="box-header well">
+        <h2>Previous Exam Score</h2>
+      </div>
+      <div class="box-content">
+        <fieldset>
+         <div class="row">
+           <div class="col-md-2"></div>
+           <div class="form-group">
+            <div class="col-md-2">  
+             <b>Exam Name:</b>
+           </div>
+           <div class="col-md-2">  
+            <%= @exam.exam_group.name %>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+       <div class="col-md-2"></div>
+       <div class="form-group">
+        <div class="col-md-2">  
+         <b>Subject Name:</b>
+       </div>
+       <div class="col-md-3">
+           <%= @exam.subject.name %>
+        </div>
+        </div>
+      </div>
+<br>
+<br>
+ <div class="row">
+<div class="col-md-12">
+<table class="table table-hover" style="width:700px">
+  <%=form_for :exams,url:{action:'update_exam_score',id:@exam.id},method: :patch do |f| %>  
+  <tr>
+    <td class="col-3" colspan="3">Exam Name: <%= @exam.exam_group.name %></td>
+  </tr>
+        
+  <tr>
+    <td class="col-3" colspan="3">
+    Subject Name: <%= @exam.subject.name %></td>
+  </tr>
+  <tr class="tr-head">
+    <td class="col-2">Student name</td>
+    <td >Marks</td>
+    <td >Remarks</td>
+    <td ><%= 'Grades' unless @exam.exam_group.exam_type=="Marks"%></td>
+  </tr> 
+<% @exam_scores.each do |es| %>
+<tr>
+<% student=es.student%>
+    <% unless es.nil? %>
+    
+     
+      <td class="col-2"><font color="red"><%= f.label "#{student.first_name+" "+student.last_name}" %></font></td>
+    
+<%else%>
+      <td class="col-2"><%= f.label "#{student.first_name+" "+student.last_name}" %></td>
+    <%end%>
+    <% unless es.nil? %>
+        <td><%= f.text_field "exam[#{student.id}][marks]",value:es.marks%></td>
+        <td><%= f.text_field "exam[#{student.id}][remarks]",value:es.remarks%></td>
+        <td><%= f.text_field "exam[#{student.id}][grades]",value:es.grading_level.name,readonly:true,style:"width:50px" unless @exam.exam_group.exam_type=="Marks"%></td>
+    <%else%>
+      <td><%= f.text_field "exam[#{student.id}][marks]"%></td>
+      <td><%= f.text_field "exam[#{student.id}][remarks]"%></td>
+      <td><%= f.text_field "exam[#{student.id}][grades]",readonly:true,style:"width:50px" unless @exam.exam_group.exam_type=="Marks"%></td>
+    <%end %>   
+</tr>
+<% end %> 
+ <tr class="tr-head"><td colspan="4">
+<%= f.submit 'Submit', class: "btn btn-primary"%>
+<%= link_to 'Finish',exam_groups_previous_exam_data_path, class: "btn btn-primary"%></td>
+</tr>
+<%end%>
+</table>
+
+</div></div>
+  </div>
+</div>
+</fieldset>
+</div>
+</div>
+</div>
+</div>
+

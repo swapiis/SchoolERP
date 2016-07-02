@@ -1,0 +1,22 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Examination',exams_path %></li>
+    <li><%= link_to 'Settings',exam_setting_index_path %></li>
+    <li>Ranking Level</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/><br/>
+<div class="row">
+  <div class="col-md-11 col-md-offset-1">
+    <%= form_for :course, url:{action:'selectrank'},method: :get,remote:true, html:{id:"class_form"} do  |f| %>
+      <b>Select a Course:</b>
+      <%= f.select :id, collect_courses, {prompt:"Select a Course"},{onchange:"class_fun();",class: "form-control",style:"width:300px"} %>
+    <%end%>
+  </div>
+</div>
+<div id="course_div"></div>
+ <div id="myModal" class="modal fade"></div>
+<div id="rank_div"></div>
+ <div id="myModalrank" class="modal fade"></div>

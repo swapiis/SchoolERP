@@ -1,0 +1,20 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+      <li><%= link_to 'Human Resources',employees_path %></li>
+
+      <li><%= link_to 'Setting', settings_employees_path %></li>
+     <li>Employee Department</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+	<div id="add_department">
+
+		<%=render 'department'%>
+
+	</div>
+
+	<div id="myModal" class="modal fade">
+ 	</div>
+ 	
+

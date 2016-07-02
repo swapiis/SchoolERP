@@ -1,0 +1,67 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Finance',finance_index_path %></li>
+    <li><%= link_to 'Transction',transactions_finance_index_path %></li>
+    <li>Add expense</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+      <%= link_to 'View Expense', 'view_expense', class: "btn btn-primary-link btn-xs" %>
+    </div>
+  </div>
+</div>
+<div class="row">
+<div class="box col-md-12">
+  <div class="box-inner">
+    <div class="box-header well">
+      <h2>Add Expenses </h2>
+    </div>
+    <div class="box-content">
+      <%= form_for @transaction, url:{action: 'create_expense'} do |f|%>
+        <fieldset>
+          <%= expense_error! %>
+          <div class="col-sm-5 col-sm-offset-1">
+            <div class="form-group">
+              <b>Title:</b>
+              <span style="color:red">*</span>
+              <%= f.text_field :title,:style =>"width: 300px",placeholder: "Title", class: "form-control"%>
+            </div>
+            <div class="form-group">
+              <b>Description:</b>
+              <span style="color:red">*</span>
+              <%= f.text_field :description,:style =>"width: 300px", placeholder: "Description", class: "form-control"%>
+            </div>
+            <div class="form-group">
+              <b>Amount:</b>
+              <span style="color:red">*</span>
+              <%= f.text_field :amount,:style =>"width: 300px", placeholder: "Amount",class: "form-control" %>
+            </div>
+            </div>
+            <div class="col-sm-5 ">
+            <div class="form-group">
+              <b>Transction Date:</b>
+              <%= f.date_field :transaction_date,class: "form-control datepicker",placeholder: "MM/DD/YYYY"%>
+            </div>
+            <div class="form-group">
+              <b>Category:</b>
+             
+               <%=f.select :finance_transaction_category_id,["Credit_Cards","Debit_Cards","Internet_Banking"],{prompt:true}, {class: "form-control"}%>
+                      
+            </div>
+          </div>
+          <div class="col-sm-5 col-sm-offset-5"> 
+            <div class="form-actions">               
+              <%= f.submit 'Submit', class: "btn btn-primary"%>
+            </div>
+          </div>
+        </fieldset>        
+      <%end%>
+    </div>
+  </div>
+</div>
+</div>
+

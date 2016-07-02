@@ -1,0 +1,46 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%=link_to 'Step 1',admission1_students_path%></li>
+    <li><%=link_to 'Step 2',admission2_students_path(@student.id)%></li>
+    <li>Admission(Step 2.1-Parent/Guardian Details)</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="box col-md-12">
+    <div class="box-inner">
+      <div class="box-header well">
+        <h2>Step 2 - Parent/Guardian Details</h2>
+      </div>
+      <div class="box-content">
+        <h4>
+          <b>
+            Following guardians has been saved for <%=@student.student_name%>
+          </b>
+        </h4><br>
+        <b>
+          <ol>
+            <% @student.guardians.each do |p| %>
+              <li>
+                <h5>
+                  <b>
+                    <%= @student.guard_name(p)%>
+                  </b>
+                </h5>
+              </li>
+            <%end%>
+          </ol>
+        </b>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="pull-right"> 
+              <%= link_to "Add Another Guardian", admission2_students_path(@student),class: "btn btn-primary"%>
+              <%= link_to "Finish",admission3_students_path(@student),class: "btn btn-default"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

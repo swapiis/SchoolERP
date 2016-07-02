@@ -1,0 +1,116 @@
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-2">
+    <div id="legend-symbol"> <div style='width:12px;height:12px;background:#000000; -moz-border-radius:2px; -webkit-border-radius:2px; margin:4px 3px 3px 3px; float:left;'></div></div>
+    <div id="legend-text">Events</div>
+  </div>
+  <div class="col-md-2">
+    <div id="legend-symbol"> <div style='width:12px;height:12px;background:#0C6C92; -moz-border-radius:2px; -webkit-border-radius:2px; margin:4px 3px 3px 3px; float:left;'></div></div>
+    <div id="legend-text">Examinations</div>
+  </div>
+  <div class="col-md-2">
+    <div id="legend-symbol"> <div style='width:12px;height:12px;background:#00b400; -moz-border-radius:2px; -webkit-border-radius:2px; margin:4px 3px 3px 3px; float:left;'></div></div>
+    <div id="legend-text">Holidays</div>
+  </div>
+  <div class="col-md-2">
+    <div id="legend-symbol"> <div style='width:12px;height:12px;background:#b40000; -moz-border-radius:2px; -webkit-border-radius:2px; margin:4px 3px 3px 3px; float:left;'></div></div>
+    <div id="legend-text">Dues</div>
+  </div>
+
+  <div class="col-md-2">
+    <%= link_to "View Events",view_events_calender_index_path,class: "btn btn-primary-link btn-xs"%>
+  </div>
+</div>
+<hr>
+
+<div class="row">
+<div class="box col-md-12">
+  <div class="box-inner">
+    <div class="box-header well" data-original-title="">
+      <h2><i class="glyphicon glyphicon-calendar"></i> Calendar</h2>
+      
+    </div>
+  <div class="box-content">
+    <div id="calendar" class="fc fc-ltr">
+  
+ <div class="row">
+        <div class="col-md-12">
+          <div align="center">
+         
+           <h3> <%= link_to "◄ Previous", change_calender_path(@show_month-1.month),remote:true,class: "fc-button fc-button-prev fc-state-default"%>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <span align="center"><%= @show_month.strftime('%B %Y') %></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <%= link_to "Next ► ", change_calender_path(@show_month+1.month),remote:true  ,class: "fc-button fc-button-prev fc-state-default"%>
+          <div class="pull-right">
+            <span class="fc-button fc-button-month fc-state-default fc-corner-left fc-state-active" unselectable="on">Month View</span>
+          </div>
+          </h3>
+          </div>
+        </div>
+</div>
+
+<br>
+<div class="fc-content" style="position: relative;">
+      <div class="fc-view fc-view-month fc-grid" style="position:relative">
+        <table class="fc-border-separate" style="width:100%" cellspacing="0">
+          <thead>
+            <tr class="fc-first fc-last">
+            <% @days_of_week= ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"] %>
+            <% @days_of_week.each do |d| %>
+              <th class="fc-day-header fc-widget-header" style="width: 136px;"><%= d %></th>
+            <% end %>
+            </tr>
+          </thead>
+
+          <tbody>
+          <% (1..6).each do |r|%>
+            <tr class="fc-week">
+              <% (1..7).each do |c|%>
+              <td class="fc-day fc-widget-content">
+                <div style="min-height: 50px;">
+                <% dt = c - @start_date_day + (r-1)*7 %>
+                <% unless (r == 1 and c <= @start_date_day) %>
+                  <% unless dt > @last_day.day %>
+                      <% current_date="#{@show_month.year}-#{@show_month.month}-#{dt}".to_date %>
+                      <div class="fc-day-number">
+                    <%=link_to dt,new_event_path(current_date), style: 'font-size:20px'%>
+                      </div>
+                      <% @event=Event.where("start_date<=? AND end_date>=?",current_date,current_date)%>
+                      <div class="fc-day-content">
+                      <% @event.each do |event|%>
+                      <% unless event.nil? %>
+                      <% if event.is_holiday? %>
+                        <%= form_for :calendar, url:{action:'event_view',event_id:event.id },method: :get,remote:true,html:{id: "calender_form#{event.id}"} do |f| %>
+                        <%= link_to event.title,'#',{onclick:"$('#calender_form#{event.id}').submit();",style: "height:12px;font:bold;color:#fff;background:#00b400; -moz-border-radius:2px;  -webkit-border-radius:2px;margin:2px;"}%>
+                        <%end%>
+                       <% elsif event.is_exam?%>
+                        <%= form_for :calendar, url:{action:'event_view',event_id:event.id },method: :get,remote:true,html:{id: "calender_form#{event.id}"} do |f| %>
+                        <%= link_to event.title,'#',{onclick:"$('#calender_form#{event.id}').submit();",style:'color:#fff;font:bold;height:12px;background:#0C6C92; -moz-border-radius:2px;  -webkit-border-radius:2px;margin:2px;'}%>
+                        <%end%>
+                      <% else%>
+                        <%= form_for :calendar, url:{action:'event_view',event_id:event.id },method: :get,remote:true,html:{id: "calender_form#{event.id}"} do |f| %>
+                        <%= link_to event.title,'#',{onclick:"$('#calender_form#{event.id}').submit();",style:'color:#fff;font:bold;height:12px;background:#000000; -moz-border-radius:2px;  -webkit-border-radius:2px;margin:2px;'}%>
+                        <%end%>
+                      <%end%>
+                      <%end%>
+                      <%end%>
+                    <% date = "#{@show_month.year}-#{@show_month.month}-#{dt}".to_date
+                    first_day = date.beginning_of_month
+                    last_day = date.end_of_month %>
+                    </div>
+                  <% end %>
+                  <%end%>
+                </div>
+              </td>
+              <% end %>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    </div>
+  </div>
+  </div>
+</div>
+</div>

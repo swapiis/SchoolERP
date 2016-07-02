@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Educulture</title>
+  <%= stylesheet_link_tag 'vendor'%>
+</head>
+<body>
+<div class="ch-container">
+
+   <div class="row">
+      <div class="col-md-6 center login-header">
+        <h2>Axenic School</h2>
+      </div>
+      </div>
+   
+      <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+  		<div class="box-inner">
+ 			<div class="box-header well">
+ 				<h2>Change your password</h2>
+			</div>
+ 		<div class="box-content">
+ 			
+	<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+  <%= devise_error_messages! %>
+  <%= f.hidden_field :reset_password_token %>
+ 	<fieldset>
+ 	 <div class="row">
+  <div class="form-group">
+ <div class="col-sm-4"><b>New password:</b></div>
+     <div class="col-sm-7"><%= f.password_field :password, autofocus: true, autocomplete: "off" ,class: "form-control"%></div>
+   </div></div>
+    <div class="row">
+<br>
+  <div class="form-group">
+     <div class="col-sm-4"><b>Confirm new password:</b></div>
+    <div class="col-sm-7"><%= f.password_field :password_confirmation, autocomplete: "off",class: "form-control"%></div>
+   </div></div>
+<br><br>
+  <div align="center"><%= f.submit "Change my password" ,class: "btn btn-success"%></div>
+  <div class="pull-right"><%= render "devise/shared/links" %></div>
+ </fieldset>
+<% end %>
+
+
+
+</div>
+</div>
+ </div>
+<br>
+
+
+</body>
+</html>
+
+

@@ -1,0 +1,41 @@
+<div class="modal-body">
+<div class="errors">
+<ul class="errors"></ul></div>
+<%= form_for [@course,@rank_lev1],url:{:action=>'createrank',course_id: @course.id},method: :post,remote: true do |f|%>
+<div class="form-group">
+  <b>Name:</b>
+  <%=f.text_field :name ,style: "width: 300px",placeholder:"Rank",class: "form-control"%>
+</div>
+<div class="form-group">
+  <b>Marks(%):</b>
+  <%=f.text_field :marks,style: "width: 300px",placeholder:"Marks(%)",class: "form-control"%>
+</div>
+<div class="form-group">
+ <b>Marks Limit Type:</b>
+  <%=f.select :marks_limit_type, ["Upper", "Lower", "Exact"] , {}, {class: "form-control",style: "width: 300px"}%>
+</div>
+<div class="form-group">
+  <b>Numder of Subject:</b>
+  <%=f.text_field :subject_count ,style: "width: 300px",placeholder:"Number of Subject",class: "form-control"%>
+</div>
+<div class="form-group">
+  <b>Subject Limit Type:</b>
+  <%=f.select :subject_limit_type, ["Upper", "Lower", "Exact"] ,{}, {class: "form-control",style: "width: 300px"}%>
+</div>
+<div class="form-group">
+  <%=f.check_box :full_course, :checked => false%>
+  &nbsp;&nbsp;
+  <%= f.label :Consider_full_course_duration? , class: "control-label"%>
+</div>
+<hr>
+<div class="row">
+  <div class="col-md-12">
+    <center>
+      <%= f.submit 'Submit', class: "btn btn-primary"%>&nbsp;
+      <%= link_to 'Cancel', '#', class: "btn btn-default",data:{dismiss:"modal"}%>
+    </center>
+  </div>
+</div>
+
+<% end %>
+</div>

@@ -1,0 +1,36 @@
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  <h3><%= "Attendance for " %><span><%= @student.first_name%></span></h3>
+</div>
+<div class="modal-body">
+<ul class="errors"></ul>
+<%= form_for @attendence,url:{action:'create',subject_id:@subject_id},remote:true  do |f|%>
+  <div class="row">
+    <div class="col-md-1"></div>
+      <div class="col-md-8">
+      <div class="form-group">
+  
+    <%=f.hidden_field :student_id,value:@student.id %>
+    <%=f.hidden_field :month_date,value:@date %>
+    <%=f.hidden_field :batch_id,value:@student.batch.id %>
+    <%=f.hidden_field :time_table_entry_id,value:@time_table_entry_id %>
+ 
+        <b>Reason for Absence:</b>
+        <%= f.text_field :reason, class: 'form-control', placeholder: 'Reason for Absence',style:"width:300px"%>
+      </div>
+    
+       <div class="form-group">
+        
+        <%= f.submit 'Add', class: "btn btn-primary"%>
+        <%= link_to 'Close', '#', class: "btn btn-default", :'data-dismiss'=>"modal"%>
+        </div>
+        </div>
+        </div>
+     
+<% end %>
+
+</div>
+</div>
+</div>

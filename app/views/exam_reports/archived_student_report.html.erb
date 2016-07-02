@@ -1,0 +1,33 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Examination',exams_path%></li>
+      <li><%= link_to 'Report Center', report_center_exam_reports_path %></li>
+    <li>Archived Student Report</li>
+    </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/>
+<div class="row">
+  <div class="col-md-1"></div>
+    <div class="box col-md-6">
+
+   <% unless flash[:notice_arch].nil? %>
+    <div class="alert alert-danger" align="center" style="width:100%"> <%= flash[:notice_arch] %> </div>
+    <%end %>
+
+<%= form_for :course_select, :url=>{:action=>'select_course'},html:{id: 'form_course'},remote:true,method: :get do |f| %>
+
+
+<b>Select a Course:</b>
+      <%= f.select :id, @courses.collect {|c| [c.course_name,c.id]},{prompt:true},{onchange:"$('#form_course').submit();",class:"form-control",style: "width: 300px"}%>
+
+  <% end %>
+</div>
+</div>
+  <div class="row">
+  <div class="col-md-1"></div>
+    <div class="box col-md-6">
+      <div id="archived_report"></div>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+      <%= link_to 'Add Grade', new_batch_grading_level_path(@batch),remote:true , class: "btn btn-primary-link btn-xs" %>
+    </div>
+  </div>
+</div>
+ 
+<div class="row">
+  <div class="box col-md-12">
+  <div class="box-inner">
+    <div class="box-header well">
+      <h2>Grade Details</h2>
+    </div>
+    <div class="box-content">
+      <table id="datatable" class="table table-striped table-bordered responsive">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Minimum Score</th>
+            <th>Description</th>
+            <th>Action</th>
+          </tr>
+         </thead>
+         <tr>
+           <td colspan="4"><%=grading_not_found!%></td>
+          </tr>
+         <tbody>
+            
+            <% @grading_levels.each do |gl| %>
+              <tr>
+                <td><%= gl.name %></td>
+                <td><%= gl.min_score %></td>
+                <td><%= gl.description%></td>
+                <td class="center">
+                  <div class="label-success label label-default">
+                  <i class="glyphicon glyphicon-edit icon-white"></i> 
+                  <%= link_to 'Edit' ,edit_batch_grading_level_path(gl.batch,gl),remote:true,class: "a-action"%></div>
+
+                  <div class="label-danger label label-default">
+                  <i class="glyphicon glyphicon-trash icon-white"></i> 
+                  <%= link_to 'Delete' ,[gl.batch,gl],method: :delete, data: { confirm: "Are you sure to delete #{gl.name} grade?" }, class: "a-action"%></div>
+                </td>
+              </tr>
+          </tbody>
+        <%end%>
+      </table>
+    </div>
+  </div>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="box col-md-12">
+	  <div class="box-inner">
+	    <div class="box-header well">
+	      <h2>Particular Details</h2>
+	    </div>
+	    <div class="box-content">
+		    <% unless @particular_fees.empty?%>
+		      <table id="datatable" class="table table-striped table-bordered responsive">
+		        <thead>
+		          <tr>
+		            <th>Category</th>
+								<th>Student Category</th>
+								<th>Admission No</th>
+								<th>Amount(Rs.)</th>
+								<th>Created Date</th>
+								<th>Action</th>
+		          </tr>
+		        </thead>
+		        <tbody>
+		        <% @particular_fees.each do |m| %>
+		          <tr>
+		            <td class="col-3"><%= m.name %></td>
+								<td class="col-3"><%= m.category.nil? ? "-": m.category.name%></td>
+								<td class="col-3"><%= m.admission_no.nil? ? "-": m.admission_no%></td>
+								<td class="col-3"><%= m.amount %></td>
+								<td class="col-3"><%= m.created_at.to_date%></td>
+		            <td class="center">
+		              <div class="label-success label label-default">
+		              <i class="glyphicon glyphicon-edit icon-white"></i> 
+		              <%= link_to 'Edit',edit_particular_fee_finance_path(m,master_id:@master_category.id,batch_id:@batch.id),remote:true, class: 'a-action'%></div>
+		              <div class="label-danger label label-default">
+		              <i class="glyphicon glyphicon-trash icon-white"></i> 
+		              <%= link_to 'Delete',delete_particular_fee_finance_path(@master_category,fee:m,batch_id:@batch.id),method: :delete, data:{confirm:"Are You sure to delete '#{m.name}'?"}, class: 'a-action'%></div>
+		            </td>
+		          </tr>
+		        <% end %>
+		        </tbody>
+		      </table>
+		    <%else%>
+					<center><h5>No particulars found for this fee category</h5></center>
+				<%end%>
+	    </div>
+	  </div>
+  </div>
+</div>

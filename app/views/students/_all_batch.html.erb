@@ -1,0 +1,3 @@
+<% unless @batches.nil? %>
+<%=select :batch,:id,@batches.collect {|b| [b.name,b.id]},{prompt:true},{class:"form-control"}%>
+<%end%>

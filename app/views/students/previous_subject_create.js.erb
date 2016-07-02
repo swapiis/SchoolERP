@@ -1,0 +1,10 @@
+$("ul.errors").html("")
+<% if  @previous_subject.errors.any? %>
+		<%  @previous_subject.errors.full_messages.each do |message| %>
+		$("ul.errors").addClass("alert alert-danger alert-dismissable")
+		$("ul.errors").append($("<p />").addClass("icon-remove-sign").html("<%= message.html_safe %>"))
+		<% end %>
+<% else %>
+  $("#myModal").modal('hide');
+  $("#display_subject_mark").html("<%= j render 'subject_mark_details' %>");
+<% end %>

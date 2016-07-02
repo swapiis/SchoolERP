@@ -1,0 +1,212 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Student Details',students_path %></li>
+    <li><%= link_to 'Profile',profile_student_path(@student.id)%></li>
+    <li>Edit- Student details</li>
+  </ul>
+</div>
+Note:&nbsp;&nbsp;<font color="red">Fields marked with * must be filled</font>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="box col-md-12">
+    <div class="box-inner">
+      <div class="box-header well">
+        <h2>Step 1 - Personal Details</h2>
+      </div>
+      <div class="box-content">
+        <%= form_for @student do |f| %>
+        <fieldset>
+          <%= admission1_error! %>
+          <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+              <div class="row">
+                <div class="col-sm-4 ">
+                  <div class="form-group">
+                    <b>Admission Number:</b>
+                    <span style="color:red">*</span>
+                    <%=f.text_field :admission_no, :value=> @student.admission_no , readonly: true, class: "form-control"%>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-sm-offset-1">
+                 <div class="form-group">
+                   <b>Admission Date:</b>
+                   <span style="color:red">*</span>
+                   <%=f.date_field :admission_date ,:value => Time.now.strftime('%Y-%m-%d'),class: "form-control"%>
+                 </div>
+               </div>
+              </div>
+             <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                 <b>First Name:</b>
+                 <span style="color:red">*</span>
+                 <%=f.text_field :first_name,placeholder: "First Name", class: "form-control"%>
+               </div>
+             </div>
+             <div class="col-md-3">
+              <div class="form-group">
+                <b>Middle Name:</b>
+                <%=f.text_field :middle_name, :required=>false ,placeholder: "Middle Name", class: "form-control"%>
+              </div>
+            </div>
+            <div class="col-md-3">
+             <div class="form-group">
+               <b>Last Name:</b>
+               <span style="color:red">*</span>
+               <%=f.text_field :last_name,placeholder: "Last Name",class: "form-control"%>
+             </div>
+           </div>
+         </div>
+         <div class="row">
+          <div class="col-md-4">
+           <div class="form-group">
+             <b>Course and Batch:</b>
+             <span style="color:red">*</span>
+             <%=f.select :batch_id, @batches.collect {|b| [b.course.course_name+" "+b.course.section_name+" - "+b.name,b.id]}, {prompt:true}, {class: "form-control"}%>
+           </div>
+         </div>
+         <div class="col-md-4 col-sm-offset-1">
+           <div class="form-group">
+             <b>Date of Birth:</b>
+             <span style="color:red">*</span>
+             <%=f.date_field :date_of_birth , class: "form-control"%>
+           </div>
+         </div>
+       </div>
+       <div class="row">
+        <div class="col-md-4">
+         <div class="form-group">
+           <b>Gender:</b>
+           <span style="color:red">*</span>&nbsp;&nbsp;
+           <%= f.radio_button  "gender","Male", :checked => "checked" %>&nbsp;&nbsp;<b>Male</b>&nbsp;&nbsp;
+           &nbsp;<%= f.radio_button  "gender","Female"%>&nbsp;&nbsp;<b>Female</b>
+         </div>
+       </div>
+       <div class="col-md-4 col-sm-offset-1">
+         <div class="form-group">
+           <b>Blood Group:</b>
+           <%=f.select :blood_group, ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"],{prompt:true}, {class: "form-control"}%>
+         </div>
+       </div>
+     </div>
+     <div class="row">
+      <div class="col-md-4">
+       <div class="form-group">
+         <b>Birth Place:</b>
+         <%=f.text_field :birth_place ,placeholder: "Birth Place",class: "form-control"%>
+       </div>
+     </div>
+     <div class="col-md-4 col-sm-offset-1">
+       <div class="form-group">
+         <b>Nationality:</b>
+         <span style="color:red">*</span>
+         <%=f.select :nationality_id,Country.all.collect{|c| [c.name,c.id]},{prompt:true},{class: "form-control"}%>
+       </div>
+     </div>
+   </div>
+   <div class="row">
+    <div class="col-md-4">
+     <div class="form-group">
+       <b>Mother Tongue:</b>
+       <%=f.text_field :language,placeholder: "Mother Tongue",class: "form-control"%>
+     </div>
+   </div>
+   <div class="col-sm-4 col-sm-offset-1">
+    <div class="form-group">
+     <b>Category:</b>
+     <span style="color:red">*</span>
+     <%=f.select :category_id, Category.all.collect{|c| [c.name,c.id]},{prompt:true},{class: "form-control"}%>
+   </div>
+ </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <div class="form-group">
+     <b>Religion:</b>
+     <%=f.text_field :religion,placeholder: "Religion",class: "form-control"%>
+   </div>
+ </div>
+ <div class="col-md-4 col-sm-offset-1">
+  <div class="form-group ">
+   <b>Address Line1:</b>
+   <%=f.text_field :address_line1,placeholder: "Address Line1",class: "form-control"%>
+ </div>
+</div>
+</div>
+<div class="row">
+  <div class="col-md-4 ">
+    <div class="form-group">
+      <b>Address Line2:</b>
+      <%=f.text_field :address_line2,placeholder: "Address Line2",class: "form-control"%>
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-offset-1">
+    <div class="form-group">
+     <b>City:</b>
+     <%=f.text_field :city,placeholder: "City",class: "form-control"%>
+   </div>
+ </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <div class="form-group">
+      <b>State:</b>
+      <%=f.text_field :state,placeholder: "State",class: "form-control"%>
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-offset-1">
+    <div class="form-group">
+     <b>Pin Code:</b>
+     <%=f.text_field :pin_code,placeholder: "Pin Code",class: "form-control"%>
+   </div>
+ </div></div>
+ <div class="row">
+  <div class="col-md-4">
+    <div class="form-group">
+     <b>Country:</b>
+     <span style="color:red">*</span>
+     <%=f.select :country_id,Country.all.collect{|c| [c.name,c.id]},{prompt:true},{class: "form-control"}%>
+   </div>
+ </div>
+ <div class="col-md-4 col-sm-offset-1">
+  <div class="form-group">
+   <b>Phone Number:</b>
+   <%=f.text_field :phone1,placeholder: "Phone Number",class: "form-control"%>
+ </div>
+</div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <div class="form-group">
+     <b>Mobile Number:</b>
+     <%=f.text_field :phone2,placeholder: "Mobile Number",class: "form-control"%>
+   </div>
+ </div>
+ <div class="col-md-4 col-sm-offset-1">
+  <div class="form-group">
+    <b>Email:</b>
+    <span style="color:red">*</span>
+    <%=f.text_field :email,placeholder: "Email",class: "form-control"%>
+  </div>
+</div>
+</div>
+<div class="row">
+  <div class="col-md-10 col-md-offset-2">
+    <div class="form-group">
+      <div class="col-md-4"> <b> Upload Photo:</b>
+     <%=f.file_field :image,class: "form-control",style: "height:auto"%></div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="col-md-6 col-md-offset-5">           
+  <%= f.submit 'Update', class: "btn btn-success"%></div>
+</fieldset>        
+<% end %>
+</div> 
+</div>
+</div>
+</div>

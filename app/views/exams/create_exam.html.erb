@@ -1,0 +1,22 @@
+<div id="content-header">
+  <h1>Exam</h1>
+  <h3>create exam</h3>
+  <div id="app-back-button">
+  </div>
+ <div></div>
+</div>
+<%= exam_error_messages! %>
+<%= form_for @exam do |f|%>			
+<div class="container"> 
+	<div class="row">
+		<div class="col-md-1"></div>
+		<div class="col-md-2">
+			<div><%=f.label :name %></div>
+		</div>
+		<div class="col-md-3">
+			<div><%= f.text_field :exam_type,:style =>"width: 250px",class: "form-control"%></div>
+		</div>
+		<div class="col-md-1"></div>
+	</div>
+</div>
+<%end%>

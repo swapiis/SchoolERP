@@ -1,0 +1,28 @@
+
+<%=form_for :payslip,url:{action:'one_click_payslip_generate'} do |f| %>
+
+<div class="box-inner">
+	<div class="box-content">
+		<fieldset>
+			
+			<div class="row">
+				
+				<div class="col-md-3 col-md-offset-1">
+					<b>Salary Date:</b>
+				</div>
+				<div class="col-md-5">
+					<%=f.date_field :joining_date,:value => Time.now.strftime('%Y-%m-%d'),class: "form-control",style:"width:200px"%>
+				</div>
+				
+				
+				<div class="col-md-2 col-md-offset-1"><%=f.submit :'►go',class:'btn btn-primary'%></div>
+			</div>
+
+		</div>
+	</fieldset>
+</div>
+
+
+
+
+<%end%>

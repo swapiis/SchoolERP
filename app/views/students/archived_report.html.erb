@@ -1,0 +1,88 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Student Details',students_path %></li>
+    <li><%= link_to 'Profile',archived_profile_student_path(@student.id)%></li>
+    <li>Report Center</li>
+  </ul>
+</div><div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+     <%= link_to 'Pdf Report',{action:'archived_student_transcript_report',format:"pdf",student_id:@student.student_id},class: "btn btn-primary-link btn-xs"%>
+   </div>
+ </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-6">
+    <h4><label  class="field-label label label-default" style="margin-right:100px" >Name</label>: <label class="infolbl themed_text "> <%= @student.first_name.capitalize+" "+@student.last_name.capitalize %></label></h4>
+    <h4><label class="field-label label label-default" style="margin-right:90px">Course</label>: <label class="infolbl themed_text"> <%= @student.batch.course.course_name %></label></h4>
+    <h4><label class="field-label label label-default" style="margin-right:35px">Addmission No</label>: <label class="infolbl themed_text" > <%= @student.admission_no  %></label></h4>
+  </div>
+</div>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-9">
+    <div class="box-inner">
+      <div class="box-header well">
+        <h2>
+          <% general_subjects = @batch.subjects.where(elective_group_id:nil) %>
+          <% student_electives = StudentSubject.where(student_id: @student.student_id,batch_id: @batch.id) %>
+          <% elective_subjects = [] %>
+          <% student_electives.each do |elect| %>
+          <% elective_subjects.push Subject.find(elect.subject_id) %>
+          <% end %>
+          <% @subjects = general_subjects + elective_subjects %>
+          <% unless @subjects.empty? %>
+          <div class="batch-name" style="color:blue"><h4><%= "(Code -"+@batch.course.code+") "+@batch.name.capitalize %></h4></div></h2>
+        </div>
+        <div class="box-content" style="overflow-y: scroll; height:auto">
+          <fieldset>
+            <% total_credits=0 %>
+            <div id="score-table" >
+              <table id="listing" class="table-bordered" width="100%" cellpadding="1" cellspacing="1">
+                <tr class="tr-head">
+                  <td class="col-2"><font color="blue">Subject Code</font></td>
+                  <td class="col-2"><font color="blue">Subject Title</font></td>
+                  <td class="col-2"><font color="blue">Percentage(%)</font></td>
+                </tr>
+                <% max_total = 0 %>
+                <% marks_total = 0 %>
+                <% @mark = 0 %>
+                <% @total = 0 %>
+                <% @subjects.each do |subject| %>
+                <% @exam_groups.each do |exam_group| %>
+                <% if exam_group.result_published? %>
+                <% @exam = Exam.find_by_subject_id_and_exam_group_id(subject.id,exam_group.id) %>
+                <% exam_score = ExamScore.find_by_student_id_and_exam_id(@student.student_id,@exam.id) unless @exam.nil? %>
+                <% max_total += @exam.maximum_marks %>
+                <% marks_total += exam_score.marks%>
+                <% @mark += exam_score.marks %>
+                <% @total += @exam.maximum_marks %>
+                <% end %>
+                <%end%>
+                <tr class="tr-<%= cycle('odd', 'even') %>">
+                  <td class="col-1"> <%= subject.code %></td>
+                  <td class="col-3"> <%= subject.name %></td>
+                  <td class="col-3"><%="%.2f" %(marks_total*100/max_total)+"%" unless max_total==0 %></td>
+                </tr>
+                <% max_total = 0 %>
+                <% marks_total = 0 %>
+                <% end %>
+                <tr class="tr-blank"></tr>
+                <tr class="tr-head">
+                  <td colspan="2" align="right"><font color="blue">Total</font></td>
+                  <td><%="%.2f" %(@mark*100/@total)+"%" unless @total==0 %></td>
+                </tr>
+              </table>
+              <%else%>
+              <h4>Subject Not Found</h4>
+              <%end%>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+  </div>

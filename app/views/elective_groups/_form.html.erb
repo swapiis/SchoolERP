@@ -1,0 +1,23 @@
+<div class="modal-body">
+<div class="errors">
+	<ul class="errors"></ul></div>
+<%= form_for [@batch, @elective_group],remote: true do |f|%>
+         
+        <div class="form-group"> 
+          <div class="col-sm-3"> <b>Name:</b>
+          <span style="color:red">*</span></div>
+          <div class="col-sm-9">  <%=f.text_field :name , class: "form-control",placeholder: "Elective Group"%></div>
+        </div>
+         <br><br>
+         <hr>
+        <div class="form-group">
+          <div class="col-sm-offset-3">
+          &nbsp;&nbsp;
+           <%= f.submit 'Submit', class: "btn btn-primary"%>
+           &nbsp;
+	        <%= link_to 'cancel', '#', class: "btn btn-default",data:{dismiss:"modal"}%>
+	        </div>
+	      </div>
+
+<% end %>
+</div>

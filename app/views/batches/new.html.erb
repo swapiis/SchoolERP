@@ -1,0 +1,56 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Settings',setting_index_path %></li>
+    <li><%= link_to 'Manage Course / Batch',course_batch_setting_index_path %></li>
+    <li><%= link_to 'Course',courses_path %></li>
+    <li><%= link_to 'Batch',course_path(@batch.course)%></li>
+    <li>New</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/>
+
+<div class="row">
+  <div class="col-md-2"></div>
+    <div class="box col-md-6">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2>New Batch
+                </h2>
+            </div>
+
+            <div class="box-content">
+            <%= form_for ([@course,@batch ]) do |b|%>
+
+            <fieldset>
+             <%=batch_error!%>
+        <div class="col-sm-7 col-sm-offset-1">
+                  <div class="form-group">
+                    <b>Name :</b>
+            <%=b.text_field :name, class: "form-control", style: "width: 350px", placeholder: "Batch Name"%>
+                  </div>
+                  <div class="form-group">
+                  <b>Start Date :</b>
+                  <%= b.date_field :start_date, class: "form-control",  placeholder: "Start date", :style=>"width:350px"%>
+                </div>
+                <div class="form-group">
+                  <b>End Date :</b>
+
+                  <%= b.date_field :end_date, class: "form-control",  placeholder: "End date", :style=>"width:350px"%>
+                </div>
+
+                
+              <div class="col-sm-7 col-sm-offset-6"> 
+                <div class="form-actions">               
+                <%= b.submit 'Create', class: "btn btn-primary"%>
+                </div>
+            </div>
+                
+              </div>
+            </fieldset>
+            <% end %>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,131 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path%></li>
+    <li><%= link_to 'Examination','/exams'%></li>
+    <li>Report Center</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/>
+
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-3">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to 'Exam Wise Report','exam_wise_report' %></h2>
+      </div>
+      <div class="box-content">
+       Generate exam wise reports.
+      </div>
+    </div>
+  </div>
+  <div class="box col-md-3">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2> <%= link_to 'Subject Wise Report' ,'subject_wise_report'%></h2>
+      </div>
+      <div class="box-content">
+         Generate subject wise reports.
+      </div>
+    </div>
+  </div>
+  <div class="box col-md-3">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2> <%= link_to 'Grouped Exam Reports','grouped_exam_report'%></h2>
+      </div>
+      <div class="box-content">
+         Group up exams for specific reports.
+      </div>
+    </div>
+  </div>
+</div>
+<br/>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-3">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to 'Archived Student Reports' , 'archived_student_report' %></h2>
+      </div>
+      <div class="box-content">
+       Generates grouped exam reports for archived students.
+      </div>
+    </div>
+  </div>
+
+  <div class="box col-md-3">
+  <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2> <%= link_to 'Student Ranking per Subject' ,'student_ranking_per_subject' %></h2>
+      </div>
+      <div class="box-content">
+      Generates reports for subject wise student rank.
+      </div>
+    </div>
+  </div>
+ 
+  <div class="box col-md-3">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2> <%= link_to 'Student Ranking per Batch' ,'student_ranking_per_batch'%>
+        </h2>
+      </div>
+      <div class="box-content">
+        Generates reports for batch wise overall student rank.
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-3">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to 'Student Ranking per Course' ,'student_ranking_per_course'%></h2>
+      </div>
+      <div class="box-content">
+      Generates reports for course wise overall student rank.
+      </div>
+    </div>
+  </div>
+
+  <div class="box col-md-3">
+  <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to 'Student Ranking per School', 'student_ranking_per_school' %></h2>
+      </div>
+      <div class="box-content">
+      Generates reports for overall student rank for this school.
+      </div>
+    </div>
+  </div>
+ 
+  <div class="box col-md-3">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2> <%= link_to 'Ranking per Attendance','student_ranking_per_attendance'%>
+        </h2>
+      </div>
+      <div class="box-content">
+          Generates reports for Batch wise Student Rank per Attendance.
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-3">
+  <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to 'View Transcripts' , 'view_transcripts'%></h2>
+      </div>
+      <div class="box-content">
+       Generates student transcripts.
+      </div>
+    </div>
+  </div>
+</div>

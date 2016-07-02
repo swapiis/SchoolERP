@@ -1,0 +1,59 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'News', newscasts_path %></li>
+    <li><%= @newscast.title %></li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/>
+<% if current_user.id == @newscast.user.id %>
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+      <%= link_to 'Edit News', edit_newscast_path(@newscast), class: "btn btn-primary-link btn-xs"%>
+      <%= link_to 'Delete News',newscast_path(@newscast),method: :delete, class: "btn btn-primary-link btn-xs", data: { confirm: "Are you sure delete New: #{@newscast.title}?" } %>
+    </div>
+  </div>
+</div>
+<hr>
+<% end %> 
+<div class="col-md-6">
+ <div class="box-inner">
+  <div class="box-header well" data-original-title="">
+    <h2><%= @newscast.title %></h2>
+  </div>
+  <div class="box-content">
+   <b> Posted by</b>&nbsp;&nbsp;<%= @newscast.user.full_name %>
+   <br>
+   <b> Posted on</b>&nbsp;&nbsp;<%= @newscast.created_at.strftime("%A, %d %B, %Y") %>
+   <br>
+   <h4> <%= sanitize @newscast.content , :tags => %w[b i a h1 h2 h3 u strike p], :attributes => %w[href]%></h4>
+   <hr>
+   <%= form_for([@newscast, @newscast.comments.build]) do |f| %>
+   <%= comment_error! %>
+   <br/>
+
+  <%= f.text_field :statement,class: "form-control",placeholder: "Leave a comment"%><br/>
+  <div align="center">
+    <%= f.submit 'Comment', class: "btn btn-success" %></div>
+    <% end %>
+  </div>
+</div>
+</div>
+<div class="col-md-6" >
+  <div class="box-inner" >
+    <div class="box-header well">
+     <h2>Comments</h2>
+   </div>
+   <div class="box-content" style="overflow-y: scroll; height:500px">
+    <ul id="comments-list">
+      <%= render @newscast.comments.includes(:user).order(created_at: :desc) %>
+      <h3 id="comments-heading"></h3>
+    </ul>    
+  </div>
+</div>
+</div>
+
+
+

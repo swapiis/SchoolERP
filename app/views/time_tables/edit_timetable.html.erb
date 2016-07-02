@@ -1,0 +1,38 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Timetable',time_tables_path %></li>
+    
+    <li>Edit Timetable</li>
+  </ul>
+</div><div id="flash"><%= render 'layouts/messages'%></div>
+<br/><br/>
+<div class="row">
+  <div class="box col-md-12">
+    <div class="box-inner">
+      <div class="box-header well">
+        <h2>Timetable Details</h2>
+      </div>
+
+      <div class="box-content" style="overflow-y: scroll; height:auto">
+       <table id="datatable" class="table table-striped table-bordered responsive">
+        <thead>
+          <tr>
+            <th>Sl No.</th>
+            <th>Period</th>
+          </tr>
+        </thead>
+          
+        <tbody>
+        <% @timetables.each_with_index do |tt,i| %>
+        <tr>
+          <td><b><%= i+1 %></b></td>
+          <td><b><%=link_to "#{I18n.l(tt.start_date,:format=>"%d %b %Y")}  -  #{I18n.l(tt.end_date,:format=>"%d %b %Y")}",update_timetable_time_tables_path(tt.id)%></b></td>
+        </tr>     
+        <%end%>  
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+</div>

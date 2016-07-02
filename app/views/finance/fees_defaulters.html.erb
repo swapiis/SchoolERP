@@ -1,0 +1,27 @@
+<div id="myModal" class="modal fade"></div>
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Finance',finance_index_path %></li>
+    <li><%= link_to 'Manage Fees',fees_finance_index_path %></li>
+    <li>Fees defaulters</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-4">
+    <div class="form-group">
+      <b>Select a Course:</b>
+      <%= select :course,:id,collect_only_course,{prompt:true},{onchange:"var a={id: $('#course_id').val()};$.get('batch_choice',a,function(response){});",class: "form-control"}%>
+    </div>
+    <div class="form-group">
+      <div id="batch"><%= render 'batch_choice'%></div>
+    </div>
+    <div class="form-group">
+      <div id="collection"><%= render 'collection_choice'%></div>
+    </div>
+  </div>
+</div>
+<div id="students_list"></div>
+

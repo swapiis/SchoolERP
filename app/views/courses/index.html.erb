@@ -1,0 +1,12 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Settings',setting_index_path %></li>
+    <li><%= link_to 'Manage Course / Batch', course_batch_setting_index_path %></li>
+    <li>Course</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div id="view_details"><%= render 'view' %></div>
+<div id="modal" class="modal fade"></div>
+  

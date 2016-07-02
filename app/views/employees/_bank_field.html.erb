@@ -1,0 +1,130 @@
+
+ <div class="row">
+<div class="col-md-3"></div>
+<div class="box col-md-6">
+  <div class="box-inner">
+    <div class="box-header well">
+      <h2>Add Bank Details</h2>
+    </div>
+  <div class="box-content">
+<%= form_for @bank_field_new, url:{action:'add_bank_field'},remote:true do |c|%>
+   <fieldset>
+   <div class="errors4">
+<ul class="errors4"></ul></div>
+     <div class="form-group">
+       <div class="col-md-3"> <b>Name:</b></div>
+         <div class="col-md-9"> <%=c.text_field :name, placeholder: "", class: "form-control"%></div>
+      </div>
+     <br><br><br>
+      <div class="form-group">
+          <div class="col-md-3"><b>Status:</b></div>
+        <div class="col-md-9"><%= c.radio_button "status", "true", checked: "checked" %> &nbsp;<b>Active</b>&nbsp;&nbsp;
+        <%= c.radio_button "status", "false"%> &nbsp;<b>Inactive</b> 
+       </div></div>
+       <br><br>
+   <div class="col-sm-4 col-sm-offset-4"> 
+       <div class="form-actions">               
+        <%= c.submit 'Create', class: "btn btn-primary"%>
+      </div>
+      </div>
+   </fieldset>
+    </div>
+  </div>
+ </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-6">
+     <div class="form-group">
+       <div class="row">
+        <div class="box col-md-12">
+         <div class="box-inner">
+          <div class="box-header well">
+            <h2>Active Bank fields</h2>
+          </div>
+         <div class="box-content" style="overflow-y: scroll; height:280px">
+
+      
+       <table id="datatable" class="table table-striped table-bordered responsive">
+         <thead>
+               <tr>
+                 <th>Name</th>
+                 <th>Operation</th>
+         
+               </tr>
+
+             </thead>
+        
+          <tbody>
+           <%@bank_fields1.each do |c| %>
+            <tr>
+            <td class="col-3"><%=c.name%></td>
+            <td class="center">
+              <div class="label-success label label-default">
+              <i class="glyphicon glyphicon-edit icon-white"></i> 
+              <%= link_to 'Edit',edit_bank_field_employee_path(c),remote: true,class: "a-action"%></div>
+
+              <div class="label-danger label label-default">
+              <i class="glyphicon glyphicon-trash icon-white"></i> 
+              <%= link_to 'Delete' ,destroy_bank_field_employee_path(c),
+                    method: :delete, data: { confirm: "Are you sure to delete #{c.name}?" },class: "a-action"%></div>
+            </td>
+
+
+            </tr>
+            <%end%>
+          </tbody>
+       </table>
+      </div>
+    </div>
+  </div>
+ </div>
+</div>
+</div>
+   <div class="col-sm-6">
+     <div class="form-group">
+       <div class="row">
+         <div class="box col-md-12">
+           <div class="box-inner">
+            <div class="box-header well">
+              <h2>Inactive Bank fields</h2>
+             </div>
+          <div class="box-content" style="overflow-y: scroll; height:280px">
+             <table id="datatable" class="table table-striped table-bordered responsive">
+         <thead>
+               <tr>
+                 <th>Name</th>
+                 <th>Operation</th>
+      
+               </tr>
+
+             </thead>
+              
+          <tbody>
+           <% @bank_fields2.each do |c| %>
+            <tr>
+            <td class="col-3"><%=c.name%></td>
+            <td class="center">
+              <div class="label-success label label-default">
+              <i class="glyphicon glyphicon-edit icon-white"></i> 
+              <%=link_to 'Edit',edit_bank_field_employee_path(c),remote: true,class: "a-action"%></div>
+
+              <div class="label-danger label label-default">
+              <i class="glyphicon glyphicon-trash icon-white"></i> 
+              <%= link_to 'Delete' ,destroy_bank_field_employee_path(c),
+                    method: :delete, data: { confirm: "Are you sure to delete #{c.name}?" },class: "a-action"%></div>
+            </td>
+
+
+            </tr>
+            <%end%>
+          </tbody>
+       </table>
+    <%end%>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>

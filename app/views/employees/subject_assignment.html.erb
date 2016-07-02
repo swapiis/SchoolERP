@@ -1,0 +1,19 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+     <li><%= link_to 'Human Resources',employees_path %></li>
+    <li><%= link_to 'HR Management',employee_management_employees_path %></li>
+  
+     <li>Subject Assignment</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="col-md-11 col-md-offset-1">
+  <b>Select a Course:</b>
+   <%= form_for :subject_assignment, url:{action:'assign_subject'}, method: :get,remote:true,html:{id: "user_form"} do |f|%>
+      <%= f.select :id, @batches.collect {|b| [b.course.course_name+" "+b.course.section_name+" - "+b.name,b.id]},{prompt:"Select a Course"},{onchange:"$('#user_form').submit();",class: "form-control",style:"width:300px"} %>  
+    <%end%>
+  </div>
+</div>
+<div id="subject_div"></div>

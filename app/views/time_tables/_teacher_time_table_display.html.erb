@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="box col-md-12">
+  <div class="box-inner">
+    <div class="box-header well">
+      <h2>Teacher Timetable</h2>
+    </div>
+  <%=teacher_timetable_not_found! %>
+    <div class="box-content" style="overflow-y: scroll; height:280px">
+ <table id="datatable" class="table table-striped table-bordered responsive">
+        <tr>
+         <td></td>
+         <% @weekdays.each do |weekday| %>
+            <th colspan="<%=@class_timings.count %>"><%= weekday.weekday%></th>
+          <%end%>
+        </tr>
+        <tr> 
+        	<td></td>
+        	<% @weekdays.each do |weekday| %>
+            <% @class_timings.each do |c| %>
+              <th>
+                <%=c.full_time%>
+              </th>
+            <%end%>
+          <%end%>
+        </tr>
+       <%@employees.each do |employee|%>
+       <tr>
+       	 <th><%=employee.first_name%></th>
+       	    <% @weekdays.each do |weekday| %>
+            <% @class_timings.each do |c| %>
+              <td>
+            <%t=teacher_time_table(employee,c,weekday,@time_table)%>
+              <% unless t.nil?%>
+              	<%= t.subject.name %><br/>
+              	<%= t.batch.name %>
+              <%end%>
+              </td>
+            <%end%>
+          <%end%>
+       </tr>
+    <%end%>
+  </table>
+</div>
+</div>
+</div>
+</div>
+
+<div align="center"><%=link_to 'PDF REPORT',teacher_timetable_pdf_time_tables_path(time:@time_table ,format:"pdf"),class: "btn btn-success"%>
+  </div>

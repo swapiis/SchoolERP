@@ -1,0 +1,35 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>New Subject</h3>
+    </div>
+    <div class="modal-body">
+      <ul class="errors"></ul>
+      <%= form_for @previous_subject, url:{action:'previous_subject_create'}, method: :post,remote:true do |f| %>
+
+
+      <table class="table" >
+	
+	<%=f.hidden_field :student_id,value: @student.id %>
+	
+	
+	<tr>
+	  <td><b>Subject:</b></td>
+	  <td><%= f.text_field :subject,class: "form-control",style: "width:200px"%></td>
+	</tr>
+	    
+	<tr>
+	  <td><b>Mark:</b></td>
+	  <td><%= f.text_field :mark,class: "form-control",style: "width:200px"%></td>
+	</tr>
+	<tr><td colspan="2"><hr></td></tr>
+	<tr>
+	  <td colspan="2" align="center"><%= f.submit 'Submit',class: "btn btn-primary"%>
+	    <%= link_to 'Cancel','#',class: "btn btn-default",data:{dismiss:"modal"}%></td>
+	</tr>
+      </table>
+      <% end %>
+
+    </div>	
+  </div>
+</div>

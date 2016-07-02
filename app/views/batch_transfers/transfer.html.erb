@@ -1,0 +1,42 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Settings',setting_index_path %></li>
+    <li><%= link_to 'Manage Course / Batch',course_batch_setting_index_path %></li>
+    <li><%= link_to 'Course',courses_path %></li>
+    <li><%= link_to 'Batch',batches_path%></li>
+    <li><%= link_to 'Batch Transfer',batch_transfers_path%></li>
+    <li>Student Transfer</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/>
+
+<%=form_for :transfer, :url => {:action=> 'student_transfer'},method: :get do |f| %>
+<div class="row">
+    <div class="col-md-6">
+      <b>Transfering student from </b> <%= @batch.full_name %> &nbsp;<b>To</b> 
+    </div>
+    <div class="col-md-6">      
+      <%= f.hidden_field :batch_id, value: @batch.id%>
+      <%= f.select :id,collect_batchtransfer,prompt:'Select a batch',class: "form-control"%>
+    </div>
+</div>   
+<hr>
+<div class="row" align="right" style="margin-right:20px">
+  <%= link_to "Assign All",assign_all_batch_transfers_path(@batch),remote:true, class: 'btn btn-primary-link btn-xs'%>
+  <%= link_to "Remove All",remove_all_batch_transfers_path(@batch),remote:true, class: 'btn btn-primary-link btn-xs' %>
+</div>
+<div id="students_list">
+    <%= render 'students_list' %>
+</div>
+<div class="row">
+  <div class="col-md-5"></div>
+  <div class="col-md-5">
+    <%= f.submit "Transfer Students", class: 'btn btn-success'%>
+  </div>
+</div>
+<% end %>
+
+
+ 

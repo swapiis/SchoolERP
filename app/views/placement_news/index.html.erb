@@ -1,0 +1,104 @@
+
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li>Add Placement  News</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/>
+<div class="row">
+  <div class="col-md-2"></div>
+    <div class="box col-md-6">
+      <div class="box-inner">
+        <div class="box-header well" data-original-title="">
+            <h2>Add Placement News</h2>
+        </div>
+      <div class="box-content">
+        <%= form_for @placement_new do |f| %>
+        <fieldset>
+          <% if @placement_new.errors.any? %>
+            <div class="alert alert-danger">
+              <ul><% @placement_new.errors.full_messages.each do |msg| %><li style="width:300px"><%= msg %></li><% end %></ul>
+            </div>
+          <%end%>
+          <div class="col-sm-7 col-sm-offset-1">
+            <div class="form-group">
+              <b>Title: <span style="color:red">*</span></b>
+              <%=f.text_field :title, class: "form-control", style: "width: 350px", placeholder: "News tilte"%>
+            </div>
+              
+            <div class="form-group">
+             <b>Content: <span style="color:red">*</span></b>
+              <%=f.text_area :content,style: 'width:350px;height:200px', placeholder: "News Content", class: "form-control"%>
+            </div>
+
+                 <div class="form-group">
+             <b>Is Link?</b>
+              <%=f.check_box :islink,:checked => false %>
+              </div>
+
+            <div class="col-sm-7 col-sm-offset-6"> 
+              <div class="form-actions">               
+                <%= f.submit 'Create News', class: "btn btn-primary"%>
+                </div>
+            </div>
+                
+              </div>
+            </fieldset>
+            <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+
+  <div class="col-sm-12">
+     <div class="form-group">
+       <div class="row">
+        <div class="box col-md-12">
+         <div class="box-inner">
+          <div class="box-header well">
+            <h2>Placement News</h2>
+          </div>
+         <div class="box-content" style="overflow-y: scroll; height:280px">
+     
+       <table id="datatable" class="table table-striped table-bordered responsive">
+         <thead>
+               <tr>
+                <th>Title</th>
+                <th>Content</th>
+                <th colspan="2">Action</th>
+               </tr>
+
+             </thead>
+           
+          <tbody>
+            <% @placement_news.each do |placement_news|
+              %>
+
+      <tr>
+      <td><%= placement_news.title %></td>
+        <td><%= placement_news.content %></td>
+      <td class="center">
+              <div class="label-success label label-default">
+              <i class="glyphicon glyphicon-edit icon-white"></i> 
+              <%=  link_to 'Edit', edit_placement_news_path(placement_news),remote:true,class: "a-action"%></div>
+
+              <div class="label-danger label label-default">
+              <i class="glyphicon glyphicon-trash icon-white"></i> 
+
+              <%= link_to 'Destroy', placement_news, method: :delete, data: { confirm: 'Are you sure?' },class: "a-action"%></div>
+            </td>
+      </tr>
+        <%end%>
+          </tbody>
+       </table>
+      </div>
+    </div>
+  </div>
+ </div>
+</div>
+ </div>
+
+ <div id="modal" class="modal fade"></div>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style type="text/css">
+    #heading {
+      width:100%;
+      margin: 0 auto;
+    }
+    #head {
+      height: 100px;
+      width: 700px;
+      text-align: center;
+      font-size: 40px;
+      border-color: black;
+    }
+    #head_info {
+      text-align: center;
+      font-size: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div id="heading">
+    <div id="head">
+      <%= @general_setting.school_or_college_name%><br/>
+      <div id="head_info">
+        <%= @general_setting.school_or_college_address%><br/><br/>
+        <%= @general_setting.school_or_college_phone_no%>
+      </div>
+    </div>  
+      <hr>
+
+      <br/>
+      <h3>
+        <center>
+          <%= @batch.course.course_name.capitalize+" "+@batch.course.section_name.capitalize+" "+@batch.name.capitalize %>
+        </center>
+      </h3><br/>
+      <table cellpadding="5" cellspacing="5" width="700">
+        <tr>
+          <th colspan="3" bgcolor="99CCFF" align="left">
+            Student Transcript Report
+          </th>
+        </tr>
+        
+        <tr>
+          <th>Name</th>
+          <th>:</th>
+          <td><%= @student.first_name.capitalize %> <%= @student.middle_name.capitalize %> <%= @student.last_name.capitalize %>
+          </td>
+        </tr>
+      </table>
+      <br/><br/>
+      <% general_subjects = @batch.subjects.where(elective_group_id:nil) %>
+      <% student_electives = StudentSubject.where(student_id: @student.id,batch_id: @batch.id) %>
+      <% elective_subjects = [] %>
+      <% student_electives.each do |elect| %>
+        <% elective_subjects.push Subject.find(elect.subject_id) %>
+      <% end %>
+      <% @subjects = general_subjects + elective_subjects %>
+      <% total_credits=0 %>
+        <table cellpadding="5" cellspacing="5" width="700">
+          <tr bgcolor="99CCFF">
+            <th>Subject Code</th>
+            <th>Title</th>
+            <th>Percentage</th>
+          </tr>
+          <% unless @subjects.empty? %>
+            <% max_total = 0 %>
+            <% marks_total = 0 %>
+            <% @mark = 0 %>
+            <% @total = 0 %>
+            <% @subjects.each do |subject| %>
+              <% @exam_groups.each do |exam_group| %>
+                <% if exam_group.result_published? %>
+                  <% @exam = Exam.find_by_subject_id_and_exam_group_id(subject.id,exam_group.id) %>
+                  <% exam_score = ExamScore.find_by_student_id_and_exam_id(@student.id,@exam.id) unless @exam.nil? %>
+                  <%unless exam_group.exam_type == "Grades"%>
+                  <% max_total += @exam.maximum_marks.to_f %>
+                  <% marks_total += exam_score.marks unless exam_score.nil?%>
+                  <% @mark += exam_score.marks unless exam_score.nil?%>
+                  <% @total += @exam.maximum_marks %>
+                  <%end%>
+                <% end %>
+              <% end %>
+              <tr>
+                <td align="center"> <%= subject.code %></td>
+                <td> <%= subject.name %></td>
+                <td align="center"><%= "%.2f" %(marks_total*100/max_total)+"%" unless max_total==0%></td>
+              </tr>
+
+              <% max_total = 0 %>
+              <% marks_total = 0 %>
+            <% end %>
+             <tr><td colspan="3"><hr></td></tr>
+            <tr>
+            <td></td>
+              <td align="right"><b>Total</b></td>
+              <td><%="%.2f" %(@mark*100/@total)+"%" unless @total==0%></td>
+            </tr> 
+          <%else%>
+            <tr></tr>
+            <tr>
+              <td></td>
+              <td>No subject found</td>
+              <td></td>
+            </tr>           
+          <%end%>
+        </table>
+      </div>
+  </body>
+</html>

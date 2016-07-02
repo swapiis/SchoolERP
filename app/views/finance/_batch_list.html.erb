@@ -1,0 +1,13 @@
+<%unless @batches.nil?%>
+  <% @batches.each do |batch|%>
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-7">
+        <%= check_box_tag "batches[]", batch.id,false,class: 'check_box'%>&nbsp;&nbsp;<%= batch.course.code+" "+batch.name%>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+  <%end%>
+<%else%>
+  <div class="row"><p>No Batches Found</p></div>
+<%end%>

@@ -1,0 +1,71 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Examination',exams_path%></li>
+    <li><%= link_to 'Exam Management',exam_groups_path%> </li>
+    <li><%= link_to 'Exam Group', exam_group_path(@exam_group.batch)%> </li>
+    <li>Exam</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+    <% unless @exam_group.result_published? %>
+      <%= link_to 'Publish Results',publish_result_exam_groups_path(@exam_group), class: "btn btn-primary-link btn-sm" %>
+      <%= link_to 'New', new_exam_path(@exam_group), class: "btn btn-primary-link btn-sm" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="row">
+<div class="col-md-12">
+<div class="box-inner">
+<div class="box-header well">
+  <h2>Subject Wise Exam</h2>
+</div>
+<div class="box-content">
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Subject Name</th>
+      <%unless @exam_group.exam_type=="Grades"%>
+        <th>Maximum Marks</th>
+        <th>Minimum Marks</th>
+      <%end%>
+        <th colspan="2">Action</th>
+        </tr>
+     </thead>   
+      <tbody>
+        <% @exams.each do |exam| %>
+        <tr>
+        
+        <td class="col-2"><%= link_to exam.subject.name, exam_score_exam_path(exam) %></td>
+        <%unless @exam_group.exam_type=="Grades"%>
+        <td><%= exam.maximum_marks %></td>  
+        <td><%= exam.minimum_marks %></td>
+        <% end %>
+        <td>
+          <% unless @exam_group.result_published? %>
+          <div class="label-success label label-default">
+          <i class="glyphicon glyphicon-edit icon-white"></i> 
+          <%= link_to 'Edit',edit_exam_path(exam),class: "a-action"%>
+          </div>&nbsp;&nbsp;&nbsp;
+          <div class="label-danger label label-default">
+            <i class="glyphicon glyphicon-trash icon-white"></i>
+          <%= link_to 'Delete',exam,method: :delete,
+          data:{confirm:"Are you sure to delete Exam: #{exam.subject.name}"},class: "a-action"%></div>
+          <%else%>
+          <td>Result Published</td>
+          <%end%>
+        </td>
+        </tr>
+        <%end%>  
+      </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>

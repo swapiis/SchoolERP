@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      #heading {
+        width:100%;
+        margin: 0 auto;
+      }
+      #head {
+        height: 100px;
+        width: 700px;
+        text-align: center;
+        font-size: 40px;
+        border-color: black;
+      }
+      #head_info {
+        text-align: center;
+        font-size: 15px;
+      }
+    </style>
+  </head>
+  <body>
+  <h1>SCHOOL ERP</h1>
+      <hr>
+      <br/><h3><center>Liability List</center></h3><br/>
+      <table cellpadding="5" cellspacing="5" width="700">
+        <tr  bgcolor="99CCFF"><th align="left">Sl No</th>
+            <th align="left">Liability</th>
+            <th align="left">Created At</th>
+            <th align="left">Total Amount</th>
+        </tr>
+        <% i = 0  %>
+        <%total_amount=0%>
+        <% @liabilities.each do |l| %>
+          <% if l.is_solved? %>
+            <tr>
+              <td><%= i+=1 %></td>
+              <td><%= l.title+" ( solved)" %></td>
+              <td><%= l.created_at.strftime("%d-%m-%Y") %></td>
+              <td><%= l.amount%></td>
+            </tr>
+          <% else %>
+            <tr>
+              <td><%= i+=1 %></td>
+              <td><%= l.title %></td>
+              <td><%= l.created_at.strftime("%d-%m-%Y") %></td>
+              <td><%= l.amount%></td>
+            </tr>
+          <% end %>
+          <% total_amount+= l.amount%>
+        <% end %>
+        <tr>
+          <th align="left" colspan="3">Grand Total</th>
+          <th  align="left" colspan="1"><%= total_amount%></th>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

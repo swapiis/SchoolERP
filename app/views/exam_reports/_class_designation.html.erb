@@ -1,0 +1,5 @@
+ <% @class_designations.each do |d| %>
+      <div class="each_batch">
+        <%= check_box_tag "class_designations[]", d.id,false,class: 'check_box1' %> <%= d.name %>
+      </div>
+    <% end %>

@@ -1,0 +1,6 @@
+<% @option.times do |opt|%>
+<%= label_tag "option#{opt+1}"%>
+<%= text_field :question, "option[#{opt+1}]", {class: "form-control", placeholder:"option#{opt+1}"} %>
+<%=check_box_tag "is_answer[]",opt+1,false%>
+<br/>
+<%end%>

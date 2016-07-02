@@ -1,0 +1,23 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+     <li><%= link_to 'Human Resources',employees_path %></li>
+     <li><%= link_to 'Employee Attendance', employee_attendances_path %></li>
+   
+     <li>Attendance report</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+
+<div class="row">
+ <div class="col-md-11 col-md-offset-1">
+<%= form_for :department,url:{action:'select_report'},method: :get,remote:true,html:{id: "department_form"}  do |f| %>
+		<b>Select a Department:</b>
+      <%= f.select :id,department_collect,{prompt:true},{onchange:"department_event();",class: "form-control",style:"width:300px"} %>  
+    <%end%>
+  </div>
+</div>
+<div id="report_div"></div>
+
+
+

@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="box col-md-12">
+    <div class="box-inner">
+      <div class="box-header well">
+        <h2></h2>
+      </div>
+<div class="box-content" style="overflow-y: scroll; height:auto">
+<% if @students.empty? %>
+  <h4 align="center">No Record Found </h4>
+<% else %>
+  <table class="datatable table table-striped table-bordered responsive">
+    <thead>
+     <tr>
+      <th>Sr. No.</th>
+      <th>Student Name</th>
+      <th>Admission No.</th>
+      <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @students.each_with_index do |student,i| %>
+        <tr>
+          <td><%= i+1 %></td>
+          <td><%= student.first_name+' '+student.last_name  %></td>
+          <td><%= student.admission_no %></td>
+          <td><%= link_to 'View Profile',profile_student_path(student) %></td>
+        </tr>
+      <% end %>   
+    </tbody>
+  </table>
+<% end %>

@@ -1,0 +1,54 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Human Resources',employees_path %></li>
+    <li><%= link_to 'Employee Attendance', employee_attendances_path %></li>
+    <li><%= link_to 'Manual Leave Reset', manual_reset_employee_attendances_path %></li>
+    
+    <li>Reset Employee Leave</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="box col-md-12">
+    <div class="box-inner">
+      <div class="box-header well">
+        <h2>Employee Details</h2>
+      </div>
+      <div class="box-content">
+        
+        <table id="datatable" class="table table-striped responsive">
+          <thead>
+            <tr>
+              <th>Leave Types</th>
+              <th>Available Leave</th>
+              <th>Leave Taken</th>
+              <th>Last Reset Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @leave_count.each do |e| %>
+            <%  leave_type = emp_leave_type_id(e)%>
+           <tr>
+              <td class="col-3"><%=leave_type.name %></td>
+              <td class="col-3"><%=e.leave_count %></td>
+              <td class="col-3"><%=e.leave_taken %></td>
+              <%unless e.reset_date.nil? %>
+              <td class="col-3"><%= I18n.l(e.reset_date, :format=>"%d / %m / %Y") %></td>
+              <%else%>
+              <td class="col-3">-</td>
+              <%end%>
+          </tr>
+            <%end%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="col-sm-offset-5"><center><%= link_to "Reset Leave",employee_wise_leave_reset_employee_attendance_path(id:@employee.id),class: "btn btn-success" %></center></div>
+<div>
+
+
+

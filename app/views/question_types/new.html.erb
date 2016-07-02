@@ -1,0 +1,108 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li>Question Type</li>
+  </ul>
+</div>
+<h4><b>Note:</b>&nbsp;<font color="red">Fields Marked with * must be filled</font></h4>
+<div id="flash"><%= render 'layouts/messages'%></div>
+
+
+<div class="row">
+  <div class="box col-md-12">
+    <div class="box-inner">
+      <div class="box-header well">
+      </div>
+        <div class="box-content">
+<%= form_for @question_type  do |f| %>
+    <fieldset>
+    <% if @question_type.errors.any? %>
+        <div class="alert alert-danger">
+         
+          <ul>
+
+           <% @question_type.errors.full_messages.each do |msg| %>
+              <li style="width:500px" align="left"><%= msg %></li>
+            <% end %>
+          </ul>
+      
+      </div>
+          <% end %>
+          <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-4">
+         <div class="form-group">
+        <b>Question Type:</b>
+       <span style="color:red">*</span>
+         <%=f.text_field :que_type,class: "form-control"%>
+       </div>
+
+        
+      
+</div>
+  <div class="col-sm-5 col-sm-offset-5"> 
+      <div class="form-actions">               
+        <%= f.submit 'Save', class: "btn btn-primary",style:"width:80px"%>
+      </div>
+    </div>
+  </fieldset>        
+ <% end %>
+</div>
+</div>
+</div>
+</div>
+ 
+ 
+
+<div class="row">
+  <div class="col-md-12">
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="box col-md-12">
+  <div class="box-inner">
+    <div class="box-header well">
+      <h2>Question Type Details</h2>
+    </div>
+
+    <div class="box-content">
+      <table class="datatable display responsive no-wrap table">
+        <thead>
+          <tr>
+            <th>Question Type</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tr>
+        </tr>
+        <tbody>
+        <% @question_types.each do |c| %>
+          <tr>
+           <td>
+              <%= c.que_type%>
+            </td>
+            <td class="center">
+              <div class="label-success label label-default">
+              <i class="glyphicon glyphicon-edit icon-white"></i> 
+              <%= link_to 'Edit' ,edit_question_type_path(c),remote:true,class: "a-action"%></div>
+              
+              <div class="label-danger label label-default">
+              <i class="glyphicon glyphicon-trash icon-white"></i>
+              <%= link_to 'Delete' ,c,method: :delete, data:{confirm:"Are You sure to delete  ?"}, class: "a-action"%></div>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+</fieldset>
+</div>
+</div>
+</div>
+</div>
+
+<div id = "modal" class = "modal fade"></div>

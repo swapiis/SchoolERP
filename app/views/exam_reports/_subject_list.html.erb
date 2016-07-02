@@ -1,0 +1,9 @@
+<%= form_for :subject_select,url:{action: 'generate_subject_report'},method: :get do |f| %>
+
+<b>Select a Subject:</b>
+     
+      <%= f.select :id, @subjects.collect {|s| [s.name,s.id]}, {prompt:"Select a Subject"},class:"form-control",style: "width: 300px"%>
+     <br>
+     <div class="col-md-offset-3">
+      <%= f.submit "View", class: "btn btn-default btn-sm" %> </div>
+  <% end %>

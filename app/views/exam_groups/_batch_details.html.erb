@@ -1,0 +1,4 @@
+<%= form_for :batch, url:{action:'previous_exam_group'},method: :get,remote:true,html:{id: "batch_form"}  do |f| %>
+<b>Select Batch:</b>
+  <%= f.select :id, batches_data, {prompt:true},{onchange:"batchevent();",class: "form-control",style:"width:250px"}%>
+<% end %>

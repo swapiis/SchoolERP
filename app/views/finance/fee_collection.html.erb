@@ -1,0 +1,36 @@
+<div id="myModal" class="modal fade"></div>
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Finance',finance_index_path %></li>
+    <li><%= link_to 'Manage Fees',fees_finance_index_path %></li>
+    <li>Fees Collection</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/><br/>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to 'Create Fee Collection','new_fee_collection'%></h2>
+      </div>
+      <div class="box-content">
+        Creates new fee collecting dates.
+      </div>
+    </div>
+  </div>
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to 'View','fee_collection_view' %>
+        </h2>
+      </div>
+      <div class="box-content">
+        Displays fee collection dates.
+      </div>
+    </div>
+  </div>
+</div>

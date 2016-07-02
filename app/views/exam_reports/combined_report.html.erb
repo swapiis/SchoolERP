@@ -1,0 +1,28 @@
+<div id="content-header">
+  <h1>Exam Reports</h1>
+  <h3>Combined Report</h3>
+  <div id="app-back-button">
+    <%= link_to image_tag("buttons/back.png",:border => 0), :back  %>
+  </div>
+<div><%= image_tag("underline.jpg",width: "100%")%></div>
+</div>
+
+<div id="page-yield">
+<div class="box">
+ <div class="bread_crumb">
+    <%= link_to 'Exams',  '/exams'  %> &raquo;
+    <%= link_to 'Report Center', '/exam_reports/report_center' %> &raquo;
+    Combined Report</div>
+    
+<%= form_for :batch,url:{:action=>'combined_details'},html:{id:'batch_form'},remote:true,method: :get do |f| %>
+
+<div class="label-field-pair">
+  <%= f.label :select_batch %>
+      <div class="text-input-bg">
+      <%= f.select :id, Batch.all.collect {|b| [b.course.course_name+" "+b.course.section_name+" - "+b.name,b.id]},{prompt:true},{onchange:"$('#batch_form').submit();"}%>
+      </div></div>
+<%end%><br/><br/>
+<div id="combined_report"></div>
+</div>
+</div>
+ 

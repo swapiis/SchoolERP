@@ -1,0 +1,19 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Timetable',time_tables_path %></li>
+    <li>Class Timing</li>
+  </ul>
+</div><div id="flash"><%= render 'layouts/messages'%></div>
+<br/><br/>
+<div class="row">
+  <div class="col-md-11 col-md-offset-1">
+   <%= form_for :batch, url:{action:'select'},method: :get,remote:true,html:{id: "batch_form"} do |f| %>
+   <b>Select a Batch:</b>
+      <%= f.select :id,collect_batch,{prompt:'Select a Batch'},{onchange:"class_batch_fun();",class: "form-control",style:"width:300px"} %>  
+    <%end%>
+  </div>
+</div>
+<div id="batch_div"></div>
+
+<div id="myModal" class="modal fade"></div>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      #heading {
+        width:100%;
+        margin: 0 auto;
+      }
+      #head {
+        height: 100px;
+        width: 700px;
+        text-align: center;
+        font-size: 40px;
+        border-color: black;
+
+      }
+      #head_info {
+        text-align: center;
+        font-size: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="heading">
+      <div id="head">
+        <%= @general_setting.school_or_college_name%><br/>
+      </div>  
+      <div id="head_info">
+          <%= @general_setting.school_or_college_address%><br/>
+          <%= @general_setting.school_or_college_phone_no%>
+      </div>
+    </div>  
+      <hr>
+      <br/><h3><center>Finance Transction Report</center></h3><br/>
+      <table cellpadding="5" cellspacing="5" width="700">
+      
+        <tr bgcolor="99CCFF">
+          <th>Sl. No.</th>
+          <th>Particulars</th>
+          <th>Expenses (Rs.)</th>
+          <th>Incomes (Rs.)</th>
+        </tr>
+        <%total=0%>
+        <% @categories.each_with_index do |c,i|%>
+          <tr>
+            <td><%= i+1 %></td>
+            <td><%= c.name%></td>
+            <td align="right"><%= expense=c.category_amount(@start_date,@end_date) unless c.is_income?%></td>
+            <td align="right"><%= income=c.category_amount(@start_date,@end_date) if c.is_income?%></td>
+          </tr>
+          <% total-=expense unless c.is_income? %>
+          <% total+=income if c.is_income? %>
+        <%end%>
+        <tr align="right">
+          <td></td>
+          <td></td>
+          <td></td>
+          
+          <td><b>Grand Total : <%= total %></b></td>
+        </tr>
+      </table>
+      <br/><br/>
+    </div>
+  </body>
+</html>

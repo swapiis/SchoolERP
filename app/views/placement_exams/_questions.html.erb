@@ -1,0 +1,31 @@
+
+    <div class="box-content">
+      <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10">
+          
+
+          <%= form_for :question,url: {action: 'save_test',placement_exam_id: @placement_exam.id,student_id:current_user.student_id}, html:{id: "user_form"} do |f| %>
+          <table cellpadding="5" cellspacing="5">
+            <% @questions.each_with_index do |q,j| %>
+            <tr><th><%j=j+1%><%= j%>: <%= q.question %></th></tr>
+            <% @options = Option.where(question_database_id: q.id) %>
+            <% @options.each_with_index do |opt,i| %>
+            <tr>
+              <td>
+                <%= f.radio_button q.id, opt.id %>
+                <%i=i+1%>
+                <%= i%> : <%= opt.option %>
+              </td>
+            </tr>
+            <%end%>
+            <td><%172.times do |n|%>-<%end%></td>
+            <%end%>
+          </table>
+          <%= f.submit "submit",class: "btn btn-primary"%>
+          <%end%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Settings',setting_index_path %></li>
+    <li><%= link_to 'Manage Subjects', subjects_path %></li>
+    <li>Elective Subject</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/>
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+    <%= link_to 'Add Elective Subjects',new_batch_elective_group_subject_path(@elective_group.batch,@elective_group),remote:true, class: "btn btn-primary-link btn-xs" %>
+    </div>
+  </div>
+</div>
+<hr>
+<div id="elective_div">
+  <%= render 'view_elective_subjects' %>
+</div>
+<div id="myModal" class="modal fade"></div>

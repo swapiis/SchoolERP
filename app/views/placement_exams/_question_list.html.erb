@@ -1,0 +1,16 @@
+<table cellpadding="5" cellspacing="5">
+  <% @questions.each_with_index do |q,j| %>
+    <tr><th><%j=j+1%><%= j%>: <%= q.question %></th></tr>
+    <% @options = Option.where(question_database_id: q.id) %>
+    <% @options.each_with_index do |o,i| %>
+      <tr>
+        <td>
+          <%=check_box_tag "is_answer[]"%> 
+          <%i=i+1%>
+           <%= i%> : <%= o.option %>
+        </td>
+      </tr>
+    <%end%>
+    <td><%172.times do |n|%>-<%end%></td>
+  <%end%>
+</table>

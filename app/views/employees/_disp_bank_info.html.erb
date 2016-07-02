@@ -1,0 +1,23 @@
+<div class="form-group">
+    <h4><b><u><font color="brown">Employee Bank Detail:</font></u></b></h4>
+</div>
+<% unless @bank_details.empty? %>
+ <% @bank_details.each do |b| %>
+<div class="row">
+  <div class="form-group">
+    <div class="col-md-6"><b><%= b.bank_field.name %></b> </div>
+        <div class="col-md-6"><%= b.bank_info%></div>
+  </div>
+ </div>
+ <%end%>
+<%end%>
+<br/>
+<div class="row">
+<div class="col-md-5"></div>
+  <div class="col-md-3">
+
+<%= link_to 'Edit',edit_bank_info_employees_path(@employee),class: "btn btn-success" %>&nbsp;&nbsp;
+<%= link_to 'PDF Report',bank_info_pdf_employees_path(employee_id:@employee.id,format:"pdf"),class: "btn btn-primary" %>
+</div>
+</div>
+</div>

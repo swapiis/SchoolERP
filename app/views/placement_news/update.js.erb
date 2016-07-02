@@ -1,0 +1,9 @@
+$("ul.errors").html("")
+<% if @placement_news.errors.any? %>
+  <%  @placement_news.errors.full_messages.each do |message| %>
+  $("ul.errors").append($("<li />").html("<%= message.html_safe %>"))
+  <% end %>
+<% else %>
+  $("#modal").modal("hide");
+  window.location.replace('/placement_news');
+<% end %>

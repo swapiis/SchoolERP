@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  question_type_id: 
+  question: MyString
+  no_of_option: 1
+  option: MyString
+  is_answer: false
+
+two:
+  question_type_id: 
+  question: MyString
+  no_of_option: 1
+  option: MyString
+  is_answer: false

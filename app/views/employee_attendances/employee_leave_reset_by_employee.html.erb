@@ -1,0 +1,52 @@
+
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+     <li><%= link_to 'Human Resources',employees_path %></li>
+     <li><%= link_to 'Employee Attendance', employee_attendances_path %></li>
+      <li><%= link_to 'Manual Leave Reset', manual_reset_employee_attendances_path %></li>
+ 
+     <li>Reset employee leaves.</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+
+<div class="row">
+  <div class="box col-md-12">
+  <div class="box-inner">
+    <div class="box-header well">
+      <h2>Reset Employee Leave for each employee</h2>
+    </div>
+   <div class="box-content">
+ <table id="datatable" class="table table-striped table-bordered responsive">
+ <%= form_for :advance_search, url:{action:'search_emp'}, method: :get,remote:true,html:{id: "user_form"} do |f|%>
+
+    <tbody>
+
+       <tr>
+        <td class="col-4" colspan="4">
+        <b>Search by Name:</b>
+        <%= text_field_tag :search,"",{oninput:"assign_fun();", class: 'form-control', placeholder: 'Search by name', style: 'width:250px'}%></td>
+     </tr>
+
+   <tr>
+         <td class="col-3"><%= f.select :employee_department_id, emp_department_collect,{prompt:"Select Department"},{onchange:"assign_fun();", class: 'form-control'}%></td>
+  
+         <td class="col-3"><%= f.select :employee_category_id, emp_category_collect,{prompt:"Select Category"},{onchange:"assign_fun();", class: 'form-control'}%></td>
+    
+         <td class="col-3"><%= f.select :employee_position_id,emp_position_collect,{prompt:"Select Position"},{onchange:"assign_fun();", class: 'form-control'}%></td>
+    
+         <td class="col-3"><%= f.select :employee_grade_id, emp_grade_collect,{prompt:"Select Grade"},{onchange:"assign_fun();", class: 'form-control'}%></td>
+     </tr>
+  </div>
+  
+<%end%>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="emp_search"></div>
+ 
+  

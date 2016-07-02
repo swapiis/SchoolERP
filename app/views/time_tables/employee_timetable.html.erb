@@ -1,0 +1,25 @@
+<div>
+	<ul class="breadcrumb">
+		<li><%= link_to 'Home',dashboard_home_index_path %></li>
+		<li>Employee Timetable</li>
+	</ul>
+</div><div id="flash"><%= render 'layouts/messages'%></div>
+<br/><br/>
+<%unless @timetables.empty? %>
+<div class="row">
+
+  <div class="col-md-11 col-md-offset-1">
+		<%= form_for :time,url:{action:'select_time_employee',format:@employee.id},method: :get,remote:true,html:{id: "time_form"} do |f| %>
+
+           <b>Select a Timetable:</b>
+    <%= f.select :id,timetable_collect,{prompt:'Select Timetable'},{onchange:"$('#time_form').submit();",class: "form-control",style:"width:250px"} %>  
+    <%end%>
+  </div>
+
+</div>
+<%else%>
+<h4>Time table not assigned to this employee</h4>
+<%end%>
+<div id="time_div"></div>
+
+<br/><br/>

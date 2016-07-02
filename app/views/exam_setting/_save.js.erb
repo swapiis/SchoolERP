@@ -1,0 +1,11 @@
+ $("ul.errors").html("")
+<% if  @class_des1.errors.any? %>
+		<%  @class_des1.errors.full_messages.each do |message| %>
+		$("div.errors").addClass("alert alert-danger alert-dismissable")  
+		$("ul.errors").append($("<li />").html("<%= message.html_safe %>"))
+		<% end %>
+<% else %>
+$('#course_div').html("<%= j render 'class_designation'%>");
+$('#flash').html("<%= j render 'layouts/messages'%>")
+  $("#myModal").modal("hide")
+  <%end%>

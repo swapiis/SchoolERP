@@ -1,0 +1,58 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3><%= "Editing" %></h3>
+    </div>
+    <div class="modal-body">
+      <ul class="errors8"></ul>
+      <%= form_for @payroll_category,url:{:action=>'update_payroll_category',payroll_category_id: @payroll_category.id},method: :patch,remote: true do |f|%>
+      <div class="row">
+        <div class="form-group">
+          <div class="col-sm-5"><b>Category Name:</b></div>
+          <div class="col-sm-7"><%=f.text_field :name, class: "form-control"%></div>
+        </div></div>
+        <br>
+        <div class="row">
+          <div class="form-group">
+            <div class="col-sm-5"><b>Percentage:</b></div>
+            <div class="col-sm-7"><%=f.text_field :percentage,  class: "form-control"%></div>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="form-group">
+           <div class="col-sm-5"><b>Percentage of:</b></div>
+           <div class="col-sm-7">
+             <%= f.select :payroll_category_id,PayrollCategory.all.collect {|e| [e.name,e.id]},{prompt:true},class: "form-control"%>
+           </div></div>
+         </div>
+         <br>
+         <div class="row">
+          <div class="form-group">
+            <div class="col-sm-5"> <b>Status:</b></div>
+            <div class="col-sm-7"><%= f.radio_button "status", "true", checked: "checked" %>&nbsp; <b>Active</b>&nbsp;&nbsp;
+              <%= f.radio_button "status", "false"%> &nbsp;<b>Inactive</b>
+            </div></div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="form-group">
+             <div class="col-sm-7">
+              <%= f.check_box :is_deduction%>
+              <b>Is Deduction?</b>
+            </div></div></div>
+            <hr>
+            <div class="col-sm-offset-3"> 
+             <div class="form-actions">               
+              <%= f.submit 'Update', class: "btn btn-success"%>&nbsp;
+              <%= link_to 'cancel', '#', class: "btn btn-default",data:{dismiss:"modal"}%>
+            </div>
+          </div>
+
+          
+          <% end %>
+
+
+        </div>
+      </div>
+    </div>

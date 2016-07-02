@@ -1,0 +1,185 @@
+<div id="content-header">
+  <h1>Exam Reports</h1>
+  <h3>Combined Report</h3>
+  <div id="app-back-button">
+    <%= link_to image_tag("buttons/back.png",:border => 0), :back  %>
+  </div>
+<div><%= image_tag("underline.jpg",width: "100%")%></div>
+</div>
+<div id="inner-tab-menu">
+  <ul>
+    <li><%= link_to 'Pdf report'%></li>
+  </ul>
+</div>
+<div id="page-yield">
+<div class="box">
+ <div class="bread_crumb">
+    <%= link_to 'Exams',  '/exams'  %> &raquo;
+    <%= link_to 'Report Center', '/exam_reports/report_center' %> &raquo;
+    <%= link_to 'Combined Report', '/exam_reports/combined_report' %> &raquo;
+    Generated report</div>
+<h3 align="center"><%= @batch.course.course_name+" "+@batch.course.section_name+" - "+@batch.name %></h3>
+    <% unless @students.empty? %>
+      <% unless @class_designations.blank? %>
+        <% @class_designations.each do|designation| %>
+          <h4><%= designation.name %></h4>
+          <% designated_students = [] %>
+          <% @students.each do|student| %>
+            <% marks = GroupedExamReport.where(student_id:student.id)%>
+            <% unless marks.empty? %>
+              <% total = marks.map{|m| m.marks} %>
+              <% avg = (total.sum.to_f)/(total.count.to_f) %>
+              <% classes = ClassDesignation.where("marks <= ? AND course_id = ?",avg,student.batch.course_id) %>
+              <% unless classes.empty? %>
+                <% if classes.first.id == designation.id %>
+                  <% designated_students << [student,avg] %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+          <table id="listing" align="center" width="100%" cellpadding="1" cellspacing="1">
+            <% unless designated_students.empty? %>
+              <tr class="tr-head">
+                <td>Sl No</td>
+                <td>Adm No</td>
+                <td>Name</td>
+                <td>Percentage</td>
+              </tr>
+              <% designated_students.each_with_index do|s,i| %>
+                <tr class="tr-<%= cycle('odd', 'even') %>">
+                  <% st = s[0] %>
+                  <td class="col-1"><%= i+1 %></td>
+                  <td class="col-1"><%= st.admission_no.present? ? st.admission_no : "-" %></td>
+                  <td class="col-3"><%= st.first_name+" "+st.last_name %></td>
+                  <td class="col-1"><%= "%.2f" %(s[1].to_f) %></td>
+                </tr>
+              <% end %>
+            <% else %>
+              <tr class="tr-head">
+                <td><%= t('no_students_for_this_class_designation') %></td>
+              </tr>
+            <% end %>
+          </table>
+        <% end %>
+      <% end %>
+      <% unless @ranking_levels.blank? %>
+        <% @ranking_levels.each do|level| %>
+          <h4><%= level.name %> <%= t('students') %></h4>
+          <% unless level.subject_count.nil? %>
+            <% scores = GroupedExamReport.where(student_id:@students.collect(&:id)) %>
+          <% else %>
+            <% scores = GroupedExamReport.where(student_id:@students.collect(&:id)) %>
+          <% end %>
+          <% ranked_students =[] %>
+          <% unless scores.empty? %>
+            <% unless level.subject_count.nil? %>
+              <% sub_count = level.subject_count %>
+              <% @students.each do|student| %>
+                <% student_scores = scores.dup %>
+                <% batch_ids = student_scores.collect(&:batch_id) %>
+                <% batch_ids.each do|batch_id|%>
+                  <% unless batch_ids.empty? %>
+                    <% count = batch_ids.count(batch_id) %>
+                    <% if level.subject_limit_type=="upper" %>
+                      <% if count < sub_count %>
+                        <% flag=0 %>
+                        <% ranked_students.each do|r| %>
+                          <% if r[0]==student.id %>
+                            <% r[1] << batch_id %>
+                            <% flag=1 %>
+                          <% end %>
+                        <% end %>
+                        <% unless flag==1 %>
+                          <% unless student.has_higher_priority_ranking_level(level.id,"course","") %>
+                            <% ranked_students << [student.id,[batch_id]] %>
+                          <% end %>
+                        <% end %>
+                      <% end %>
+                    <% elsif level.subject_limit_type=="exact" %>
+                      <% if count == sub_count %>
+                        <% flag=0 %>
+                        <% ranked_students.each do|r| %>
+                          <% if r[0]==student.id %>
+                            <% r[1] << batch_id %>
+                            <% flag=1 %>
+                          <% end %>
+                        <% end %>
+                        <% unless flag==1 %>
+                          <% unless student.has_higher_priority_ranking_level(level.id,"course","") %>
+                            <% ranked_students << [student.id,[batch_id]] %>
+                          <% end %>
+                        <% end %>
+                      <% end %>
+                    <% else %>
+                      <% if count >= sub_count %>
+                        <% flag=0 %>
+                        <% ranked_students.each do|r| %>
+                          <% if r[0]==student.id %>
+                            <% r[1] << batch_id %>
+                            <% flag=1 %>
+                          <% end %>
+                        <% end %>
+                        <% unless flag==1 %>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                    <% batch_ids.delete(batch_id) %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% else %>
+              <% scores.each do|score| %>
+                <% flag=0 %>
+                <% ranked_students.each do|r| %>
+                  <% if r[0]==score.student_id %>
+                    <% r[1] << score.batch_id %>
+                    <% flag=1 %>
+                  <% end %>
+                <% end %>
+                <% unless flag==1 %>
+                  <% unless score.student.has_higher_priority_ranking_level(level.id,"course","") %>
+                    <% ranked_students << [score.student_id,[score.batch_id]] %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+          <table id="listing" align="center" width="100%" cellpadding="1" cellspacing="1">
+            <% unless ranked_students.empty? %>
+              <tr class="tr-head">
+                <td>Sl No</td>
+                <td>Adm No</td>
+                <td>Name</td>
+                <td>Percentage</td>
+                <td>Course <%= level.name %></td>
+              </tr>
+              <% ranked_students.each_with_index do|r,ind| %>
+                <tr class="tr-<%= cycle('odd', 'even') %>">
+                  <% stu = Student.find(r[0]) %>
+                  <% marks = GroupedExamReport.find_all_by_student_id_and_score_type(stu.id,"c") %>
+                  <% unless marks.empty? %>
+                    <% total = marks.map{|m| m.marks} %>
+                    <% avg = (total.sum.to_f)/(total.count.to_f) %>
+                  <% end %>
+                  <td class="col-1"><%= ind+1 %></td>
+                  <td class="col-1"><%= stu.admission_no.present? ? stu.admission_no : "-" %></td>
+                  <td class="col-3"><%= stu.full_name %></td>
+                  <td class="col-1"><%= avg.present? ? "%.2f" %(avg) : "-" %></td>
+                  <td class="col-3">
+                    <% batches = r[1] %>
+                    <%= Batch.find_all_by_id(batches).collect(&:full_name).join(", ") %>
+                  </td>
+                </tr>
+              <% end %>
+            <% else %>
+              <tr class="tr-head">
+                <td><%= t('no_students_for_this_ranking_level') %></td>
+              </tr>
+            <% end %>
+          </table>
+        <% end %>
+      <% end %>
+    <% end %>
+</div>
+</div>
+ 

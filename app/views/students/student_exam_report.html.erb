@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <style type="text/css">
+      #heading {
+        width:100%;
+        margin: 0 auto;
+      }
+
+      #head {
+        height: 100px;
+        width: 700px;
+        text-align: center;
+        font-size: 40px;
+        border-color: black;
+      }
+      #head_info {
+        text-align: center;
+        font-size: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="heading">
+      <div id="head">
+        <%= @general_setting.school_or_college_name%><br/>
+      </div>  
+        <div id="head_info">
+          <%= @general_setting.school_or_college_address%><br/><br/>
+          <%= @general_setting.school_or_college_phone_no%>
+        </div>
+    </div>  
+      <hr>
+      <h3>
+        <center>
+         <%= @batch.course.course_name.capitalize+" "+@batch.course.section_name.capitalize+" "+@batch.name.capitalize %> - <%= @exam_group.name.capitalize %>
+        </center>
+      </h3><br/>
+      <span><%= "#{@student.first_name+" "+@student.last_name}"" - #{@student.admission_no}" %></span>
+      <h4><%= t('student_exam_report') %></h4> 
+
+   <% exam_score = [] %>
+<% @exam_group.exams.each do |exam| %>
+  <% exam_score.push exam.exam_scores.find_by_student_id(@student.id) unless exam.exam_scores.find_by_student_id(@student.id).nil?  %>
+<% end%>
+  <% total_marks_attained = 0 %>
+  <% total_max_marks = 0 %>
+    <table cellpadding="5" cellspacing="5" width="700">
+      <tr class="tr-head">
+        <th bgcolor="99CCFF">Subject</th>
+        <% if @exam_group.exam_type == 'Marks' %>
+          <th bgcolor="99CCFF">Marks obtained</th>
+          <th bgcolor="99CCFF">Max</th>
+          <th bgcolor="99CCFF">Percentage(%)</th>
+        <% elsif @exam_group.exam_type == 'Grades' %>
+          <th bgcolor="99CCFF">Grades</th>
+        <% else %>
+          <th bgcolor="99CCFF">Marks obtained</th>
+          <th bgcolor="99CCFF">Max</th>
+          <th bgcolor="99CCFF">Grades</th>
+          <th bgcolor="99CCFF">Percentage(%)</th>
+        <% end %>
+      </tr>
+      <% exam_score.each do |es| %>
+      <% is_valid_subject=1 %>
+
+          <% unless es.exam.subject.elective_group_id.nil? %>
+          <% is_student_elective = StudentSubject.find_by_student_id_and_subject_id(@student.id,es.exam.subject.id) %>
+          <% is_valid_subject = 0 if is_student_elective.nil? %>
+          <% end %>
+          <% unless is_valid_subject == 0 %>
+<tr class="tr-<%= cycle('odd', 'even') %>">
+          <td class="col-2"> <%= es.exam.subject.name %></td>
+          <% if @exam_group.exam_type == 'Marks' %>
+            <td align="center"><%= es.marks || '-' %></td>
+
+            <% total_marks_attained = total_marks_attained+(es.marks || 0) %>
+            <td align="center"><%= es.exam.maximum_marks %></td>
+            <% total_max_marks = total_max_marks+es.exam.maximum_marks%>
+<td align="center"><%= es.calculate_percentage %></td>
+          <% elsif @exam_group.exam_type == 'Grades' %>
+            <td align="center"><%= es.grading_level.name || "-" %></td>
+          <% else %>
+            <td align="center"><%= es.marks || "-" %></td>
+
+            <% total_marks_attained = total_marks_attained+(es.marks || 0) %>
+            <td align="center"><%= es.exam.maximum_marks %></td>
+            <% total_max_marks = total_max_marks+es.exam.maximum_marks%>
+<td align="center"><%= es.grading_level.name || "-" %></td>
+            <td align="center"><%= es.calculate_percentage %></td>
+          <% end %>
+        </tr>
+      <% end %>
+      <%end%>
+      <tr><td colspan="4"><hr></td></tr>
+      <tr class="tr-blank"></tr>
+      <% unless @exam_group.exam_type == 'Grades'%>
+        <tr class="tr-head">
+          <th>Total marks:</th>
+          <td align="center"><%= total_marks_attained %></td>
+          <td align="center"><%= total_max_marks %></td>
+          <%if @exam_group.exam_type=="Marks and Grades"%>
+          <td>-</td>
+          <%end%>
+          <td><%= "%.2f" %(total_marks_attained*100/total_max_marks)+"%" unless total_max_marks == 0 %></td>
+        </tr>
+      <%else%>
+        <tr class="tr-head">
+          <td>Final Grade:</td>
+          <td>-</td>
+        </tr>
+      <% end %>
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Examination',exams_path %></li>
+    <li>Settings</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/><br/>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to 'Set Grading Levels' ,'/grading_levels'%></h2>
+      </div>
+      <div class="box-content">
+        Set Grading Levels.
+      </div>
+    </div>
+  </div>
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to 'Ranking Levels' ,'/exam_setting/newrank'%>
+        </h2>
+      </div>
+      <div class="box-content">
+       Manage Ranking Levels.
+      </div>
+    </div>
+  </div>
+</div>
+<br/><br/>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to 'Class Designations' ,'/exam_setting/new' %></h2> 
+      </div>
+      <div class="box-content">
+        Manage Class Designations.
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

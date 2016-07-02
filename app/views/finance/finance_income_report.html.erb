@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      #heading {
+        width:100%;
+        margin: 0 auto;
+      }
+      #head {
+        height: 100px;
+        width: 700px;
+        text-align: center;
+        font-size: 40px;
+        border-color: black;
+      }
+      #head_info {
+        text-align: center;
+        font-size: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="heading">
+      <div id="head">
+        <%= @general_setting.school_or_college_name%><br/>
+        <div id="head_info">
+          <%= @general_setting.school_or_college_address%><br/><br/>
+          <%= @general_setting.school_or_college_phone_no%>
+        </div>
+      </div>
+      <hr>
+      <br/><h3><center>Finance Income Report</center></h3><br/>
+      <table cellpadding="5" cellspacing="5" width="700">
+        <tr bgcolor="99CCFF">
+          <th>Sl no</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Transaction Date</th>
+          <th>Amount</th>
+        </tr>
+        <% i = 0  %>
+        <%total_amount=0%>
+        <% @incomes.each_with_index do |income,i|%>
+        <%if income.finance_transaction_category.is_income? %>
+          <tr>
+            <td><%= i+1 %></td>
+            <td><%= income.title%></td>
+            <td><%= income.description%></td>
+            <td><%= income.transaction_date%></td>
+            <td align="right"><%= income.amount%></td>
+          </tr>
+        <% total_amount+= income.amount%>
+        <%end%>
+        <% end %>
+        <tr align="right">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td ><b>Grand Total : <%= total_amount%></b></td>
+        </tr>
+      </table>
+      <br/><br/>
+    </div>
+  </body>
+</html>

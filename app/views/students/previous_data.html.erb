@@ -1,0 +1,67 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%=link_to 'Step 1',admission1_students_path%></li>
+    <li><%=link_to 'Step 2',admission2_students_path(@student.id)%></li>
+    <li><%=link_to 'Step 2.1',admission2_1_students_path(@student.id)%></li>
+    <li><%=link_to 'Step 3',admission3_students_path(@student.id)%></li>
+    <li>Admission(Step 4 - previous Details)</li>
+  </ul>
+</div>
+<h4>Note:&nbsp;&nbsp;
+  <font color="red">Insert previous Institution Details</font>
+</h4>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="col-md-11 col-md-offset-1">
+    <div class="pull-right">
+      <%=link_to "Add subject", previous_subject_students_path(@student), remote: true,class: "btn btn-primary-link btn-xs" %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="box col-md-7">
+    <div class="box-inner">
+      <div class="box-header well">
+        <h2>Enter Previous Institution Data</h2>
+      </div>
+      <div class="box-content" >
+        <%= form_for @previous_data,url:{action:'previous_data_create'} do |f| %>
+          <%=f.hidden_field :student_id,value: @student.id %>
+          <fieldset>
+            <div class="col-md-8 col-md-offset-1">
+              <%= previous_data_error! %>
+              <div class="form-group">
+                <b>Institution:</b>
+                <%=f.text_field :institution,placeholder: "Institution Name", class: "form-control"%>
+              </div>
+              <div class="form-group">
+                <b>Year:</b>
+                <%=f.text_field :year,placeholder: "Passing Year", class: "form-control"%>
+              </div>
+              <div class="form-group">
+                <b>Course:</b>
+                <%=f.text_field :course,placeholder: "Course Name", class: "form-control"%>
+              </div>
+              <div class="form-group">
+                <b>Total Marks:</b>
+                <%=f.text_field :total_mark,placeholder: "Total Marks", class: "form-control"%>
+              </div>
+              <div class="col-sm-5 col-sm-offset-5"> 
+                <div class="form-actions">               
+                  <%= f.submit 'Submit', class: "btn btn-primary"%>
+                </div>
+              </div> 
+            </div>  
+          </fieldset>     
+        <%end%>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-5 ">
+    <div class="form-group">
+      <div id="display_subject_mark"></div>
+    </div>
+  </div>
+</div>
+<div id="myModal" class="modal fade"></div>

@@ -1,0 +1,77 @@
+
+     <div class="box-inner">
+       <div class="box-header well">
+          <h2></h2>
+      </div>
+        <%if @employees.present? %>
+
+      <div class="box-content">
+        <table class="table table-striped">
+          <thead>
+          <tr>                            
+            <th><%= 'Sr. no' %></th>
+            <th><%= 'Employee' %></th>
+            <th><%= 'Employee no'%></th>
+            <th><%= 'Net salary'%></th>
+            <th><%= 'Payslip Status'%></th>
+            <th></th>
+          </tr>
+          </thead>
+          <%count=0%>
+          <%tot_amount=0%>
+         
+          <%approved_tot=0%>
+          <%approved=MonthlyPayslip.where(is_approved:true).pluck(:amount)
+                %>
+                <%counter=0.to_i%>
+                <%approved.each do |i|%>  
+                 <%approved_tot+=approved[counter].to_f%>
+                 <%counter+=1%>
+               <%end%>
+          
+
+         
+              
+           <%@employees.each do |emp|%>
+          <tr>
+              
+               <%amount=MonthlyPayslip.where(employee_id:emp.id).pluck(:amount)%>
+               <%tot_amount+=amount[0].to_f%>
+               <%status=MonthlyPayslip.where(employee_id:emp.id).pluck(:is_approved)%>
+               <%if status[0]==true%>
+                    <%salary_ststus="Approved"%>
+                <%else%>
+                    <%salary_ststus="Pending"%>
+                <%end%>
+               
+               <td><%=count+1%></td>
+              
+               <td><%= emp.first_name%></td>
+               <td><%= emp.employee_number%></td>
+               <td><%= '%.02f'%amount[0].to_f%></td>
+               <td><%= salary_ststus%></td>
+
+      <%salary_date=MonthlyPayslip.where(employee_id:emp.id).pluck(:salary_date)%>
+      <%salary_date = Date.today if salary_date.empty?%>
+               <td><%= link_to'View',view_employee_payslip_employees_path(employee_id:emp.id,salary_date:salary_date)%></td> 
+          </tr>
+           <%count+=1%>
+          <%end%>
+         <tr><td colspan="6"><hr></td></tr>
+          <tr class="tr-head">
+            <td class="col-1" ><b><%= "Total Employees"%>:</b> </td>
+
+            <td><%=count%></td>
+            <td class="col-1"><b><%= "Total Salary"%> : </b></td>
+            <td><%=tot_amount%></td>
+            <td class="col-1"><b><%= 'Approved Salary'%>: </b></td>
+            <td><%='%.02f'%approved_tot%></td>
+          </tr>
+
+        </table>
+         <%else%>
+                <h4 align="center">No employees found</h4>
+         <%end%>
+      
+  </div>
+</div>

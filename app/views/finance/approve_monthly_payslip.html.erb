@@ -1,0 +1,19 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Finance',finance_index_path %></li>
+    <li><%= link_to 'Employee Payslip',payslip_finance_index_path %></li>
+    <li>Approve monthly payslip</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-4">
+    <div class="form-group">
+      <b>Select Salary Month:</b>
+      <%= select :salary,:month,collect_salary_month,{prompt:true},{onchange:"var a={date:$('#salary_month').val()}; $.get('approve_salary',a,function(response){});",remote:true,class: "form-control"}%>
+    </div>
+  </div>
+</div>
+<div id="approve"></div>

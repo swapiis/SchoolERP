@@ -1,0 +1,7 @@
+<div align="center">
+	<%unless @salary.is_approved?%>
+		<%= link_to 'Approve',approve_finance_index_path(date:@date),class: "btn btn-primary"%>
+	<%else%>
+		<%= label_tag :label,'Already approved',class: "btn btn-success"%>
+	<%end%>
+</div>

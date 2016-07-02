@@ -1,0 +1,95 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Settings',setting_index_path %></li>
+    <li><%= link_to 'Manage Course / Batch', course_batch_setting_index_path %></li>
+    <li><%= link_to 'Course',courses_path %></li>
+    <li>New</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/>
+
+<div class="row">
+  <div class="box col-md-12">
+  <div class="box-inner">
+    <div class="box-header well">
+      <h2>New Course / Batch</h2>
+    </div>
+
+    <div class="box-content">
+    
+    <%= form_for @course  do |c| %>
+        
+      <fieldset>
+        <%= course_error! %>
+          <div class="col-sm-4">
+            <div class="box">
+              <div class="lead">
+              <i class="icon-book text-contrast"></i>Courses</div>
+              <small class="text-muted">Courses are those which a particular institution provides.</small>
+            </div>
+          </div>
+          <div class="col-sm-7 col-sm-offset-1">
+            <div class="form-group">
+
+              <b>Course Name :</b>
+              <%= c.text_field :course_name, :style=>"width:350px", class: "form-control", placeholder: "Course Name"%>
+            </div>       
+            <div class="form-group">
+              <b>Section Name :</b>
+              <%= c.text_field :section_name, :style =>"width: 350px", class: "form-control", placeholder: "Section Name"%>
+            </div>
+            <div class="form-group">
+              <b>Code :</b>
+
+              <%= c.text_field :code , :style =>"width: 350px", class: "form-control", placeholder: "Code"%>
+            </div>
+          </div>
+      </fieldset>
+
+      <hr class="hr-normal">
+
+      <%= c.fields_for :batches do |b|%>
+
+      <fieldset>
+        <div class="col-sm-4">
+          <div class="box">
+            <div class="lead">
+              <i class="icon-tags contrast"></i>Batches</div>
+              <small class="text-muted">A student enrolling in the institution for a course and respective batch gets assigned. They are for particular courses. eg Computer Engg- 2014-2015.</small>
+          </div>
+        </div>
+
+        <div class="col-sm-7 col-sm-offset-1">
+          <div class="form-group">
+            <b>Batch Name :</b>
+            <%= b.text_field :name, class: "form-control",  placeholder: "Batch Name", :style=>"width:350px"%>
+          </div>
+          <div class="form-group">
+            <b>Start Date :</b>
+            <%= b.date_field :start_date, class: "form-control datepicker",placeholder: "MM/DD/YYYY",:style=>"width:350px"%>
+          </div>
+          <div class="form-group">
+            <b>End Date :</b>
+
+            <%= b.date_field :end_date, class: "form-control datepicker",placeholder: "MM/DD/YYYY", :style=>"width:350px"%>
+          </div>
+        </div>
+      </fieldset>
+      
+      <div class="form-actions">
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-4">                
+            <%= c.submit 'Create', class: "btn btn-primary"%> 
+          </div>
+        </div>
+      </div>
+                        
+      <%end%>
+    <%end%>
+                    
+    </div>
+  </div>
+  </div>
+</div>

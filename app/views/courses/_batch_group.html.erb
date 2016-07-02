@@ -1,0 +1,41 @@
+<div class="box-inner">
+    <div class="group-header">
+    <div class="box-header well">
+      <h2>Batch Group Details</h2>
+    </div>
+    <div class="box-content">
+      <div class="row">
+        <div class="text-center">
+         <small class="text-muted">List of all batch group that are currently been used in the institution for courses</small>
+        </div>
+      </div>
+    </div>
+      <table id="datatable" class="table table-striped table-bordered responsive">
+        <thead>
+          <tr>
+            <th>Batch Group Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+         <tr>
+           <td colspan="2"><%=grouped_batch_not_found!%></td>
+        </tr>
+        <tbody>
+        <% @batch_groups.each do |bg| %>
+          <tr>
+            <td><%= bg.name %></td>
+            <td class="center">
+              <div class="label-success label label-default">
+              <i class="glyphicon glyphicon-edit icon-white"></i> 
+              <%= link_to 'Edit',edit_batch_group_course_path(bg), remote:true, class: "a-action"%></div>
+
+              <div class="label-danger label label-default">
+              <i class="glyphicon glyphicon-trash icon-white"></i> 
+              <%= link_to 'Delete',delete_batch_group_course_path(bg),method: :delete, data:{confirm:"Are you sure to delete Batch Group '#{bg.name}' ?"}, class: "a-action"%></div>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>

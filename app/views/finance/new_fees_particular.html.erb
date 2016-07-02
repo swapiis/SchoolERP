@@ -1,0 +1,79 @@
+
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Finance',finance_index_path %></li>
+    <li><%= link_to 'Manage Fees',fees_finance_index_path %></li>
+    <li><%= link_to 'Create Fees',master_fees_finance_index_path %></li>
+    <li>Create Particular</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="box col-md-12">
+    <div class="box-inner">
+      <div class="box-header well">
+        <h2>Create particular for master fee catagory </h2>
+      </div>
+      <div class="box-content">
+      <%= form_for @fee, url:{action: 'create_fees_particular'} do |f| %>
+    <fieldset>
+      <%= particular_error! %>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <b>Name:</b>
+          <span style="color:red">*</span>
+          <%= f.text_field :name, placeholder: "Particular Name", class: "form-control",required:true %>
+        </div>
+        <div class="form-group">
+          <b>Description:</b>
+          <span style="color:red">*</span>
+          <%= f.text_field :description, placeholder: "Description", class: "form-control",required:true%>
+        </div>
+        <div class="form-group">
+          <b>Create Using:</b>
+        </div>
+        <div class="form-group">
+          <%=radio_button_tag :mode,"admission_no",'',{onclick:"$.get('admission_no',function(response){
+            });"}%>Admission No.
+        </div>
+        <div class="form-group">
+          <%=radio_button_tag :mode,"category",'',{onclick:"$.get('category',function(response){});"}%>Student Category
+        </div>
+        <div class="form-group">
+          <%=radio_button_tag :mode,"all",'',{onclick:"$('#hidden').html('')"}%><%=  t('All') %>
+        </div>
+        <div id="hidden"></div>
+        </div>
+      <div class="col-md-4 col-md-offset-1">
+        <div class="form-group">
+          <b>Amount:</b>
+          <%= f.text_field :amount, placeholder: "Amount",class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <b>Finance Fee Category:</b>
+          <span style="color:red">*</span>
+          <%= f.select :finance_fee_category_id,collect_catagory,{prompt:true},{onclick:"var a={id:$('#finance_fee_particular_finance_fee_category_id').val()};$.get('category_batch',a,function(response){});",:style =>"width: 300px",class: "form-control"}%>
+        </div>
+        <div class="form-group">
+          <b>Select:</b> &nbsp;&nbsp; &nbsp;&nbsp;
+          <%= link_to "All",select_all_finance_index_path,{onclick:"$('.check_box').prop('checked',true);",remote:true,class: "btn btn-primary-link btn-xs"}%>&nbsp;&nbsp;
+          <%= link_to  "None",select_none_finance_index_path,{onclick:"$('.check_box').prop('checked',false);",remote:true,class: "btn btn-primary-link btn-xs"}%>
+        <div id="fee_category">
+          <%= render 'category_batches_list'%></div>
+        </div>
+      </div>
+    <div class="col-sm-5 col-sm-offset-5"> 
+      <div class="form-actions">               
+        <%= f.submit 'Submit', class: "btn btn-primary"%>
+      </div>
+    </div>
+  </fieldset>        
+ <% end %>
+</div>
+</div>
+</div>
+</div>
+

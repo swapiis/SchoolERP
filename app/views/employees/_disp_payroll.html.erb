@@ -1,0 +1,109 @@
+
+<div id="flash"><%= render 'layouts/messages'%></div>
+
+
+
+<% unless flash[:notice].nil? %>   <%end%>
+<div class="row">
+  <div class="col-md-12">
+    <div class="box-inner">
+      
+      <%if @payslip.nil?%>
+      <h4 align="center">No Payroll found for this employee</h4>
+      <%else%>   
+
+      
+      <%approved=MonthlyPayslip.where(employee_id:@emp.id,is_approved:true).pluck(:is_approved)%>
+      <%if approved[0]==true%>
+      <%status="(Approved)"%>
+      <%else%>
+      <%status="(Pending)"%>
+      <%end%>   
+      
+      
+      
+      <div class="box-content">
+        <fieldset>
+         
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+            <div class="row">
+              <h4><font color="brown"><b>Earning:</b></font>
+              </h>
+            </div>
+            <div class="row">
+              <table class="table table-stried">
+                <tr>
+                 <th>Category</th>
+                 <th>Amount</th>
+               </tr>
+               <%total=0%>
+               
+               <%is_deduction=PayrollCategory.where(is_deduction:false)%>
+               <%is_deduction.each do |c| %>
+               <% val = EmployeeSaleryStructure.where(employee_id:@emp.id,payroll_category_id: c.id).pluck(:amount) %>
+
+               <tr>
+                 <td><%=c.name%></td>
+                 
+                 <td colspan="2"><%='%.02f'%val[0]%></td>
+                 <%total+=val[0].to_f%>
+               </tr>
+               <%end%>
+               <tr>
+                 <th><%="Total"%></th>
+
+                 <th><%='%.02f'%total%></th>
+               </tr>
+             </table>
+           </div>
+           
+           <div class="row">
+             <h4><font color="brown"><b>Deduction:</b></font></h4>
+           </div>
+           <div class="row">
+             <table class="table table-stried">
+              <%tot=0%>
+              <%is_deduction=PayrollCategory.where(is_deduction:true)%>
+              <%is_deduction.each do |d|%>
+              <% val = EmployeeSaleryStructure.where(employee_id:@emp.id,payroll_category_id:d.id).pluck(:amount)%>
+              
+              <tr>
+               <td><%=d.name%></td>
+               <td colspan="2"><%=val[0]%></td>
+               <%tot+=val[0].to_f%>
+             </tr>
+             
+             <%end%>
+
+             <tr>
+               <th><%="Total"%></th>
+               <th colspan="2"><%='%.02f'%tot%></th>
+             </tr>   
+           </table>
+         </div>
+         <hr>
+         
+         <div class="row">
+          <h3> 
+           <table class="table table-stried">
+            
+             <%last_total=total.to_f-tot.to_f%>
+             <tr>
+               <th><%="Total"%>:</th>
+               <th><%='%.02f'% last_total %></th>
+             </tr>  
+           </table></h3>
+         </div>
+
+       </div>
+
+     </fieldset>
+     <%end%>
+   </div>
+
+ </div>
+
+</div>
+</div>
+

@@ -1,0 +1,16 @@
+ <% @class_dess.each do |c| %>
+  <tr>
+    <td class="col-2"><%= c.name %></td>
+    <td class="col-2"><%= c.marks %></td>
+    <td>
+    <div class="label-success label label-default">
+  		<i class="glyphicon glyphicon-edit icon-white"></i>
+    	<%=link_to 'Edit',edit_exam_setting_path(c.course,class_des:c),remote: true,class: "a-action"%></div>
+    <div class="label-danger label label-default">
+  		<i class="glyphicon glyphicon-trash icon-white"></i> 
+     	<%= link_to 'Delete', exam_setting_path(c.course,class_des:c),
+        method: :delete, data: { confirm: "Are you sure to delete"}, class: "a-action"%>
+    </div>
+    </td>
+  </tr>   
+<% end %>

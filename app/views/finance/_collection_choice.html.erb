@@ -1,0 +1,5 @@
+<% unless @collections.nil? %>
+	<b>Select Fee Collection Date:</b>
+  <%= select :collection,:id,collect_collection,{prompt:true},{onchange:"var a={id: $('#collection_id').val()};$.get('defaulter_students',a,function(response){});",class: "form-control"}%>
+<%end%>
+

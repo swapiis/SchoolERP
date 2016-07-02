@@ -1,0 +1,37 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Student Details',students_path %></li>
+    <li><%= link_to 'Profile',profile_student_path(@student.id)%></li>
+    <li>Send Mail</li>
+  </ul>
+</div><div id="flash"><%= render 'layouts/messages'%></div>
+<div class="box col-md-12">
+  <div class="box-inner">
+    <div class="box-content">
+      <fieldset>
+        <div id="student_profile_heading">
+          <h4>
+            <b><%= @student.stud_full_name %></b><br><br>
+            <b>Course and Batch:</b>
+            <span class="course">  <%= @student.batch_name %> </span><br><br>
+            <b> Admission no :  </b>
+            <span class="adm"> <%= @student.admission_no %> </span><br><br>
+          </h4><font color="red">Fields marked with * must be filled</font>
+        </div><hr>
+        <%= form_for :email,url:{action:'send_email'} do |f|%>
+          <%= hidden_field_tag :student_id,@student.id%>
+          <div class="form-group">
+            <b class="col-md-3">Subject: <font color="red">*</font></b>
+            <%= text_field_tag :subject,"",class: "form-control",style: "width: 60%" %></div><br/>
+          <div class="form-group"><b class="col-md-3">Recipients: <font color="red">  *</font></b>
+            <%= f.select :recipient,["Student","Guardian"],{prompt:true},class: "form-control",style: "width: 60% " %></div><br/>
+          <div class="form-group"><b class="col-md-3">Message: <font color="red">*</font></b>
+            <%= text_area_tag :message,"",class: "form-control",style: "width: 60%;height:200px" %></div><br/>
+          <div class="col-md-3"></div>
+          <div class="form-group"><%= f.submit 'Send',class: "btn btn-success",style: "width:80px"%></div>
+        <%end%>
+      </fieldset>
+    </div>
+  </div>
+</div>

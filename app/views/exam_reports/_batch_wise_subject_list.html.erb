@@ -1,0 +1,9 @@
+ <%=hidden_field_tag :ranking_level_id,@ranking_level.id%>
+ <%=hidden_field_tag :report_type,@rank %>	
+ <% if @rank.eql? "Subject wise" %>
+ <div class="label-field-pair">
+  <%= label_tag :select_subject %>
+      <div class="text-input-bg">
+      <%= select :subject,:id, @subjects.collect {|s| [s.name,s.id]},prompt:true%>
+      </div></div>
+ <%end%>

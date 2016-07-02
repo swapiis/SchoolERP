@@ -1,0 +1,16 @@
+<%=sub_not_found!%>
+<%= form_for :subject,url:{action:'assign_time'},method: :post,html:{id:"create_time_form"},remote:true do |f| %>
+   <%=hidden_field_tag :time_table_id%> 
+   <%=hidden_field_tag :timing_id%> 
+   <%=hidden_field_tag :weekday_id%> 
+   <%=hidden_field_tag :subject_id%>
+   <%=hidden_field_tag :batch_id%>
+ <% @teachers.each do |e| unless e.employee.nil?
+ 	 %>
+     <%=radio_button_tag "teacher",e.employee.id,:checked=>"unchecked" %>
+      <div class="btn btn-primary" ><%= e.employee.full_name %></div>&nbsp;&nbsp;&nbsp;
+         <% end %>
+      <%end%>
+     <%end%>
+
+

@@ -1,0 +1,17 @@
+$('ul.errors').html("")
+<% if @exam_group.errors.any? %>
+	<% @exam_group.errors.full_messages.each do |message| %>
+	$("ul.errors").addClass("alert alert-danger alert-dismissable")  
+    $("ul.errors").append($("<p/>").addClass("icon-remove-sign").html("<%= message.html_safe %>"))
+	<% end %>
+<% else %>
+$('#form_exam').html("<%=  j render '/exams/exam_form' %>")
+<%end%>
+ $(function () {
+                $('.datetimepicker1').datetimepicker({
+                   format: 'DD/MM/YYYY h:m A'
+
+                });
+               
+});
+

@@ -1,0 +1,10 @@
+$("ul.errors").html("")
+<% if @leave_type.errors.any? %>
+		<%  @leave_type.errors.full_messages.each do |message| %>
+		$("ul.errors").addClass("alert alert-danger alert-dismissable")  
+		$("ul.errors").append($("<li align ='left' style = 'width:300px'/>").html("<%= message.html_safe %>"))
+		<% end %>
+<% else %>
+$('#add_leave_type').html("<%= j render 'employee_leave'%>")
+$("#myModal").modal("hide")
+<% end %>

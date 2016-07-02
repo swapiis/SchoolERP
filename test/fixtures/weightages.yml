@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  percentage: 1
+  placement_exam_id: 
+  question_type_id: 
+
+two:
+  percentage: 1
+  placement_exam_id: 
+  question_type_id: 

@@ -1,0 +1,10 @@
+$("ul.errors").html("")
+<% if @attendence.errors.any? %>
+		<% @attendence.errors.full_messages.each do |message| %>
+		$("ul.errors").addClass("alert alert-danger alert-dismissable")  
+		$("ul.errors").append($("<li />").html("<%= message.html_safe %>"))
+		<% end %>
+<% else %>
+$('#attendence').html("<%= j render 'attendence'%>");
+$("#myModal").modal("hide")
+<% end %>

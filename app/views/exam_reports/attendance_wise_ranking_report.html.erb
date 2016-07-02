@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      #heading {
+        width:100%;
+        margin: 0 auto;
+      }
+      
+      #head {
+        height: 100px;
+        width: 700px;
+        text-align: center;
+        font-size: 40px;
+        border-color: black;
+
+      }
+      #head_info {
+        text-align: center;
+        font-size: 15px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="heading">
+      <div id="head">
+        <%= @general_setting.school_or_college_name%><br/>
+      </div>  
+      <div id="head_info">
+          <%= @general_setting.school_or_college_address%><br/>
+          <%= @general_setting.school_or_college_phone_no%>
+      </div>
+    </div>  
+      <hr>
+
+      <br/><h3><center>Attendance-wise Ranking Report </center></h3>
+    <br>
+      <h4><%= @batch.course.course_name.capitalize+" "+@batch.course.section_name.capitalize+" "+@batch.name.capitalize+" | "+ @start_date.to_s+" - "+@end_date.to_s%></h4>
+    
+
+ <table cellpadding="4" cellspacing="5" width="700">
+    
+       <tr bgcolor="99CCFF">
+              <th>Sr.No.</th>
+              <th>Admission no</th>
+              <th>Student Name</th>  
+              <th>Working Days</th>       
+              <th>Attended</th>
+              <th>Percentage</th>
+              <th>Rank</th>
+            </tr>
+            <%attendence=[]%>
+            <% @students.each_with_index do |student,i| %>
+                <% total_days=0 %><% absent_days=0 %>
+                <% (@start_date..@end_date).each do |date| %>
+                  <% @weekdays.each do |d| %>
+                    <% if I18n.l(date.to_date,:format=>"%A")==d.weekday %>
+                      <% total_days+=1 %>
+                    <%end%>
+                    <%end%>
+                <% @attendence=Attendence.find_by_student_id_and_month_date(student.id,date.to_date) %>
+                    <% unless @attendence.nil? %>
+                      <% absent_days+=1 %>
+                    <%end%>
+                <%end%>
+                <% present_days=total_days-absent_days %>
+                <% attendence<<[student,total_days,present_days]%>
+            <%end%>
+          <%attendence.sort_by{|r| r[2]}.reverse.each_with_index do |student,i|%>
+              <tr class="tr-<%= cycle('odd', 'even') %>">
+                <td align="center"><%= i+1 %></td>
+                <td align="center"><%= student[0].admission_no%></td>
+                <td align="center"><%= student[0].first_name+" "+student[0].last_name %></td>
+                <td align="center"><%= student[1] %></td>
+                <td align="center"><%= student[2] %></td>
+                <td align="center"><%= "%.2f" %(student[2]*100/student[1])+"%" unless student[1]==0 %></td>
+                <td align="center"><%= i+1 %></td>
+              </tr>
+            <% end %>
+          </table>
+</div>
+</div>
+</body>
+</html>

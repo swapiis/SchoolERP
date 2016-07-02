@@ -1,0 +1,43 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+          <h3><%= "Editing #{@class_timing1.name}" %></h3>
+      </div>
+      <div class="modal-body">
+        <ul class="errors"></ul>
+        <%= form_for [@batch,@class_timing1],remote: true do |f|%>
+        <table class="table">
+            <tr>
+                <td class="col-2"><b>Name:</b></td>
+                <td><%=f.text_field :name ,:style =>"width: 250px", class: "form-control"%></td>
+            </tr>
+            
+            <tr>
+                <td class="col-2"><b>Start Time:</b></td>
+
+                
+                <td><%=f.time_select :start_time,:style =>"width: 250px", class: "form-control" %></td>
+            </tr>
+            
+            <tr>
+                <td class="col-2"><b>End Time:</b></td>
+                <td><%=f.time_select :end_time ,:style =>"width: 250px", class: "form-control"%></td>
+            </tr>
+            
+            
+            <tr>
+                
+                <td colspan="2">&nbsp;&nbsp;&nbsp;<%= f.check_box :is_break%> <b>Is a break</b></td>
+            </tr>
+
+
+            <tr>
+                <td colspan="2" align="center"><%= f.submit 'Update', class: "btn btn-success"%>
+                    <%= link_to 'Cancel', '#', class: "btn btn-default",data:{dismiss:"modal"}%></td>
+                </tr>
+            </table>
+            <% end %>
+        </div>
+
+
+    </div></div>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      #heading {
+        width:100%;
+        margin: 0 auto;
+      }
+      
+      #head {
+        height: 100px;
+        width: 700px;
+        text-align: center;
+        font-size: 40px;
+        border-color: black;
+
+      }
+      #head_info {
+        text-align: center;
+        font-size: 15px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="heading">
+      <div id="head">
+        <%= @general_setting.school_or_college_name%><br/>
+        <div id="head_info">
+          <%= @general_setting.school_or_college_address%><br/><br/>
+          <%= @general_setting.school_or_college_phone_no%>
+        </div>
+      </div>
+      <hr>
+      <br/><h3><center>Employee Profile</center></h3><br/>
+      <table cellpadding="5" cellspacing="5" width="700">
+        <tr><th colspan="2" bgcolor="99CCFF" align="left">Employee Details</th></tr>
+        <tr>
+          <td>Name : </td>
+          <td><%= @employee.first_name.capitalize %> <%= @employee.middle_name.capitalize %> <%= @employee.last_name.capitalize %>
+          </td>
+        </tr>
+        <tr>
+          <td>Position : </td>
+          <td><%= @employee.employee_position.name %></td>
+        </tr>
+        <tr>  
+          <td>Department : </td>
+          <td><%=  @employee.employee_department.name %> </td>
+        </tr>
+        <tr>
+          <td>Employee no : </td>
+          <td><%= @employee.employee_number %></td>
+        </tr>
+      </table>
+      <br/><br/>
+      <table cellpadding="5" cellspacing="5" width="700">
+        <tr><th colspan="2" bgcolor="99CCFF" align="left">Employee general Details</th></tr>
+        <tr>
+          <td>Joining Date : </td>
+          <td><%= @employee.joining_date  %></td>
+        </tr>
+        <tr>
+          <td>Department : </td>
+          <td><%=@employee.employee_department.name%></td>
+        </tr>
+        <tr>  
+          <td>Category : </td>
+          <td><%=@employee.employee_category.name%></td>
+        </tr>
+        <tr>
+          <td>Position : </td>
+          <td><%=  @employee.employee_position.name %></td>
+        </tr>
+        <tr>
+          <td>Grade : </td>
+          <td><%= @employee.employee_grade.name%></td>
+        </tr>
+        <tr>
+          <td>Job Title : </td>
+          <td><%= @employee.job_title %></td>
+        </tr>
+        <tr>
+          <td>Reporting Manager : </td>
+          <td><%=@employee.first_name %> 
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Gender : </td>
+          <td> <%= @employee.gender %> 
+          </td>
+        </tr>
+        <tr>
+          <td>Email : </td>
+          <td><%= @employee.email%></td>
+        </tr>
+        <tr>  
+          <td>Status : </td>
+          <td><%= @employee.status %> </td>
+        </tr>
+        <tr>
+          <td>Qualification : </td>
+          <td><%= @employee.qualification %></td>
+        </tr>
+        <tr>
+          <td>Experience : </td>
+          <td> <%= @employee.experience_year%><%=@employee.experience_month%> </td>
+        </tr>
+        <tr>
+          <td>Experience Information : </td>
+          <td><%=@employee.experience_detail %></td>
+        </tr>
+        
+      </table>
+    </div>
+  </body>
+</html>

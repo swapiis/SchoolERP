@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+    <%= link_to 'Add Normal Subjects',new_batch_subject_path(@batch),remote:true, class: "btn btn-primary-link btn-xs" %>
+    <%= link_to 'Add Elective Groups',new_batch_elective_group_path(@batch),remote:true, class: "btn btn-primary-link btn-xs" %>
+    </div>
+  </div>
+</div>
+<br/>
+<div class="row">
+  <div class="box col-md-6">
+  <div class="box-inner">
+    <div class="box-header well">
+      <h2>Normal Subject</h2>
+    </div>
+    <div class="box-content" style="overflow-y: scroll; height:auto">
+      <table id="datatable" class="table table-striped table-bordered responsive">
+        <thead>
+          <tr>
+            <th>Subject Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+         <tr>
+           <td colspan="4"><%=normal_subject_not_found!%></td>
+          </tr>
+        <tbody>
+        <% @subjects.each do |subject| %>
+          <tr>
+            <td>
+              <%= subject.subject_name %>
+            </td>
+            <td class="center">
+              <div class="label-success label label-default">
+              <i class="glyphicon glyphicon-edit icon-white"></i> 
+              <%= link_to 'edit',edit_batch_subject_path(subject.batch,subject),remote: true,class: "a-action"%></div>
+
+              <div class="label-danger label label-default">
+              <i class="glyphicon glyphicon-trash icon-white"></i> 
+              <%= link_to 'delete',[subject.batch,subject],method: :delete,data:{confirm:"Are you sure to delete subject: #{subject.name}?"}, class: "a-action"%></div>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  </div>
+  <div class="box col-md-6">
+    <%=render 'elective_groups/elective_group'%>
+  </div>
+</div>

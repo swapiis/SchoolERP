@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Educulture</title>
+  <%= stylesheet_link_tag 'vendor'%>
+</head>
+<body>
+
+
+<br><br><br><br><br><br>
+<div class="row">
+
+    <div class="col-md-6 col-md-offset-3">
+    <div class="box-inner">
+      <div class="box-header well">
+          <h2>Resend confirmation instructions</h2>
+      </div>
+      <div class="box-content">
+  <div class="col-md-offset-2">
+<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div><b>Email:</b>
+  <%= f.email_field :email, autofocus: true,class: "form-control",style:"width:350px" %></div>
+  <br>
+  <div><%= f.submit "Resend confirmation instructions" %></div>
+<% end %>
+
+<br><br>
+<%= render "devise/shared/links" %>
+</div>
+</div>
+</div>
+</div>
+</div>
+<br><br>
+</body>
+</html>

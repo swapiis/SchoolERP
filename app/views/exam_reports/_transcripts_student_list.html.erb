@@ -1,0 +1,18 @@
+<% unless @students.empty?  %>
+ <div class="box-inner">
+  <div class="box-header well">
+    <h2>Students In Batch</h2>
+  </div>
+  <div class="box-content">
+  <ul>
+    <% @students.each do |s| %>
+      <li>
+        <%=link_to s.first_name+" "+s.last_name,student_view_transcripts_exam_report_path(s),remote:true%>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <h4 align="center">Students Not Found</h4>
+<% end %>
+</div>
+</div>

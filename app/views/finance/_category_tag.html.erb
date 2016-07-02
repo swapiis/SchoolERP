@@ -1,0 +1,4 @@
+<div class="form-group">
+    <b>Category:</b>
+    <%= select :category,:id,Category.all.collect {|c| [c.name,c.id]},{prompt:true},{class: "form-control"}%>
+</div>

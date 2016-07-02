@@ -1,0 +1,73 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Finance',finance_index_path %></li>
+    <li><%= link_to 'Transction',transactions_finance_index_path %></li>
+    <li><%= link_to 'Add income',new_income_finance_index_path %></li>
+    <li><%= link_to 'View income',view_income_finance_index_path %></li>
+    <li>Update income</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+      <%= link_to 'View income', '/finance/view_income', class: "btn btn-primary-link btn-xs" %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="box col-md-12">
+    <div class="box-inner">
+      <div class="box-header well">
+        <h2>Add Income</h2>
+      </div>
+      <div class="box-content">
+      <%= form_for @transaction, url:{action: 'update_income'},method: :patch do |f| %>
+      <fieldset>
+      <% if @transaction.errors.any?%>
+        <div class="alert alert-danger" style="width:500px" >
+        <h4>Errors prohibited to being update:</h4>
+          <ul>
+            <% @transaction.errors.full_messages.each do |msg| %>
+            <li style="width:500px" align="left"><%= msg%></li>
+            <% end %>
+          </ul> 
+        </div>
+      <% end %>
+      <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <b>Title:</b>
+            <%= f.text_field :title,:style =>"width: 200px",placeholder: "Title", class: "form-control"%>
+          </div>
+          <div class="form-group">
+            <b>Description:</b>
+            <%= f.text_field :description,:style =>"width: 200px", placeholder: "Description", class: "form-control"%>
+          </div>
+          <div class="form-group">
+            <b>Amount:</b>
+            <%= f.text_field :amount,:style =>"width: 200px", placeholder: "Amount",class: "form-control" %>
+          </div>
+          <div class="form-group">
+            <b>Transction Date:</b>
+            <%= f.date_field :transaction_date,:value => Time.now.strftime('%Y-%m-%d'),:style =>"width: 200px", class: "form-control"%>
+          </div>
+          <div class="form-group">
+            <b>Category:</b>
+            <%= f.select :finance_transaction_category_id, @categories.collect {|b| [b.name,b.id]},{prompt:true},:style =>"width: 200px", class: "form-control"%>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-5 col-sm-offset-5"> 
+        <div class="form-actions">               
+          <%= f.submit 'Update', class: "btn btn-success"%>
+        </div>
+      </div>
+    </fieldset>        
+  <% end %>
+</div>
+</div>
+</div>
+</div>

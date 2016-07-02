@@ -1,0 +1,9 @@
+	<div class="label-field-pair">
+	<%= form_for :exam do |f| %>
+	<%= f.label :'Select Batch Group'%>
+   		<div  class="text-input-bg">
+			
+		    <%= f.select :batch_id, @batches.collect {|b| [b.name,b.id]},{prompt:true}%>
+		</div></div>
+	<% end %>
+

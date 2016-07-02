@@ -1,0 +1,40 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Examination','/exams'%></li>
+     
+    <li><%= link_to 'Report Center', '/exam_reports/report_center' %></li>
+    
+    <li>Subject Wise Report</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/>
+
+
+
+
+
+
+<div class="row">
+  <div class="col-md-1"></div>
+    <div class="box col-md-6">
+
+<%= form_for :batch_choose, :url=>{:action=>'choose_batch'},html:{id: 'form_batch'},remote:true,method: :get do |f| %>
+  
+ 
+<b>Select a Batch:</b>
+     
+      <%= f.select :id, @batches.collect {|b| [b.course.course_name+" "+b.course.section_name+" - "+b.name,b.id]},{prompt:"Select a Batch"},{onchange:"$('#form_batch').submit();",class:"form-control",style: "width: 300px" }%>
+      
+  <% end %>
+</div>
+</div>
+<div class="row">
+  <div class="col-md-1"></div>
+    <div class="box col-md-6">
+  
+      <div id="subject_report"></div>
+  </div>
+  </div>
+  

@@ -1,0 +1,15 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+     <li><%= link_to 'Human Resources',employees_path %></li>
+     <li><%= link_to 'Employee Attendance', employee_attendances_path %></li>
+   
+     <li>Leave types</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+  <div id="add_leave_type">
+    <%=render 'employee_leave'%>
+  </div>
+  <div id="myModal" class="modal fade">
+  </div>

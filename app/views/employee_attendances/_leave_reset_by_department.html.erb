@@ -1,0 +1,14 @@
+
+<%=form_for :leave, :url => {:action=>'update_department_leave_reset'},method: :get do |f| %>
+<div class="row" align="right" style="margin-right:20px">
+  <%= link_to "Assign All",assign_all_employee_attendances_path(@deparments.id),remote:true,class: 'btn btn-primary-link btn-xs'%>
+  <%= link_to "Remove All",remove_all_employee_attendances_path(@deparments.id),remote:true, class: 'btn btn-primary-link btn-xs' %>
+</div>
+<div id="employee_list">
+              <%= render 'employee_list' %>
+        </div>
+<div class="row">
+  <div class="col-md-offset-5">
+  <%= f.submit 'Reset', class: 'btn btn-primary'%>
+</div></div>
+<% end %>

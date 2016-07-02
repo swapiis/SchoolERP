@@ -1,0 +1,33 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4><b>Edit Placement News</b></h4>
+        </div>
+        <div class="modal-body">
+        <ul class="errors"></ul>
+        <%= form_for @placement_news, remote:true do |f| %>
+            <fieldset>
+       
+            <div class="form-group">
+              <b>Title: <span style="color:red">*</span></b>
+              <%=f.text_field :title, class: "form-control", style: "width: 350px", placeholder: "News tilte"%>
+            </div>
+              
+            <div class="form-group">
+             <b>Content: <span style="color:red">*</span></b>
+              <%=f.text_area :content,style: 'width:350px;height:200px', placeholder: "News Content", class: "form-control"%>
+            </div>
+            <div class="form-group">
+             <b>Is Link?</b>
+              <%=f.check_box :islink %>
+              </div>
+            <div align="center">             
+                <%= f.submit 'Update News', class: "btn btn-primary"%>
+                 <%= link_to 'Close', '#', class: "btn btn-default", :'data-dismiss'=>"modal"%>
+                </div>
+         
+            </fieldset>
+        <% end %>
+        </div>
+    </div>
+</div>

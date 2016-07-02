@@ -1,0 +1,11 @@
+$("ul.errors").html("")
+<% if @collection.errors.any? %>
+		<% @collection.errors.full_messages.each do |message| %>
+		$("div.errors").addClass("alert alert-danger alert-dismissable")  
+		$("ul.errors").append($("<li />").html("<%= message.html_safe %>"))
+		<% end %>
+<% else %>
+  $("#list").html("<%= j render 'collections_list' %>");
+  $("#modal").modal('hide');
+  $('#flash').html("<%= j render 'layouts/messages'%>")
+<% end %>

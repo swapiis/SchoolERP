@@ -1,0 +1,44 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li>Apply Exam</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/>
+<div class="row">
+  <div class="col-sm-2"></div>
+  <div class="col-sm-8">
+    <div class="form-group">
+      <div class="row">
+        <div class="box col-md-12">
+          <div class="box-inner">
+            <div class="box-header well">
+              <h2>Companies</h2>
+            </div>
+            <div class="box-content" style="overflow-y: scroll; height:280px">
+              <table id="datatable" class="table table-striped table-bordered responsive">
+                <thead>
+                  <tr>
+                    <th>List Of Companies</th>
+                    <th>Result</th>
+                   
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @placement_exam.each do |p| %>
+                    <tr>
+                      <td><%= p.company.name%></td>
+                      <td><%=  link_to 'Display',display_result_placement_exams_path(id: p.company_id, p_id: p.id) %></td>
+                    </tr>
+                  <%end%>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+

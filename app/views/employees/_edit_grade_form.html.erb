@@ -1,0 +1,58 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3><%= "Editing" %></h3>
+    </div>
+
+
+    <div class="modal-body">
+      <ul class="errors4"></ul>
+      <%= form_for @employee_grade,url:{:action=>'update_grade',grade_id: @employee_grade.id},method: :patch,remote: true do |f|%>
+      
+      <div class="row">
+        <div class="form-group">
+         <div class="col-sm-4 "><b>Name:</b></div>
+         <div class="col-sm-7"><%=f.text_field :name, class: "form-control"%></div>
+       </div></div>
+       <br>
+       <div class="row">
+        <div class="form-group">
+         <div class="col-sm-4 "><b>Priority:</b></div>
+         <div class="col-sm-7"><%=f.text_field :priority, class: "form-control"%></div>
+       </div></div>
+       <br>    
+       <div class="row">   
+         <div class="form-group">
+          <div class="col-sm-4 "><b>Max periods per day:</b></div>
+          <div class="col-sm-7"><%=f.text_field :max_hours_day,class: "form-control"%></div>
+        </div></div>
+        <br>
+        <div class="row">
+          <div class="form-group">
+           <div class="col-sm-4"><b>Max periods per week:</b>
+           </div>
+           <div class="col-sm-7"> <%=f.text_field :max_hours_week, class: "form-control"%></div>
+         </div></div>
+         <br>
+         <div class="row">
+          <div class="form-group">
+            <div class="col-sm-4 "><b>Status:</b></div>
+            <div class="col-sm-7"><%= f.radio_button "status", "true", checked: "checked" %> &nbsp;<b>Active</b>&nbsp;&nbsp;
+              <%= f.radio_button "status", "false"%> &nbsp;
+              <b>Inactive</b></div>
+            </div> </div>
+
+            <hr>
+
+            <div class="col-sm-offset-3"> 
+             <div class="form-group">  
+               <%= f.submit 'Update', class: "btn btn-success"%>&nbsp;
+               <%= link_to 'cancel', '#', class: "btn btn-default",data:{dismiss:"modal"}%>
+             </div>
+           </div>
+
+           <% end %>
+
+         </div>
+       </div>
+     </div>

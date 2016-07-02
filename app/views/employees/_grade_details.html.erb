@@ -1,0 +1,47 @@
+<%if @grade1.empty? and @grade2.empty?%>
+<h3><div align="center">No records</div></h3>
+<%else%>
+<table align="center" class="table table-hover table-bordered" style="width:800px">
+
+	<tr class="tr-head"><th colspan="3">Active Grade</th>
+    </tr>
+	<tbody>
+		<%@grade1.each do |c| %>
+			<tr>
+			<td class="col-3"><%=c.name%> (<%=c.priority%>)</td>
+			<td class="center">
+              <div class="label-success label label-default">
+              <i class="glyphicon glyphicon-edit icon-white"></i> 
+			 <%= link_to 'Edit',edit_grade_employee_path(c),remote:true,class: "a-action"%>
+			 </div>
+			 </td>
+			 <td class="center">
+              <div class="label-danger label label-default">
+              <i class="glyphicon glyphicon-edit icon-white"></i> <%= link_to 'Delete',destroy_grade_employee_path(c),remote:true,method: :delete ,data: {confirm:"Are you sure to delete #{c.name}",class: "a-action"}%></div></td>
+			</tr>
+		<%end%>
+	 </tbody>
+</table>
+ 
+<table align="center" class="table table-hover table-bordered" style="width:800px">
+
+	<tr class="tr-head"><th colspan="3">Inactive Grade</th>
+    </tr>
+	<tbody>
+		<%@grade2.each do |c| %>
+			<tr>
+			<td class="col-3"><%=c.name%> (<%=c.priority%>)</td>
+			<td class="center">
+              <div class="label-success label label-default">
+              <i class="glyphicon glyphicon-edit icon-white"></i> 
+			 <%= link_to 'Edit',edit_grade_employee_path(c),remote:true,class: "a-action"%>
+			 </div>
+			 </td>
+			 <td class="center">
+              <div class="label-danger label label-default">
+              <i class="glyphicon glyphicon-edit icon-white"></i> <%= link_to 'Delete',destroy_grade_employee_path(c),remote:true,method: :delete ,data: {confirm:"Are you sure to delete #{c.name}",class: "a-action"}%></div></td>
+			</tr>
+		<%end%>
+	 </tbody>
+</table>
+<%end%>

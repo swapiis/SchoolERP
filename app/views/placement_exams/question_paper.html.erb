@@ -1,0 +1,22 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Placement',placement_exams_path %></li>
+    <li> Question Paper </li>
+  </ul>
+</div>
+
+<div class="box col-md-12">
+  <div class="box-inner">
+    <div class="box-header well">
+      <h2><%=@company.name%></h2>
+      <div class="pull-right">
+        <div id="timer" >
+          Exam Remaining Time:
+          <input id="minutes" type="text" readonly="true" style="width: 26px; font-size: 16px; font-weight: bold; background-color:transparent"> min : 
+          <input id="seconds" type="text" readonly="true" style="width: 26px;font-size: 16px; font-weight: bold; background-color:transparent">sec
+          <%=link_to :"Start Exam",disp_time_placement_exams_path(exam_id:@placement_exam,company_id:@company),remote:true,class: "btn btn-primary"%>
+        </div>
+      </div>
+    </div>
+<div id="question_paper"></div>

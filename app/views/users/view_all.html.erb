@@ -1,0 +1,19 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Manage User',users_path %></li>
+    <li>View</li>
+  </ul>
+</div><div id="flash"><%= render 'layouts/messages'%></div>
+<br/>
+<div class="row">
+<div class="col-md-1"></div>
+  <div class="col-md-10">
+		<%= form_for :user, url:{action:'select'},method: :get,remote:true,html:{id: 'user_form2'} do |f| %>
+		<b>Select a Role:</b>
+	    <%= f.select :role,["Admin", "Employee", "Student","Parent"],{prompt:'Select a Role'},{onchange:"$('#user_form2').submit();",class: "form-control",style:"width:300px"} %>
+		<% end %>
+</div>
+</div>
+<br>
+ <div id="user_view"></div> 

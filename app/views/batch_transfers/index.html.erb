@@ -1,0 +1,23 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Settings',setting_index_path %></li>
+    <li><%= link_to 'Manage Course / Batch',course_batch_setting_index_path %></li>
+    <li><%= link_to 'Course',courses_path %></li>
+    <li><%= link_to 'Batch',batches_path%></li>
+    <li>Batch Transfer</li>
+  </ul>
+</div><div id="flash"><%= render 'layouts/messages'%></div>
+<br/><br/>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= form_for :batch_transfer,url:{action:'select'},method: :get,remote:true,html:{id: "transfer"} do |f| %>
+  <b>Select a Course:</b>
+    <%= f.select :id,collect_course_setting,{prompt:'Select a course'},{onchange:"batch_transfer_fun()",class: "form-control",style: "width:350px"}%>
+    <% end %>
+  </div>
+</div>
+
+<div id="stage"></div>
+ 

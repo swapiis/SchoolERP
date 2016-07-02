@@ -1,0 +1,10 @@
+$("ul.errors").html("")
+<% if @category.errors.any? %>
+  <%  @category.errors.full_messages.each do |message| %>
+  $("ul.errors").addClass("alert alert-danger alert-dismissable")  
+  $("ul.errors").append($("<li />").html("<%= message.html_safe %>"))
+  <% end %>
+<% else %>
+  $("#modal").modal("hide");
+  window.location.replace('/categories');
+<% end %>

@@ -1,0 +1,52 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+     <li><%= link_to 'Human Resources',employees_path %></li>
+    <li><%= link_to 'HR Management',employee_management_employees_path %></li>
+    <li><%= link_to 'Employee admission(Step 1)',admission1_employees_path %></li>
+    <li><%= link_to 'Step 2',admission2_employees_path(@employee.id)%></li>
+      <li>Step 3</li>
+  </ul>
+</div>
+
+<b>Note:</b><font color="red">Fields Marked with * must be filled</font>
+<div id="flash"><%= render 'layouts/messages'%></div>
+
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="box col-md-6">
+    <div class="box-inner">
+      <div class="box-header well">
+        <h2>Step 3 - Add Bank Detail</h2>
+       
+      </div>
+        <div class="box-content">
+<%= form_for :bank_details,url:{action: 'admission3_create',format: @employee.id},method: :post do |f| %>
+
+   <fieldset>
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8">
+ 	 <% @bank_fields.each do |bd| %>
+
+       <div class="form-group">
+       <b><%= bd.name %>:</b>
+         <%=f.text_field :bank_info,:index => bd.id,placeholder: "Name", class: "form-control"%>
+       </div>
+ <% end %>
+  </div>
+   </div>
+
+   <div class="col-sm-5 col-sm-offset-5"> 
+      <div class="form-actions">               
+        <%= f.submit 'Save', class: "btn btn-primary"%>
+      </div>
+    </div>
+  </fieldset>        
+ <% end %>
+</div>
+</div>
+</div>
+</div>
+    
+

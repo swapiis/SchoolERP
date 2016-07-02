@@ -1,0 +1,34 @@
+
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Examination','/exams'%></li>
+      <li><%= link_to 'Report Center', '/exam_reports/report_center' %></li>
+    
+    <li>Student Ranking Per Subject</li>
+    </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/>
+ <div class="row">
+  <div class="col-md-1"></div>
+    <div class="box col-md-6">  
+ 
+<%= form_for :rank_report, :url=>{:action=>'rank_report_batch'},html:{id: 'form_rank_report_batch'},remote:true,method: :get do |f| %>
+  
+ 
+  <b>Select a Batch:</b>
+      <%= f.select :batch_id, @batches.collect {|b| [b.course.course_name+" "+b.course.section_name+" - "+b.name,b.id]},{prompt:true},{onchange:"$('#form_rank_report_batch').submit();",class:"form-control",style: "width: 300px"}%>
+      
+  <% end %>
+      
+  </div>
+</div> 
+
+<div class="row">
+  <div class="col-md-1"></div>
+    <div class="box col-md-6">
+      <div id="rank_report"></div>
+
+  </div>
+</div>

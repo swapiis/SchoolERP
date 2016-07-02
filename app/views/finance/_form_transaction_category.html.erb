@@ -1,0 +1,33 @@
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<h3>Create New Category</h3>
+</div>
+<div class="modal-body">
+<div class="errors">
+<ul class="errors"></ul></div>
+<%= form_for @transaction_category,url:{action:'create_transaction_category'},remote:true do |f|%>
+  <div class="row">
+    <div class="col-md-4 col-md-offset-1"><b>Name :</b></div>
+    <div class="col-md-7"><%= f.text_field :name,placeholder: "Name",class: "form-control"%></div>
+  </div><br/>
+  <div class="row">
+    <div class="col-md-4 col-md-offset-1"><b>Description :</b></div>
+    <div class="col-md-7"><%= f.text_field :description,placeholder: "Description",class: "form-control"%></div>
+  </div><br/>
+  <div class="row">
+    <div class="col-md-3 col-md-offset-1"></div>
+   <b><%=f.check_box :is_income%>&nbsp;Is under income</b>
+  </div>
+  <hr/>
+  <div class="row">
+    <div class="col-md-12">
+      <center>
+        <%= f.submit 'create', class: "btn btn-primary"%>&nbsp;
+        <%= link_to 'cancel', '#', class: "btn btn-default",data:{dismiss:"modal"}%>
+      </center>
+    </div>
+  </div>
+<% end %>
+</div>
+</div></div>

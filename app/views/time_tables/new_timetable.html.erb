@@ -1,0 +1,52 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Timetable',time_tables_path %></li>
+    
+    <li>New Timetable</li>
+  </ul>
+</div><div id="flash"><%= render 'layouts/messages'%></div>
+<br/><br/>
+
+
+<div class="row">
+  <div class="box col-md-9 col-md-offset-1">
+  <div class="box-inner">
+    <div class="box-header well" data-original-title="">
+      <h2>New Timetable</h2>
+    </div>
+    <hr/>
+    <div class="box-content">
+<%=form_for @time_table do |f| %>
+  <fieldset>
+        <%=timetable_error!%>
+        <div class="col-md-2"></div>
+     <div class="col-md-10">
+                  <div class="form-group">
+                 <div class="col-md-3"> <b>Start Date:</b></div>
+              
+          <div class="col-md-7"> <%= f.date_select :start_date,:use_month_numbers=>true,:start_year => Date.current.year-1, :end_year => Date.current.year+1,:order=>[:day,:month,:year]%></div>
+          </div>
+          <br>
+       <div class="form-group">
+         <div class="col-md-3"><b>End Date:</b></div>
+           
+          <div class="col-md-7"> <%= f.date_select :end_date,:use_month_numbers=>true,:start_year => Date.current.year-1,:end_year => Date.current.year+1,:order=>[:day,:month,:year]%>
+       </div>
+       </div>
+          <br>
+              <div class="col-sm-8 col-sm-offset-4"> 
+                <div class="form-actions">
+        <%= f.submit 'Create', class: "btn btn-primary"%>
+            </div>
+            </div>
+                
+              </div>
+            </fieldset>
+  <% end %>
+</div>
+</div>
+</div>
+</div>
+
+

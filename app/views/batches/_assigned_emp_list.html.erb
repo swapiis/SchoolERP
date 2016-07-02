@@ -1,0 +1,31 @@
+<div class="box-inner">
+  <div class="box-header well">
+    <h2>Assigned Employees</h2>
+  </div>
+  
+<div class="box-content" style="overflow-y: scroll; height:auto">
+  <table id="datatable" class="table table-striped table-bordered responsive">
+    <thead>
+      <tr>
+        <th>Employee Name</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tr><td colspan="2"><%=assign_emp_not_found!%></td></tr>
+    <tbody>
+    
+    <% @assign_employees = emp_split(@batch) unless @batch.employee_id.nil?%>
+	  <% @assign_employees.each do |emp|%>
+		  <% @employee = assign_emp_find(emp) %>
+          <tr>
+            <td><%=@employee.first_name%></td>
+            <td class="center">
+              <%= link_to "Remove",remove_employee_batch_path(@batch,@employee),method: :delete,remote:true%>
+            </td>
+          </tr>
+      <% end %>
+  
+    </tbody>
+  </table>
+</div>
+</div>

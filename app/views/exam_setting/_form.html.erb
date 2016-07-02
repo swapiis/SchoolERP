@@ -1,0 +1,26 @@
+<div class="modal-body">
+<div class="errors">
+<ul class="errors"></ul></div>
+<%= form_for [@course,@class_des1],url:{:action=>'create',id:@course},remote: true do |f|%>
+	<div class="row">
+	  
+	  <div class="col-md-4"><b>Name :</b></div>
+	  <div class="col-md-8"><%=f.text_field :name,placeholder:"Name",class: "form-control"%></div>
+	</div><br/>
+	<div class="row">
+	 
+	  <div class="col-md-4"><b>Marks(%) :</b></div>
+	  <div class="col-md-8"><%= f.text_field :marks,placeholder: "Marks (%)",class: "form-control"%></div>
+	</div>
+	<hr>
+	<div class="row">
+	  <div class="col-md-12">
+	    <center>
+	      <%= f.submit 'Submit', class: "btn btn-primary"%>&nbsp;
+	      <%= link_to 'Cancel', '#', class: "btn btn-default",data:{dismiss:"modal"}%>
+	    </center>
+	  </div>
+	</div>
+<% end %>
+</div>
+

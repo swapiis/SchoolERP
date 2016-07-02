@@ -1,0 +1,6 @@
+<%= form_for :exam_group, url:{action:'previous_exam_details'},method: :get,remote:true,html:{id: "exam_group_form"}  do |f| %>
+  <b>Select Exam Group:</b>
+  <%= f.select :id, exam_group_collect, {prompt:true},{onchange:"$('#exam_group_form').submit();",class: "form-control",style:"width:250px"}%>
+<% end %>
+
+

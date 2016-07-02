@@ -1,0 +1,35 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3><%= "Editing" %></h3>
+    </div>
+
+
+    <div class="modal-body">
+      <ul class="errors"></ul>
+      <%= form_for @bank_field,url:{:action=>'update_bank_field',bank_field_id: @bank_field.id},method: :patch,remote: true do |f|%>
+      <div class="row">
+        <div class="form-group">
+         <div class="col-md-3"><b>Name : </b></div>
+         <%=f.text_field :name ,:style =>"width: 250px", class: "form-control"%>
+       </div></div><br>
+
+       
+       
+       <div class="row">
+        <div class="form-group">
+          <div class="col-md-3"><b>Status :</b></div>
+          <%= f.radio_button "status", "true", checked: "checked" %>&nbsp;<b>Active</b>&nbsp;&nbsp;
+          <%= f.radio_button "status", "false"%>&nbsp;<b>Inactive</b>
+        </div>
+      </div>
+      <hr>
+      <div class="form-group">
+        <div class="col-md-offset-3">
+          <%= f.submit 'Update', class: "btn btn-success"%>&nbsp;
+          <%= link_to 'Cancel', '#', class: "btn btn-default",data:{dismiss:"modal"}%>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div></div></div>

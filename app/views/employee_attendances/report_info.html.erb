@@ -1,0 +1,65 @@
+
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path%></li>
+     <li><%= link_to 'Human Resources',employees_path %></li>
+     <li><%= link_to 'Employee Attendance', employee_attendances_path %></li>
+      <li><%= link_to 'Attendance report',  attendance_report_employee_attendances_path %></li>
+    
+     <li>Detailed Report</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="box col-md-12">
+  <div class="box-inner">
+    <div class="box-header well">
+      <h2>Detailed Report</h2>
+    </div>
+   <div class="box-content">
+ <table id="datatable" class="table table-striped table-bordered responsive">
+  
+   <hr/>
+      <% @leave_types.each do |lt| %>
+        <% leave_count = emp_leave_count(lt,@employee) %>
+
+        <tr><td><%= lt.name  %></td><td></td></tr>
+     
+          <% @report = emp_report(@employee,lt) %>
+       
+        <% if @report == [] %>
+          <tr style="background-color:lightblue"><td></td>
+          <td><%= t('no_leaves_taken') %></td>
+           </tr>
+        <% else %>
+          <% @report.each do |r| %>
+            <tr style="background-color:lightgray"> <td></td>
+             <td> <%=r.attendance_date %>
+              <% if r.is_half_day==true %>
+                (<%= t('half_day') %>)</td></tr>
+              <% end %>
+            
+          <% end %>
+
+        <% end %>
+
+      <% end %>
+  
+        <%  unless @leave_types.nil? %>
+          <%total_leave = 0 %>
+          <% @leave_count.each do |e| %>
+            <% leave_type = emp_leave_type_id(e)%>
+              <tr><td>Total <%= leave_type.name %></td>
+              <td><%= e.leave_taken.to_f %>/<%= e.leave_count %></td>
+            </tr>
+            <% total_leave+=e.leave_taken.to_f %>
+          <%end%>
+          <tr><td><%= t('total_leaves_taken')%></td>
+          <td><%= total_leave %></td></tr>
+      <% end %>
+     
+</table>
+</div>
+</div>
+</div>
+</div>

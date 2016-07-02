@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      #heading {
+        width:100%;
+        margin: 0 auto;
+      }
+
+      
+      #head {
+        height: 100px;
+        width: 700px;
+        text-align: center;
+        font-size: 40px;
+        border-color: black;
+
+      }
+      #head_info {
+        text-align: center;
+        font-size: 15px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="heading">
+      <div id="head">
+        <%= @general_setting.school_or_college_name%><br/>
+        <div id="head_info">
+          <%= @general_setting.school_or_college_address%><br/><br/>
+          <%= @general_setting.school_or_college_phone_no%>
+        </div>
+      </div>
+      <hr>
+   <h3><center>Timetable</center></h3>
+      
+      <br/>
+      <table cellpadding="5" cellspacing="5" width="700">
+      <tr><th colspan="2" bgcolor="99CCFF" align="left">Timetable Details</th></tr>
+      <tr>
+        <td>Timetable : </td>
+        <td><%=@time1.full_time%>
+        </td>
+      </tr>
+      <tr>
+        <td>Batch Name : </td>
+        <td><%=@batch.full_name %></td>
+      </tr>
+    </table>
+    <br/><br/>
+      <table cellpadding="5" cellspacing="5" width="700">
+        <tr><th colspan="6" bgcolor="99CCFF" align="left">Timetable</th></tr>
+        <tr>
+    <td class="col-4"></td>
+  <% @batch.class_timings.where(is_break: false).order('start_time ASC').each do |c|%>
+     <th align="left"><%=c.full_time%></th>
+      <% end %>
+    </tr> 
+       <% @batch.weekdays.each do |w|%>
+    <tr>
+        <th align="left"><%=w.weekday%></th>
+        <% @batch.class_timings.where(is_break: false).each do |c|%>
+         <% present=present_time_table_entry(c,w,@time1) %>
+        <td>
+        <%unless present.nil? %>
+         <font color="red"><%= present.subject.name %></font><br/>
+       <font color="blue"><%= present.employee.full_name%></font><br/>
+       
+        <%else%>
+     <%="-"%></td>
+        <%end%>
+       <%end%>
+       </tr>
+      <% end %>
+     </table>
+    </div>
+   </body>
+ </html>

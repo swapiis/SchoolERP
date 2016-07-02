@@ -1,0 +1,38 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Examination','/exams'%></li>
+     
+    <li><%= link_to 'Report Center', '/exam_reports/report_center' %></li>
+    <li><%= link_to 'View Transcripts', '/exam_reports/view_transcripts' %> </li>
+    
+    <li>Generate Report</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/>
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+   
+      <%= link_to 'Pdf Report',students_transcripts_report_exam_reports_path(batch_id:@batch.id,format:"pdf"), class: "btn btn-primary-link btn-sm" %>
+      
+      
+    </div>
+  </div>
+</div> 
+<hr>
+
+<div class="row">
+
+<div class="col-md-3">
+<div id="student_list">
+    <%= render 'transcripts_student_list' %>
+  </div></div>
+<div class="col-md-9">
+<div id="report_transcript">
+    <%= render 'view_transcripts_report' %>
+  </div></div>
+</div>
+  </div>
+<br/><br/><br/>

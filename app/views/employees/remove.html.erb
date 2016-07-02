@@ -1,0 +1,39 @@
+
+  <div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+      <li><%= link_to 'Human Resources',employees_path %></li>
+      <li><%= link_to 'HR Management',employee_management_employees_path %></li>
+     <li><%= link_to 'Employee Profile',profile_employees_path(@employee.id)%></li>
+    <li> Remove Employee </li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+
+<div class="box col-md-12">
+        <div class="box-inner">
+      <div class="box-content">
+     
+ <div id="student-details">
+   <h3><%= @employee.first_name %></h3>
+   <h3><%= t('employee_number') %>  : <%= @employee.employee_number %> </h3>
+   <h3> Department : <%= @employee.employee_department.name %>
+     </h3>
+  </div>
+
+<hr>
+
+<div class="row">
+
+<div class="col-md-6">
+    <b><h3><%= link_to "Employee leaving Institution",change_to_former_employees_path(@employee)%>
+    </h3></b>
+    <p><h4>For employee leaving the Institution, use this option to remove them from the list of active employees and place them in the former employees list.</h4></p>
+  </div>
+ <div class="col-md-6">
+   <b><h3> <%= link_to'Remove Employee Record',delete_employee_employees_path(@employee),data:{:confirm=>"Are you sure"}%></h3></b>
+    <p><h4>Completely delete employees records from the Institution's databases. Use this option only if you created the employee record by accident and want to remove it completely.</h4></p>
+  </div>
+</div></div>
+</div>
+</div>

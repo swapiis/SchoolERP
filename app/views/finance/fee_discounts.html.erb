@@ -1,0 +1,30 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Finance',finance_index_path %></li>
+    <li><%= link_to 'Manage Fees',fees_finance_index_path %></li>
+    <li><%= link_to 'Create Fees',master_fees_finance_index_path%></li>
+    <li><%= link_to 'Create Discount',new_fee_discount_finance_index_path %></li>
+    <li>View Discount</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+      <%= link_to 'Create Discount', 'new_fee_discount', class: "btn btn-primary-link btn-xs" %>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-4">
+    <div class="form-group">
+      <b>Select Batch:</b>
+      <%= select :batch,:id,collect_batch,{prompt:true},{onchange:"var a={id: $('#batch_id').val()};$.get('fee_category',a,function(response){});",class: "form-control"}%>
+    </div>
+  </div>
+</div>
+<div id="category"></div>
+<div id='modal' class="modal fade"></div>

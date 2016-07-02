@@ -1,0 +1,45 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Exams',exams_path%></li>
+    <li>Connect Exams </li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="box col-md-10">
+    <div class="box-inner">
+      <div class="box-header well" data-original-title="">
+          <h2>Connect Exams
+          </h2>
+      </div>
+      <div class="box-content">
+      <fieldset>
+      <%=form_for :connect_exam , url:{action:'update_connect_exam',id:@batch.id}, method: :patch do |f| %>
+        <div class="row">
+          <div class="col-md-9"></div>
+          <b>Select:</b> 
+          <%= link_to  'All', assign_all_exam_group_path(@batch),remote:true,class: "btn btn-primary-link btn-xs" %>&nbsp;
+          <%= link_to  'None', remove_all_exam_group_path(@batch), remote:true,class: "btn btn-primary-link btn-xs" %>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-11">
+            <div id="connect_exam"><%= render 'exam_connect'%></div>  
+          </div>
+          <div class="col-md-1"></div>
+        </div>
+        <div class="row">
+          <center>
+            <%= f.submit 'Submit', class: "btn btn-primary"%>
+          </center>
+        </div>
+      <%end%>
+    </fieldset>
+  </div>
+</div>
+</div>
+</div>

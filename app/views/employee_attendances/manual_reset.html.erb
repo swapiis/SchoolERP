@@ -1,0 +1,50 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+     <li><%= link_to 'Human Resources',employees_path %></li>
+       <li><%= link_to 'Employee Attendance', employee_attendances_path %></li>
+    
+    <li>Manual Leave Reset</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<br/><br/>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%=link_to "Reset All",'leave_reset_all'%></h2>
+      </div>
+      <div class="box-content">
+ Reset Leave Count For All Employees.
+      </div>
+    </div>
+  </div>
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%= link_to "Department Reset",'employee_leave_reset_by_department'%>
+        </h2>
+      </div>
+      <div class="box-content">
+         Reset employee leave count by department.
+      </div>
+    </div>
+  </div>
+</div>
+<br/><br/>
+<div class="row">
+  <div class="box col-md-1"></div>
+  <div class="box col-md-4">
+    <div class="box-inner2">
+      <div class="box-header well" data-original-title="">
+        <h2><%=link_to "Individual Reset",employee_leave_reset_by_employee_employee_attendances_path %></h2>
+      </div>
+      <div class="box-content">
+   Reset leave for individual employee.
+      </div>
+    </div>
+  </div>
+  </div>

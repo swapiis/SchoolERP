@@ -1,0 +1,19 @@
+<div id="myModal" class="modal fade"></div>
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Finance',finance_index_path %></li>
+    <li>Automatic Transaction</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+      <%= link_to 'Create automatic transaction', new_automatic_transaction_finance_index_path,remote:true,class: "btn btn-primary-link btn-xs" %>
+    </div>
+  </div>
+</div>
+<div id="auto_transaction">
+  <%=render 'automatic_transaction_details'%>
+</div>

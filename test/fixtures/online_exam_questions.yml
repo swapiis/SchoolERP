@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  online_exam_id: 
+  question: MyString
+  option_group: MyString
+
+two:
+  online_exam_id: 
+  question: MyString
+  option_group: MyString

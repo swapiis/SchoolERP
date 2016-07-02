@@ -1,0 +1,11 @@
+$("ul.errors").html("")
+<% if @master_category.errors.any? %>
+		<% @master_category.errors.full_messages.each do |message| %>
+		$("div.errors").addClass("alert alert-danger alert-dismissable")  
+		$("ul.errors").append($("<li />").html("<%= message.html_safe %>"))
+		<% end %>
+<% else %>
+  $("#myModal").modal("hide")
+  $('#list').html("<%= j render 'fee_categories_list'%>"); 
+  $('#flash').html("<%= j render 'layouts/messages'%>")
+<% end %>

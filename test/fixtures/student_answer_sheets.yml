@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  student_exams_id: 
+  question_databases_id: 
+  options_id: 
+
+two:
+  student_exams_id: 
+  question_databases_id: 
+  options_id: 

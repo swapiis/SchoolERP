@@ -1,0 +1,40 @@
+<div class="box-inner">
+<div class="box-header well">
+  <h2>Elective Groups</h2>
+</div>
+<div class="box-content">
+  <table id="datatable" class="table table-striped table-bordered responsive">
+    <thead>
+      <tr>
+        <th>Group Name</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tr>
+      <td colspan="4"><%=elective_groups_not_found!%></td>
+          </tr>
+    <tbody>
+    <% @elective_groups.each do |elective_group| %>
+      <tr>
+        <td>
+          <%= link_to elective_group.name, elective_subject_elective_group_path(elective_group) %>
+        </td>
+        <td class="center">
+          <div class="label-success label label-default">
+          <i class="glyphicon glyphicon-edit icon-white"></i> 
+          <%= link_to 'edit',edit_batch_elective_group_path(elective_group.batch,elective_group),remote:true,class: "a-action"%></div>
+
+          <div class="label-danger label label-default">
+          <i class="glyphicon glyphicon-trash icon-white"></i> 
+          <%= link_to 'delete', [elective_group.batch,elective_group],method: :delete, data:{confirm:"Are you sure to delete elective group: #{elective_group.name}?"} , class: "a-action"%></div>
+
+          <div class="label-primary label label-default">
+          <i class="glyphicon glyphicon-plus icon-white"></i>
+          <%=link_to 'Add Elective Subject',elective_subject_elective_group_path(elective_group), class: "a-action" %></div>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+</div>

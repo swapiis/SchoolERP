@@ -1,0 +1,54 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+     <li><%= link_to 'Human Resources',employees_path %></li>
+     <li><%= link_to 'HR Management',employee_management_employees_path %></li>
+     <li><%= link_to 'Employee Profile',profile_employees_path(@employee.id)%></li>
+     <li>Employee Details Update</li>
+  </ul>
+</div>
+Note:<font color="red">Fields Marked with * must be filled</font>
+<div id="flash"><%= render 'layouts/messages'%></div>
+
+
+<div class="row">
+  <div class="box col-md-6 col-md-offset-2">
+    <div class="box-inner">
+      <div class="box-header well">
+        <h2>Employee Details Update</h2>
+       
+      </div>
+        <div class="box-content">
+<%= form_for :bank_details ,url:{action:'update_bank_details',format:@employee.id},method: :patch do |f| %>
+  <fieldset>
+    <% if @employee.errors.any? %>
+        <div class="alert alert-danger" style="width:500px" >
+          <h3>Error prohibited to from being saved:</h3>
+          <ul>
+           <% @employee.errors.full_messages.each do |msg| %>
+              <li style="width:500px" align="left"><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="row">
+      <div class="col-sm-3"></div>
+      <div class="col-sm-5">
+      <% @bank_info.each do |b| %> 
+           <div class="form-group">
+       <b> <%= b.bank_field.name%>:</b>
+         <%=text_field_tag "banks[#{b.id}][bank_info]",b.bank_info,class: "form-control"%>
+       </div>
+        <%end%>
+    </div>
+  <div class="col-sm-5 col-sm-offset-4"> 
+      <div class="form-actions">               
+        <%= f.submit 'Update', class: "btn btn-success"%>
+      </div>
+    </div>
+  </fieldset>        
+ <% end %>
+</div>
+</div>
+</div>
+</div>

@@ -1,0 +1,75 @@
+<div class="form-group">
+    <h4><b><u><font color="brown">Home Address:</font></u></b></h4>
+</div>
+
+<div class="row">
+
+<div class="col-md-6">
+  <div class="form-group">
+    <div class="col-md-6"><b>Home Address:</b> </div>
+        <div class="col-md-6"><%= @employee.home_address_line1%></div>
+  </div>
+<br>
+  <div class="form-group">
+    <div class="col-md-6"><b>City:</b> </div>
+        <div class="col-md-6"><%= @employee.home_city%></div>
+  </div>
+<br>
+  <div class="form-group">
+    <div class="col-md-6"><b>State:</b> </div>
+        <div class="col-md-6"><%= @employee.home_state%></div>
+  </div>
+<br>
+  </div>
+  <div class="col-md-6">
+
+  <div class="form-group">
+    <div class="col-md-6"><b>country :</b> </div>
+        <div class="col-md-6"><%=@home_country%> </div>
+  </div>
+<br>
+  <div class="form-group">
+    <div class="col-md-6"><b>Pin Code :</b> </div>
+        <div class="col-md-6"><%=@employee.home_pin_code%> </div>
+  </div>
+</div>
+</div>
+
+<div class="form-group">
+    <h4><b><u><font color="brown">Home Address:</font></u></b></h4>
+</div>
+
+<div class="row">
+
+<div class="col-md-6">
+  <div class="form-group">
+    <div class="col-md-6"><b>City:</b> </div>
+        <div class="col-md-6"><%= @employee.office_city%></div>
+  </div>
+<br>
+  <div class="form-group">
+    <div class="col-md-6"><b>State:</b> </div>
+        <div class="col-md-6"><%=@employee.office_state%></div>
+  </div>
+<br>
+  
+  </div>
+  <div class="col-md-6">
+
+  <div class="form-group">
+   <div class="col-md-6"><b>country :</b> </div>
+        <div class="col-md-6"><%=@office_country%> </div>
+  </div>
+<br>
+  <div class="form-group">
+   <div class="col-md-6"><b>Pin Code :</b> </div>
+        <div class="col-md-6"><%=@employee.office_pin_code%> </div>
+  </div>
+</div>
+</div>
+<div class="row">
+<div class="col-md-5"></div>
+  <div class="col-md-3">
+<%= link_to 'PDF Report',address_profile_pdf_employees_path(employee_id:@employee.id,format:"pdf"),class: "btn btn-success" %>
+</div>
+</div>

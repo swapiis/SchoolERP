@@ -1,0 +1,68 @@
+<div class=" row">
+    <div class="col-md-3 col-sm-3 col-xs-6">
+    <% unless @student.nil? %>
+        <a class="well top-block" href="/students/<%= current_user.student_id%>/profile">
+    <% else %>
+        <a class="well top-block" href="/students/archived_profile.<%= current_user.student_id%>">
+    <% end %>
+            <i class="glyphicon glyphicon-edit"></i>
+            <div>My Profile</div>
+        </a>
+    </div>
+
+    <div class="col-md-3 col-sm-3 col-xs-6">
+        <a class="well top-block" href="/newscasts">
+            <i class="glyphicon glyphicon-cxomment"></i>
+            <div>Campus News</div>
+        </a>
+    </div>
+
+    <div class="col-md-3 col-sm-3 col-xs-6">
+        <a class="well top-block" href="/time_tables">
+            <i class="glyphicon glyphicon-time"></i>
+            <div>Timetable</div>
+        </a>
+    </div>
+
+    <div class="col-md-3 col-sm-3 col-xs-6">
+        <a class="well top-block" href="#">
+            <i class="glyphicon glyphicon-bell"></i>
+            <div>Remainders</div>
+        </a>
+    </div>
+</div>
+<div class=" row">
+    <div class="col-md-3 col-sm-3 col-xs-6">
+        <a class="well top-block" href="/students/report.<%= current_user.student_id%>">
+            <i class="glyphicon glyphicon-th"></i>
+            <div>Academics</div>
+        </a>
+    </div>
+
+    <div class="col-md-3 col-sm-3 col-xs-6">
+        <a class="well top-block" href="#">
+            <i class="glyphicon glyphicon-book"></i>
+            <div>Library</div>
+        </a>
+    </div>
+    <div class="col-md-3 col-sm-3 col-xs-6">
+        <a class="well top-block" href="/calender">
+            <i class="glyphicon glyphicon-calendar"></i>
+            <div>Calendar</div>
+        </a>
+    </div>
+     <div class="col-md-3 col-sm-3 col-xs-6">
+        <a class="well top-block" href="/placement_exams">
+            <i class="glyphicon glyphicon-thumbs-up"></i>
+            <div>Placement</div>
+        </a>
+    </div>
+</div>
+<div class=" row">
+    <div class="col-md-3 col-sm-3 col-xs-6">
+        <a class="well top-block" href="/students/reciept.<%= current_user.student_id%>">
+            <i class="glyphicon glyphicon-thumbs-up"></i>
+            <div>Payment Fee</div>
+        </a>
+    </div>
+</div>

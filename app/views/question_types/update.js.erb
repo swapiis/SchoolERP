@@ -1,0 +1,9 @@
+$("ul.errors").html("")
+<% if @question_type.errors.any? %>
+  <%  @question_type.errors.full_messages.each do |message| %>
+  $("ul.errors").append($("<li />").html("<%= message.html_safe %>"))
+  <% end %>
+<% else %>
+  $("#modal").modal("hide");
+  window.location.replace('/question_types');
+<% end %>

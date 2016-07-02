@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      #heading {
+        width:100%;
+        margin: 0 auto;
+      }
+      
+      #head {
+        height: 100px;
+        width: 700px;
+        text-align: center;
+        font-size: 40px;
+        border-color: black;
+
+      }
+      #head_info {
+        text-align: center;
+        font-size: 15px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="heading">
+      <div id="head">
+        <%= @general_setting.school_or_college_name%><br/>
+        <div id="head_info">
+          <%= @general_setting.school_or_college_address%><br/><br/>
+          <%= @general_setting.school_or_college_phone_no%>
+        </div>
+      </div>
+      <hr>
+      <br/><h3><center>Employee Payslip</center></h3><br/>
+      <table cellpadding="5" cellspacing="5" width="700">
+        <tr  bgcolor="99CCFF" align="left">
+          <th colspan="2">Employee Details</th>
+        </tr>
+        <tr>
+          <th align="left">Name :</th>
+          <td><%=  @employee.first_name+" "+@employee.last_name%></td>
+        </tr>
+        <tr>
+          <th align="left">Payslip Generated On :</th>
+          <td><%= @salary.salary_date%><% %>(<%= t('status') %>: <%=@salary.is_approved? ? "Approved" : "Pending"%>)</td>
+        </tr>
+      </table>
+      <br/>
+      <table cellpadding="5" cellspacing="5" width="700">
+        <tr  bgcolor="99CCFF" align="left">
+          <th colspan="2">Earnings</th>
+        </tr>
+        <% @structures.each do |mp| %>
+          <% unless mp.payroll_category.blank? %>
+            <% unless mp.payroll_category.is_deduction == true %>
+              <tr>
+                <td><%= mp.payroll_category.name  %></td>
+                <td align="right"><%="%.2f" %mp.amount.to_f %><%= " Rs"%></td>
+              </tr>
+            <% end %>
+          <% end %>
+        <% end %>
+      </table>
+      <br/>
+      <table cellpadding="5" cellspacing="5" width="700">
+        <tr  bgcolor="99CCFF" align="left">
+          <th colspan="2">Deduction</th>
+        </tr>
+        <% unless @structures.empty?%>
+          <% @structures.each do |mp| %>
+            <% unless mp.payroll_category.blank? %>
+              <% unless mp.payroll_category.is_deduction == false %>
+                <tr>
+                  <td><%= mp.payroll_category.name  %></td>
+                  <td align="right"><%="%.2f" %mp.amount.to_f %><%= " Rs"%></td>
+                </tr>
+              <% end %>
+            <% end %>
+          <% end %>
+        <%else%>
+          <h3><center>No deduction found</center></h3>
+        <%end%>  
+      </table>
+      <br/>
+      <table cellpadding="5" cellspacing="5" width="700">
+        <tr  bgcolor="99CCFF" align="left">
+          <th colspan="2">Total</th>
+        </tr>
+        <tr>
+          <th align="left">Net Salary :</th>
+          <th align="right"><%="%.2f" %(@salary.amount.to_f) %><%= " Rs"%></th>
+        </tr>
+        <tr>
+          <th align="left">Remark :</th>
+          <th align="right"><%=@salary.is_approved? ? "Approved" : "Pending"%></th>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

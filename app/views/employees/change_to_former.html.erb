@@ -1,0 +1,41 @@
+
+<div>
+  <ul class="breadcrumb">
+  <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Human Resources',employees_path %></li>
+      <li><%= link_to 'HR Management',employee_management_employees_path %></li>
+     <li><%= link_to 'Employee Profile',profile_employees_path(@employee.id)%></li>
+      <li><%= link_to 'Employee Remove',remove_employees_path(@employee.id)%></li>
+    <li>Leaving School</li>
+  </ul>
+</div><div id="flash"><%= render 'layouts/messages'%></div>
+
+<div class="box col-md-2"></div>
+<div class="box col-md-8">
+        <div class="box-inner">
+      <div class="box-content">
+     
+ <div id="student-details">
+    <h3> <%= @employee.first_name %> </h3>
+    <h4> <%= t('employee_number') %>  : <%= @employee.employee_number %> </h4>
+    <h4> Department : <%= @employee.employee_department.name %>
+     </h4>
+  </div>
+
+<hr>
+
+<div id="remove-student">
+   <h5>For Employees leaving the school, use this option to remove them from the list of active employees and place them in the former employees list.</h5>
+    </div><br/>
+
+<%= form_for :remove, url:{action:'create_archived_employee',format:@employee.id}, method: :post do |f|%>
+ <div class="form-group">
+     <b>Reason For Leaving:</b>
+	
+			<%=f.text_field :status_description,class: "form-control",style: "width:60%"%>
+		 </div>
+        <div class="form-group">
+        <%=f.submit "Remove",class: "btn btn-danger" %></div>
+<%end%></div>
+</div>
+</div>

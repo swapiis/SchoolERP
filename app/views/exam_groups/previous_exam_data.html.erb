@@ -1,0 +1,32 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Exams',exams_path%></li>
+    <li><%= link_to 'Exam Management',exam_groups_path%></li>
+    <li> Previous Exam Data</li>
+  </ul>
+</div><div id="flash"><%= render 'layouts/messages'%></div>
+
+<div class="row">
+	<div class="col-md-1"></div>
+	<div class="col-md-3">
+  <%= form_for :course, url:{action:'previous_exam'},method: :get,remote:true,html:{id: "course_form"}  do |f| %>
+
+  <b>Select a Course:</b>
+  <%= f.select :id, courses, {prompt:true},{onchange:"$('#course_form').submit();",class: "form-control",style:"width:250px"}%>
+
+  <% end %>
+  </div>
+  <div class="col-md-3 col-md-offset-1">
+    <div id="batch_div"></div>
+  </div>
+  <div class="col-md-3 col-md-offset-1">
+    <div id="exam_div"></div>
+  </div>
+</div>
+<br/><br/>
+<div class="row">
+  <div class="col-md-12">
+    <div id="exams_details"></div>
+  </div>
+</div> 

@@ -1,0 +1,9 @@
+<%unless @batches.nil?%>
+  <% @batches.each do |b|%>
+    <div>
+    <br>
+    <%= check_box_tag "batches[]", b.id,false,class: 'check_box'%>&nbsp;&nbsp;<b><%= b.course.course_name+"-"+b.name%></b>
+    </div>
+  <%end%>
+<%end%>
+	

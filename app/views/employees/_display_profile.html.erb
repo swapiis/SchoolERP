@@ -1,0 +1,76 @@
+
+<table class="table table-hover" align="center" style="width:900px">
+<thead style="background-color:white">
+<tr>
+    <th colspan="4">
+   
+   </th>
+  </tr>
+</thead>
+<tbody>
+<tr><td colspan="4" style="background-color:white"></td></tr>
+<tr>
+    <td class="col-2">Joining Date </td><td class="col-2"><%= @employee.joining_date %></td>
+    <td colspan="2"></td>
+</tr>
+<tr>
+    <td class="col-2">Department</td><td class="col-2"><%= @employee.employee_department.name%></td>
+    <td colspan="2"></td>
+</tr>
+<tr>
+    <td class="col-2">Category</td><td class="col-2"><%= @employee.employee_category.name%></td>
+    <td colspan="2"></td>
+</tr>
+<tr>
+    <td class="col-2">Position</td><td class="col-2"><%= @employee.employee_position.name %></td>
+    <td class="col-2"></td>
+</tr>
+<tr>
+    <td class="col-2">Grade</td><td class="col-2"> <%= @employee.employee_grade.name %> </td>
+    <td class="col-2"></td>
+</tr>
+<tr>
+    <td class="col-2">Job Title</td><td class="col-2"> <%= @employee.job_title %> </td>
+    <td class="col-2"></td>
+</tr>
+
+<tr>
+    <td class="col-2">Reporting Manager</td><td class="col-2"> <%= link_to @reporting_manager.first_name , employees_profile_path(@reporting_manager) unless @reporting_manager.nil? %> <font color="red"><%= link_to 'change', employees_change_reporting_manager_path(@employee)%></font> </td>
+    <td class="col-2"></td>
+</tr>
+
+<tr>
+    <td class="col-2">Gender</td><td class="col-2"> <%= @employee.gender %> </td>
+    <td class="col-2"></td>
+</tr>
+<tr>
+    <td class="col-2">Email</td><td class="col-2"> <%= @employee.email %> </td>
+     <td class="col-2"></td>
+</tr>
+
+<tr>
+    <td class="col-2">Status</td><td class="col-2"> <%= @employee.status %> </td>
+     <td class="col-2"></td>
+</tr>
+
+<tr>
+    <td class="col-2">Qualification</td><td class="col-2"><%= @employee.qualification %>  </td>
+     <td class="col-2"></td>
+</tr>
+
+
+<tr>
+    <td class="col-2">Qualification</td><td class="col-2"> <%= @employee.experience_year.to_s+" Year"%> <%=@employee.experience_month.to_s+" Month"%> </td>
+     <td class="col-2"></td>
+</tr>
+
+<tr>
+    <td class="col-2">Experience Information</td><td class="col-2"> <%= @employee.experience_detail %> </td>
+     <td class="col-2"></td>
+</tr>
+<tr style="background-color:white">
+<td colspan="4"><%= link_to 'Edit',edit_profile_employees_path(@employee),class: "btn btn-primary" %>
+<%= link_to 'PDF Report',employee_profile_employees_path(employee_id:@employee,format:"pdf"),class: "btn btn-success" %></td>
+</tr>
+</tbody></table>
+</div>

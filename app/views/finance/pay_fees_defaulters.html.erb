@@ -1,0 +1,11 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Finance',finance_index_path %></li>
+    <li><%= link_to 'Manage Fees',fees_finance_index_path %></li>
+    <li><%= link_to 'Fees defaulters', fees_defaulters_finance_index_path%></li>
+    <li>Fee Submission</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div id="fees"><%= render 'student_fees_submission'%></div>

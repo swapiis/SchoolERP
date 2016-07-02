@@ -1,0 +1,24 @@
+<div>
+  <ul class="breadcrumb">
+    <li><%= link_to 'Home',dashboard_home_index_path %></li>
+    <li><%= link_to 'Exams',exams_path%></li>
+    <li><%= link_to 'Exam Management',exam_groups_path%></li>
+    <li>Create New Exam</li>
+  </ul>
+</div>
+<div id="flash"><%= render 'layouts/messages'%></div>
+<div id="form_exam">
+<div class="row">
+  <div class="col-md-7 col-md-offset-2">
+  <div class="box-inner">
+    <div class="box-header well">
+      <h2>Create New Exam</h2>
+    </div>
+    <div class="box-content">
+      <%= render 'form' %>
+    </div>
+  </div>
+  </div>
+</div>
+</div>
+

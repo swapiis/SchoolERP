@@ -1,0 +1,12 @@
+<%= form_for :batch_select,url:{action: 'generate_archived_report'},method: :get do |f| %>
+<div class="row">
+    <div class="box col-md-6">
+    <b>Select a Batch:</b>
+      <%= f.select :id, batches_data, {prompt:true},{class:"form-control",style: "width: 300px"}%>
+  <br>
+  <div class="col-md-offset-7">
+ <%= f.submit "View", class: "btn btn-default" %>
+ </div>
+  <% end %>
+  </div>
+  </div>

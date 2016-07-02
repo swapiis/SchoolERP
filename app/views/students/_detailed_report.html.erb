@@ -1,0 +1,44 @@
+<% total_days=0 %><% absent_days=0 %>
+<%unless @time_table_entries.nil? %>
+<% (@start_date..@end_date).each do |date| %>
+<%is_holiday=false%>
+<% @batch_events.each do |be|%>
+<% if be.event.start_date<=date and be.event.end_date>=date and be.event.is_holiday=true %>
+<% is_holiday=true%>
+<%end%>
+<%end%>
+<% @time_table_entries.each do |d| %>
+<% if I18n.l(date.to_date,:format=>"%A")==d.weekday.weekday %>
+<% total_days+=1 %>
+<% @attendence=Attendence.find_by_student_id_and_time_table_entry_id_and_month_date(@student.id,d.id,date.to_date) %>
+<% unless @attendence.nil? %>
+<% absent_days+=1 %>
+<%end%>
+<%end%>
+<%end%>
+<% if is_holiday==true%>
+<% total_days-=1 %>
+<%end%>
+<%end%>
+<%end%>
+<% present_days=total_days-absent_days unless total_days==0 %>
+<div class="box-inner">
+  <div class="box-content" style="overflow-y: scroll; height:auto">
+   <table>
+     <tr>
+        <td>Total working days: </td>
+        <td><%= total_days %></td> 
+    </tr>
+    <tr>
+       <td> Total present days:</td><td> <%= present_days %></td>
+    </tr>
+    <tr>
+       <td> Percentage:</td>
+       <td>
+        <%= "%.2f" %(present_days*100/total_days)+"%" unless total_days==0 %>
+      </td>
+  </tr>
+</table>
+</div>
+</div>
+

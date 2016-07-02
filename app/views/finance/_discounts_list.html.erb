@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="box col-md-12">
+	  <div class="box-inner">
+	    <div class="box-header well">
+	      <h2>Discount Details</h2>
+	    </div>
+	    <div class="box-content">
+		<table id="datatable" class="table table-striped responsive">
+	        <% unless @discounts.empty? %>
+	          <thead>
+	            <tr>
+	                <th>Name</th>
+					<th>Student Category</th>
+					<th>Student Name</th>
+					<th>Discount(%)</th>
+					<th>Action</th>
+				</tr>
+			  </thead>
+			  <tbody>
+			  <% @discounts.each do |d| %>
+			    <tr>
+			      <td><%=d.name%></td>
+			      <td class="col-3">
+			      	<%= d.category.nil? ? "-": d.category.name%>
+			      </td>
+			      <td class="col-3">
+			      <%= d.admission_no.nil? ? "-": d.admission_no%>
+			      </td>
+						<td class="col-3">
+							<%= d.discount%>
+						</td>
+			      <td class="center">
+			        <div class="label-success label label-default">
+			          <i class="glyphicon glyphicon-edit icon-white"></i> 
+			          <%= link_to 'Edit', edit_fee_discount_finance_path(@batch,master_id:@master_category,discount_id:d.id),class: 'a-action',remote:true%>
+			        </div>&nbsp;
+			        <div class="label-danger label label-default">
+              	<i class="glyphicon glyphicon-trash icon-white"></i> 
+              	<%= link_to 'Delete' ,delete_fee_discount_finance_path(@batch,master_id:@master_category),method: :delete, data:{confirm:"Are you sure to delete '#{d.name}'?"},class: 'a-action'%>
+	              </div>
+	            </td>
+	          </tr>
+        	<%end%>
+			</tbody>
+			<%else%>
+			<center>
+				<h5>No discount found for this fee category</h5>
+			</center>
+			<%end%>	
+      	  </table>
+		</div>
+	  </div>
+  </div>
+</div>

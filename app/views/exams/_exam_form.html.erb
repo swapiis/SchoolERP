@@ -1,0 +1,95 @@
+ <div class="row">
+<ul class="errors " style="width:700px"></ul>
+</div>
+<fieldset>
+  <%=form_for @exam_group, url:{action: 'exam_group_create',
+    id:@exam_group.id},remote:true do |f| %>
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="form-group">
+          <div class="col-md-2"><b>Exam Name:</b></div>
+          <div class="col-md-3"><%= @exam_group.name %></div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="form-group">
+          <div class="col-md-2">  <b>Exam Type:</b></div>
+          <div class="col-md-3"><%= @exam_group.exam_type %>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <%=link_to 'Change Type',edit_exam_group_path(@exam_group),class: "btn btn-primary-link btn-xs",remote:true %>
+          </div>
+        </div>
+      </div>
+      <br>
+      <% unless @exam_group.exam_type=="Grades"%>
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="form-group">
+          <div class="col-md-2"><b>Maximum Marks:</b></div>
+          <div class="col-md-3"><%=text_field_tag :max_marks,"",{oninput:"var a=$('#max_marks').val();
+            $('.max_set').attr('value',a);", class: "form-control",placeholder: 'Maximum Marks For All'}%>
+          </div>
+        </div>
+      </div><br>
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="form-group">
+          <div class="col-md-2"><b>Minimum Marks:</b></div>
+          <div class="col-md-3">
+            <%= text_field_tag :min_marks,"",
+            {oninput:" var a=$('#min_marks').val();$('.min_set').attr('value',a);",class: "form-control", placeholder: 'Minimum Marks For All'}%>
+          </div>
+        </div>
+      </div>
+  <%end%>
+  <br>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Subjects</th>
+            <% unless @exam_group.exam_type== "Grades"%>
+              <th >Max Marks</th>
+              <th >Min Marks</th>
+            <%else%>
+              <th></th><th></th>
+            <% end %>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Do Not Create</th>
+          </tr> 
+        </thead>
+        <% @subjects.each do |subject| %>
+          <%= f.fields_for  :exams do |exam| %>
+            <tbody>
+              <tr>
+                <td><%= subject.name %></td>
+                <%= exam.hidden_field :subject_id, value: subject.id%>
+                <% unless @exam_group.exam_type=="Grades"%>
+                  <td ><%= exam.text_field :maximum_marks,class: 'max_set form-control',placeholder: 'Maximum Marks'%>
+                  </td>
+                  <td ><%= exam.text_field :minimum_marks,class: 'min_set form-control', placeholder: 'Minimum Marks'%></td>
+                <%else%>
+                  <td></td><td></td>
+                <%end%>
+                <td ><%= exam.text_field :start_time ,class: "form-control datetimepicker1" %></td>
+                <td ><%= exam.text_field :end_time,class: "form-control datetimepicker1" %></td>
+                <td><%= check_box_tag "no_create[]",subject.id,false, class: "exam_no_check" %></td>
+              </tr>
+            </tbody>
+          <%end%>
+        <% end %>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-offset-5">
+    <%= f.submit 'create', class: "btn btn-primary" %>
+  </div></div>
+</fieldset>
+<%end%>
+
+

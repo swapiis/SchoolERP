@@ -1,0 +1,153 @@
+
+<div class="row">
+<div class="col-md-3"></div>
+<div class="box col-md-6">
+  <div class="box-inner">
+    <div class="box-header well">
+      <h2>Employee Grade</h2>
+    </div>
+  <div class="box-content">
+<%= form_for @employee_grade_new ,url:{action:'add_grade'},remote:true do |c| %>
+<div class="errors6">
+
+<ul class="errors6"></ul> 
+</div>
+   <fieldset>
+     <div class="form-group">
+         <div class="col-md-4"><b>Name:</b></div>
+         <div class="col-md-7"><%=c.text_field :name, placeholder: "Employee Grade Name", class: "form-control"%></div>
+      </div>
+      <br> <br>
+      <div class="form-group">
+           <div class="col-md-4"><b>Priority:</b></div>
+         <div class="col-md-7"><%=c.text_field :priority, placeholder: "Priority", class: "form-control"%></div>
+      </div>
+       <br> <br>
+      <div class="form-group">
+          <div class="col-md-4"><b>Max periods per day:</b></div>
+         <div class="col-md-7"><%=c.text_field :max_hours_day, placeholder: "Max periods per day", class: "form-control"%></div>
+      </div>
+       <br> <br>
+      <div class="form-group">
+         <div class="col-md-4"><b>Max periods per week:</b></div>
+        <div class="col-md-7"> <%=c.text_field :max_hours_week, placeholder: "Max periods per week", class: "form-control"%></div>
+      </div>
+       <br> <br>
+      <div class="form-group">
+          <div class="col-md-4"><b>Status:</b></div>
+        <div class="col-md-7"><%= c.radio_button "status", "true", checked: "checked" %> &nbsp;<b>Active</b>&nbsp;&nbsp;
+        <%= c.radio_button "status", "false"%> &nbsp;
+        <b>Inactive</b></div>
+       </div>   
+        <br>
+   <div class="col-sm-4 col-sm-offset-4"> 
+       <div class="form-actions">               
+        <%= c.submit 'Create', class: "btn btn-primary"%>
+      </div>
+      </div>
+   </fieldset>
+    </div>
+  </div>
+ </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-6">
+     <div class="form-group">
+       <div class="row">
+        <div class="box col-md-12">
+         <div class="box-inner">
+          <div class="box-header well">
+            <h2>Active Grade</h2>
+          </div>
+         <div class="box-content" style="overflow-y: scroll; height:200px">
+              <% if @grade1.empty? %>
+                <h4 align="center">No Record Found </h4>
+              <% else %>
+       <table id="datatable" class="table table-striped table-bordered responsive">
+         <thead>
+               <tr>
+                 <th>Name</th>
+                 <th>Operation</th>
+               </tr>
+
+             </thead>
+           
+          <tbody>
+           <%@grade1.each do |c| %>
+            <tr>
+            <td class="col-4"><%=c.name%> (<%=c.priority%>)</td>
+            <td class="center">
+              <div class="label-success label label-default">
+              <i class="glyphicon glyphicon-edit icon-white"></i> 
+              <%= link_to 'Edit',edit_grade_employee_path(c),remote: true,class: "a-action"%></div>
+
+              <div class="label-danger label label-default">
+              <i class="glyphicon glyphicon-trash icon-white"></i> 
+
+              <%= link_to 'Delete',destroy_grade_employee_path(c),
+                    method: :delete, data: { confirm: "Are you sure to delete #{c.name}?" },class: "a-action"%></div>
+            </td>
+
+  
+            </tr>
+            <%end%>
+          </tbody>
+       </table>
+       <%end%>
+      </div>
+    </div>
+  </div>
+ </div>
+</div>
+</div>
+   <div class="col-sm-6">
+     <div class="form-group">
+       <div class="row">
+         <div class="box col-md-12">
+           <div class="box-inner">
+            <div class="box-header well">
+              <h2>Inactive Grade</h2>
+             </div>
+          <div class="box-content" style="overflow-y: scroll; height:200px">
+          <% if @grade2.empty? %>
+                <h4 align="center">No Record Found </h4>
+              <% else %>
+             <table id="datatable" class="table table-striped table-bordered responsive">
+         <thead>
+               <tr>
+                 <th>Name</th>
+                 <th>Operation</th>
+               </tr>
+
+             </thead>
+              
+          <tbody>
+           <% @grade2.each do |c| %>
+            <tr>
+            <td class="col-4"><%=c.name%> (<%=c.priority%>)</td>
+            <td class="center">
+              <div class="label-success label label-default">
+              <i class="glyphicon glyphicon-edit icon-white"></i> 
+              <%=link_to 'Edit',edit_grade_employee_path(c),remote: true,class: "a-action"%></div>
+
+              <div class="label-danger label label-default">
+              <i class="glyphicon glyphicon-trash icon-white"></i> 
+              <%= link_to 'Delete',destroy_grade_employee_path(c),
+                    method: :delete, data: { confirm: "Are you sure to delete #{c.name}?" },class: "a-action"%></div>
+            </td>
+
+
+            </tr>
+            <%end%>
+          </tbody>
+       </table>
+       <%end%>
+    <%end%>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>

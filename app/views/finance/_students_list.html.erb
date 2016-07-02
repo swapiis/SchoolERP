@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="box col-md-12">
+	  <div class="box-inner">
+	    <div class="box-header well">
+	      <h2>Student Details</h2>
+	    </div>
+	    <div class="box-content">
+		    <% unless @students.empty?%>
+		      <table id="datatable" class="table table-striped table-bordered responsive">
+		        <thead>
+		          <tr>
+		            <th>Name</th>
+								<th>Batch</th>
+								<th>Admission No</th>
+							</tr>
+		        </thead>
+		        <tbody>
+		        <% @students.each do |s| %>
+		          <tr>
+		            <td class="col-3"><%= link_to s.first_name+" "+s.last_name,fees_collection_student_finance_index_path(id:s.id)%></td>
+								<td class="col-3"><%= s.batch.course.course_name+" - "+s.batch.name%></td>
+								<td class="col-3"><%= s.admission_no%></td>
+		          </tr>
+		        <% end %>
+		        </tbody>
+		      </table>
+		    <%else%>
+					<center><h5>No student found for this fee category</h5></center>
+				<%end%>
+	    </div>
+	  </div>
+  </div>
+</div>
