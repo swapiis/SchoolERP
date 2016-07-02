@@ -33,7 +33,7 @@ Note:&nbsp;&nbsp;<font color="red">Fields marked with * must be filled</font>
                  <div class="form-group">
                    <b>Admission Date:</b>
                    <span style="color:red">*</span>
-                   <%=f.date_field :admission_date ,:value => Time.now.strftime('%Y-%m-%d'),class: "form-control"%>
+                   <%=f.date_field :admission_date ,:value => Time.now.strftime('%Y-%m-%d'),class: "datepicker form-control"%>
                  </div>
                </div>
               </div>
@@ -71,7 +71,7 @@ Note:&nbsp;&nbsp;<font color="red">Fields marked with * must be filled</font>
            <div class="form-group">
              <b>Date of Birth:</b>
              <span style="color:red">*</span>
-             <%=f.date_field :date_of_birth , class: "form-control"%>
+             <%=f.date_field :date_of_birth , class: "datepicker form-control"%>
            </div>
          </div>
        </div>

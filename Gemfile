@@ -2,8 +2,7 @@ source 'https://rubygems.org'
 # gem 'hirb', :require => nil
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails'
-# Use postgresql as the database for Active Record
-gem 'mysql2'
+
 # Use SCSS for stylesheets
 gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
@@ -55,14 +54,16 @@ gem 'active_median', '~> 0.1.0'
 gem 'calendar_date_select'
 gem 'jquery-ui-rails'
 gem 'momentjs-rails', '>= 2.9.0'
-gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
+# gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
 gem 'jquery-validation-rails', '~> 1.13.1'
 gem 'yard'
 
 group :development, :test do
   gem 'pry-byebug'
+  gem 'mysql2'
 end
 
 group :production do
   gem 'rails_12factor'
+  gem 'pg'
 end

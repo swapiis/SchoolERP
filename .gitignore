@@ -33,3 +33,4 @@ bower.json
 [Tt]humbs.db
 config/database.yml
 congig/deploy.rb
+bin/
