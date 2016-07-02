@@ -1,0 +1,19 @@
+
+<link rel="stylesheet" href="/assets/bootstrap-multiselect.css" type="text/css" />
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>
+
+<script type="text/javascript" src="/assets/bootstrap-multiselect.js"></script>
+
+<%=select_tag("departments[]",options_for_select(@departments.collect { |d| [d.name, d.id] }),{:multiple=>true, :id => "departments"})%>
+
+<script type="text/javascript">
+$(function() {
+$('#departments').multiselect({
+includeSelectAllOption: true,
+maxHeight: 200
+
+});
+
+});
+</script>
+

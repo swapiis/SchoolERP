@@ -1,0 +1,18 @@
+
+<link rel="stylesheet" href="/assets/bootstrap-multiselect.css" type="text/css" />
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>
+
+<script type="text/javascript" src="/assets/bootstrap-multiselect.js"></script>
+
+<%=select_tag("batches[]",options_for_select(@batches.collect { |ff| [ff.name, ff.id] },@batches.collect { |fs| [fs.id] }),{:multiple=>true, :id => "batches"})%>
+
+<script type="text/javascript">
+$(function() {
+$('#batches').multiselect({
+includeSelectAllOption: true,
+maxHeight: 200
+});
+
+});
+</script>
+                   
