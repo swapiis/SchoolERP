@@ -15,6 +15,7 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(params_event)
     if @event.save
+	@event.create_event(params[:batches],params[:departments])
       flash[:notice] = 'Event created successfully'
       redirect_to event_path(@event)
     else
