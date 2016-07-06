@@ -12,12 +12,14 @@ class EventsController < ApplicationController
   # create Event object and pass required parameters
   # from private method params_event and
   # create action is saving our new Event to the database.
-  def create
-    @event = Event.new(params_event)
-    if @event.save
-      flash[:notice] = 'Event created successfully'
-      redirect_to event_path(@event)
-    else
+  
+ def create
+      @event = Event.new(params_event)
+      if @event.save
+ 	@event.create_event(params[:batches],params[:departments])
+        flash[:notice] = 'Event created successfully'
+        redirect_to event_path(@event)
+      else
       render 'new'
     end
   end
