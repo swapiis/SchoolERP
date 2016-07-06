@@ -19,8 +19,7 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(params_event)
     if @event.save
-       @batches ||= Batch.all
-    @departments ||= EmployeeDepartment.all
+     @event = create_event(params[:batches],params[:departments])
       flash[:notice] = 'Event created successfully'
       redirect_to calender_index_path(@event)
     else
