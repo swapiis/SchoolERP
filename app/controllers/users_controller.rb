@@ -2,6 +2,7 @@
 class UsersController < ApplicationController
   def index
     authorize! :read, User
+    @users = User.all
   end
   
   # create new object of User
@@ -9,6 +10,12 @@ class UsersController < ApplicationController
   def new
     @user = User.new
     authorize! :create, @user
+  end
+
+
+  def view_all_details
+    @users = User.all
+    
   end
   
   # create User object and pass required parameters
