@@ -28,7 +28,7 @@
 		      <table id="datatable" class="table table-striped table-bordered responsive">
 		        <thead>
 		          <tr>
-		            <th>Name</th>
+		          				<th>Name</th>
 								<th>Description</th>
 								<th>Amount</th>
 								<th>Transaction Date</th>
@@ -37,9 +37,8 @@
 		        </thead>
 		        <tbody>
 		        <% @expenses.each do |expense|%>
-		        	<%unless expense.finance_transaction_category.is_income? %>
-			          <tr>
-			            <td><%= expense.title%></td>
+		     		 <tr>
+			                        <td><%= expense.title%></td>
 									<td><%= expense.description%></td>
 									<td><%= expense.amount%></td>
 									<td><%= expense.transaction_date%></td>
@@ -55,7 +54,7 @@
 			            </td>
 			          </tr>
 			        <%end%>  
-		        <% end %>
+		        
 		        </tbody>
 		      </table>
 		    <%else%>

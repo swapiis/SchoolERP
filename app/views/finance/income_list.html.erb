@@ -37,7 +37,7 @@
 		        </thead>
 		        <tbody>
 		        <% @incomes.each do |income|%>
-		        	<%if income.finance_transaction_category.is_income? %>
+		        	
 			          <tr>
 			            <td><%= income.title%></td>
 									<td><%= income.description%></td>
@@ -54,7 +54,7 @@
 			              </div>
 			            </td>
 			          </tr>
-			        <%end%>  
+			         
 		        <% end %>
 		        </tbody>
 		      </table>
