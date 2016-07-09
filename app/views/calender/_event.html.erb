@@ -30,7 +30,7 @@
 				    <b>Start Date:<span style="color:red">*</span></b>
 				  </div>
 				  <div class="col-md-7">
-				    <%=e.date_field :start_date,class: "form-control datepicker",required: true%>
+				    <%=e.date_field :start_date,class: "form-control",required: true%>
 				  </div>
 				</div><br/>
 				
@@ -39,10 +39,13 @@
 				    <b>End Date:<span style="color:red">*</span></b>
 				  </div>
 				  <div class="col-md-7">
-				    <%=e.date_field :end_date,class: "form-control datepicker",required: true%>
+				    <%=e.date_field :end_date,class: "form-control",required: true%>
 				  </div>
 				</div><br/>
-				<center><%= e.submit "Update",class: "btn btn-success"%></center>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				
+				<%= e.submit "Delete", class: "btn btn-danger"%>
+				<%= e.submit "Update",class: "btn btn-success"%>
 			<%end%>
 		</div>
 	</div>
