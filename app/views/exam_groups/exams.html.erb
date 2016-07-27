@@ -46,6 +46,7 @@
         <%unless @exam_group.exam_type=="Grades"%>
         <td><%= exam.maximum_marks %></td>  
         <td><%= exam.minimum_marks %></td>
+      
         <% end %>
         <td>
           <% unless @exam_group.result_published? %>
@@ -68,4 +69,5 @@
 </div>
 </div>
 </div>
+
 </div>

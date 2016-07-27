@@ -11,8 +11,14 @@
 // about supported directives.
 //
 //= require_tree .
+//= require moment
+//= require bootstrap-timepicker
+//= require bootstrap-datetimepicker
 
-
+$('.timepicker').timepicker()
+    .on('changeTime', function(ev) {
+      alert('time has changed');
+      });
 
 
 

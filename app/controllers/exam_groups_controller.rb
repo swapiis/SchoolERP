@@ -52,22 +52,14 @@ class ExamGroupsController < ApplicationController
   # store the exams attributes in the object a.
   # Convert the start time and end time into date format for validation
   # Insert the exam into the database.
-  def exam_group_create
+ def exam_group_create
     @exam_group = ExamGroup.shod(params[:id])
-    a = params[:exam_group][:exams_attributes]
-    a.each do |s|
-      @flag = true
-      start_time = s[1][:start_time].to_date
-      end_time = s[1][:end_time].to_date
-      if start_time >= @exam_group.batch.start_date && end_time <= @exam_group.batch.end_date
-        @flag = false
-      end
-    end
-    if @flag == false
+   if @exam_group.save 
       @exam_group.update(params_exam_group)
       @exam_group.update_exam(@exam_group, params[:no_create])
+       flash[:notice] = 'Exam group created successfully'
     else
-      @exam_group.errors.add(:exam_date, 'is not in range of batch date')
+      redirect_to exam_group_path
     end
   end
 

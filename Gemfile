@@ -2,6 +2,10 @@ source 'https://rubygems.org'
 # gem 'hirb', :require => nil
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails'
+
+gem 'bootstrap-timepicker-rails'
+gem 'bootstrap3-datetimepicker-rails'
+
 # Use postgresql as the database for Active Record
 gem 'mysql2'
 # Use SCSS for stylesheets
