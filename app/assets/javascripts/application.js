@@ -10,8 +10,10 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require moment
+//= require bootstrap-datepicker
+//= require bootstrap-datetimepicker
 //= require_tree .
-
 
 
 

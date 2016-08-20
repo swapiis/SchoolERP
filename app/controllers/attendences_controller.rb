@@ -2,6 +2,10 @@
 class AttendencesController < ApplicationController
   def index
     authorize! :read, Attendence
+     @show_month = Date.today
+    @start_date = @show_month.beginning_of_month
+    @start_date_day = @start_date.wday
+    @last_day = @show_month.end_of_month
   end
   # find all batches from database, and perform authorization
   def attendence_register
@@ -40,6 +44,9 @@ class AttendencesController < ApplicationController
     authorize! :read, Attendence
   end
   
+  def event_view
+    @event = Event.shod(params[:event_id])
+  end
   # this is subpart of display method
   # used fir display student attendence
   def display2

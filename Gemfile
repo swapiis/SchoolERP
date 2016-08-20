@@ -54,11 +54,16 @@ gem 'groupdate', '~> 2.1.1'
 gem 'active_median', '~> 0.1.0'
 gem 'calendar_date_select'
 gem 'jquery-ui-rails'
-gem 'momentjs-rails', '>= 2.9.0'
-# gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
+#gem 'momentjs-rails', '>= 2.9.0'
+ #gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
 gem 'jquery-validation-rails', '~> 1.13.1'
 gem 'yard'
+gem 'font-awesome-rails'
+gem 'bootstrap_form'
 
+gem 'bootstrap-datepicker-rails'
+gem 'momentjs-rails'
+gem 'bootstrap3-datetimepicker-rails'
 group :development, :test do
   gem 'pry-byebug'
 end

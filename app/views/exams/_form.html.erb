@@ -19,11 +19,13 @@
 							</div>
 							<div class="form-group">
 								<b>Start Time:</b>
-								<%=f.date_field :start_time ,style: "width: 250px", class: "form-control datepicker",required:true %>
+								<%=f.text_field :start_time ,style: "width: 250px",class: "form-control datepicker",placeholder: "Select start Time" %>
+
+					
 							</div>
 							<div class="form-group">
 								<b>End Time:</b>
-								<%=f.date_field :end_time ,style: "width: 250px", class: "form-control datepicker",required:true%>
+								<%=f.text_field :end_time ,style: "width: 250px", class: "form-control datepicker",required:true%>
 							</div>
 							<% unless @exam_group.exam_type=="Grades"%>
 							<div class="form-group">

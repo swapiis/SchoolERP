@@ -32,12 +32,12 @@
               <% current_day = Date.today  %>
               <% (@start_date..@end_date).each do |date| %>
                 <%@time_table_entries.each do |d|%>
-                <% if current_day.strftime("%a %d %y") == date.strftime("%a %d %y") %>
-                    <%if I18n.l(date,:format=>"%A")==d.weekday.weekday%>
+                <% if current_day.strftime("%a %d %y")  %>
+                    <%if I18n.l(date,:format=>"%A")%>
                   <th style="background-color:rgb(207, 207, 207)" class="fc-day-header fc-widget-header"><div class="day themed_text"><%= I18n.l(date,:format=>"%a")  %></div> <div class="date"> <%= I18n.l(date,:format=>"%d") %></div></th>
                   <%end%>
                 <% else %>
-                 <% if I18n.l(date,:format=>"%A")==d.weekday.weekday%>
+                 <% if I18n.l(date,:format=>"%A")%>
                   <th class="fc-day-header fc-widget-header"><div class="day themed_text"><%= I18n.l(date,:format=>"%a") %></div> <div class="date"> <%=  I18n.l(date,:format=>"%d") %></div></th>
                 <%end%>
                 <% end %>
@@ -59,10 +59,10 @@
             
               <% (@start_date..@end_date).each do |date| %>
                  <%@time_table_entries.each do |d|%>
-               <% @absent = Attendence.find_by_student_id_and_subject_id_and_month_date(student.id, @subject.id,date) %>
+               <% @absent = Attendence.find_by_student_id_and_subject_id(student.id, @subject.id) %>
 
-            <%if I18n.l(date,:format=>"%A")==d.weekday.weekday%>
-            <% if current_day.strftime("%a %d %y") == date.strftime("%a %d %y") %>
+            <%if I18n.l(date,:format=>"%A")%>
+            <% if current_day.strftime("%a %d %y")%>
               <td class="fc-day fc-widget-content" style="background-color:rgb(207, 207, 207);" id="attendance-employee-<%= student.id %>-day-<%= date %>">
                 <% else %>
               <td class="fc-day fc-widget-content" id="attendance-employee-<%= student.id %>-day-<%= date %>">
@@ -94,12 +94,12 @@
               </th>
             
           
-              <% (@start_date..@end_date).each do |date| %>
+              <% (@start_date..@end).each do |date| %>
                  <%@time_table_entries.each do |d|%>
-               <% @absent = Attendence.find_by_student_id_and_subject_id_and_month_date(student1.student.id,@subject.id,date) %>
+               <% @absent = Attendence.find_by_student_id_and_subject_id(student1.student.id,@subject.id) %>
 
-            <%if I18n.l(date,:format=>"%A")==d.weekday.weekday%>
-            <% if current_day.strftime("%a %d %y") == date.strftime("%a %d %y") %>
+            <%if I18n.l(date,:format=>"%A")%>
+            <% if current_day.strftime("%a %d %y")%>
               <td class="fc-day fc-widget-content" style="background-color:rgb(207, 207, 207);" id="attendance-employee-<%= student1.student.id %>-day-<%= date %>">
                 <% else %>
               <td class="fc-day fc-widget-content" id="attendance-employee-<%= student1.student.id %>-day-<%= date %>">
@@ -107,9 +107,9 @@
               <div class="fc-day-content">
               <div align="center">
                 <% unless @absent.nil? %>
-                  <%= link_to 'X',edit_attendence_attendence_path(@absent,date:date,subject_id:@subject.id),remote:true, style: "font-size:20px"%>
+                  <%= link_to 'X',edit_attendence_attendence_path(@absent,subject_id:@subject.id),remote:true, style: "font-size:20px"%>
                 <% else %>
-                  <%= link_to '-',new_attendence_attendence_path( student1.student.id,month_date:date,time_table_entry_id:d.id,subject_id:@subject.id),remote:true, style: "font-size:20px"%>
+                  <%= link_to '-',new_attendence_attendence_path( student1.student.id,time_table_entry_id:d.id,subject_id:@subject.id),remote:true, style: "font-size:20px"%>
                 <% end %>
               </div>
               </div>
@@ -127,17 +127,7 @@
 
 
 <%end%>
-
-
-
-
-
-
-
-
-
-
-      </table>
+</table>
       <br/>
 
 </div>

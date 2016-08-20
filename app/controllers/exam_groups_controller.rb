@@ -66,8 +66,7 @@ class ExamGroupsController < ApplicationController
     if @flag == false
       @exam_group.update(params_exam_group)
       @exam_group.update_exam(@exam_group, params[:no_create])
-    else
-      @exam_group.errors.add(:exam_date, 'is not in range of batch date')
+    
     end
   end
 

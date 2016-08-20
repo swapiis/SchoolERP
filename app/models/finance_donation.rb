@@ -17,6 +17,7 @@ class FinanceDonation < ActiveRecord::Base
       , description: description, amount: amount\
       , transaction_date: transaction_date)
     update(finance_transaction_id: transaction.id)
+
   end
 
   # This action called by finance controller for update the data into
