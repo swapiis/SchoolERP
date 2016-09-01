@@ -25,13 +25,13 @@
                   <div class="form-group">
                  <div class="col-md-3"> <b>Start Date:</b></div>
               
-          <div class="col-md-7"> <%= f.date_select :start_date,:use_month_numbers=>true,:start_year => Date.current.year-1, :end_year => Date.current.year+1,:order=>[:day,:month,:year]%></div>
+          <div class="col-md-7"> <%= <%= f.date_select :start_date,:use_month_numbers=>true,:start_year=>1.years.ago.year,:end_year=>1.years.since.year,:order=>[:day,:month,:year]%></div>
           </div>
           <br>
        <div class="form-group">
          <div class="col-md-3"><b>End Date:</b></div>
            
-          <div class="col-md-7"> <%= f.date_select :end_date,:use_month_numbers=>true,:start_year => Date.current.year-1,:end_year => Date.current.year+1,:order=>[:day,:month,:year]%>
+          <div class="col-md-7"> <%= f.date_select :end_date,:use_month_numbers=>true,:start_year=>1.years.ago.year,:end_year=>1.years.since.year,:order=>[:day,:month,:year]%>
        </div>
        </div>
           <br>

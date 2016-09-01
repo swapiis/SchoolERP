@@ -10,8 +10,8 @@
 <div class="row">
   <div class="col-md-11 col-md-offset-1">
 <%= form_for :time,url:{action:'teacher_time_table_display'},method: :get,remote:true,html:{id: "time_form"} do |f| %>
-		<b> Select a Timetable: </b>
-      <%= f.select :id,["I","II","III","IV","V","VI","VII","VIII","IX","X"],{prompt:"Select a Timetable"},{onchange:"time_batch_function();",class: "form-control",style:"width:250px"} %>  
+    <b> Select a Timetable: </b>
+       <%= f.select :id,collect_time_table,{prompt:"Select a Timetable"},{onchange:"time_batch_function();",class: "form-control",style:"width:250px"} %>  
     <%end%>
   </div>
 </div>
