@@ -15,6 +15,7 @@ class StudentsController < ApplicationController
   def admission1
     @student = Student.new
     @student.admission_no = Student.set_admission_no
+    @student.class_roll_no = params[:student]
     @batches ||= Batch.all.includes(:course)
     @countries ||= Country.all
     @categories ||= Category.all

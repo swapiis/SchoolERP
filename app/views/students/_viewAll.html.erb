@@ -14,6 +14,7 @@
       <th>Sr. No.</th>
       <th>Student Name</th>
       <th>Admission No.</th>
+      <th>Roll_no</th>
       <th></th>
       </tr>
     </thead>
@@ -23,6 +24,7 @@
           <td><%= i+1 %></td>
           <td><%= student.first_name+' '+student.last_name  %></td>
           <td><%= student.admission_no %></td>
+          <td><%= student.class_roll_no%>
           <td><%= link_to 'View Profile',profile_student_path(student) %></td>
         </tr>
       <% end %>   

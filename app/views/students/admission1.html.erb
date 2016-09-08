@@ -58,7 +58,7 @@ Note:&nbsp;&nbsp;<font color="red">Fields marked with * must be filled</font>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <div class="form-group">
                       <b>Course and Batch:</b>
                       <span style="color:red">*</span>
@@ -66,7 +66,17 @@ Note:&nbsp;&nbsp;<font color="red">Fields marked with * must be filled</font>
                       
                     </div>
                   </div>
-                  <div class="col-md-4 col-sm-offset-1">
+                  
+                   <div class="col-md-3 ">
+                    <div class="form-group">
+                      <b>Roll no:</b>
+                      <span style="color:red">*</span>
+                      <%=f.text_field :class_roll_no,placeholder: "class_roll_no", class: "form-control"%>
+                    </div>
+                  </div>
+
+
+                  <div class="col-md-3">
                     <div class="form-group">
                       <b>Date of Birth:</b>
                       <span style="color:red">*</span>

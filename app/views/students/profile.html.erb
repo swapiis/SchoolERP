@@ -30,6 +30,8 @@
               <h4 align="left"> Course : <%= @student.batch.course.course_name %> </h4>
               <h4 align="left"> Batch : <%= @student.batch.name %> </h4>
               <h4 align="left"> Admission no. : <%= @student.admission_no %> </h4>
+              <h4 align="left"> Roll no. : <%= @student.class_roll_no %> </h4>
+
             </div>
           </div><br>
           <div class="col-md-3">
@@ -56,6 +58,11 @@
             <div class="form-group">
               <div class="col-md-6"><b>Admission Date:</b> </div>
               <div class="col-md-6"><%= @student.admission_date %></div>
+            </div><br>
+            <div class="col-md-6">
+            <div class="form-group">
+              <div class="col-md-6"><b>Rollno:</b> </div>
+              <div class="col-md-6"><%= @student.class_roll_no %></div>
             </div><br>
             <div class="form-group">
               <div class="col-md-6"><b>Blood Group:</b></div>
