@@ -32,6 +32,11 @@
     <br/><h3><center>Student Profile</center></h3><br/>
     <table cellpadding="5" cellspacing="5" width="700">
       <tr><th colspan="3" bgcolor="99CCFF" align="left">Admission Details</th></tr>
+       <tr>
+         <td>Roll_no</td>
+        <td>:</td>
+        <td><%= @student.class_roll_no %></td>
+      </tr>
       <tr>
         <td>Name</td>
         <td>:</td>
@@ -54,11 +59,7 @@
         <td>:</td>
         <td><%= @student.admission_no %></td>
       </tr>
-      <tr>
-         <td>Roll_no</td>
-        <td>:</td>
-        <td><%= @student.class_roll_no %></td>
-      </tr>
+     
         <td>Admission Date</td>
         <td>:</td>
         <td><%= @student.admission_date %></td>
@@ -88,11 +89,7 @@
         <td>:</td>
         <td><%= @student.nationality.name %></td>
       </tr>
-      <tr>
-        <td>Catagory</td>
-        <td>:</td>
-        <td><%= @student.category.name %></td>
-      </tr>
+     
       <tr>
         <td>Religion</td>
         <td>:</td>
