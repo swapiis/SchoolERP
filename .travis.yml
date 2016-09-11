@@ -1,0 +1,10 @@
+language: ruby
+
+rvm:
+  - 2.2.2
+  - 2.3.1
+
+install:
+  - bundle install
+
+bundler_args: --without production
