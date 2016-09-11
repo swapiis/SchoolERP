@@ -25,13 +25,9 @@ gem 'jquery-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc',          group: :doc
+gem 'sdoc', group: :doc
 
-# Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-gem 'spring', group: :development
-gem 'brakeman', group: :development
-# Use unicorn as the app server
-# gem 'unicorn'
+gem 'mysql2'
 gem 'roo'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -60,10 +56,13 @@ gem 'yard'
 
 group :development, :test do
   gem 'pry-byebug'
-  gem 'mysql2'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+  gem 'brakeman'
 end
 
 group :production do
   gem 'rails_12factor'
-  gem 'pg'
+  gem 'unicorn'
+  # gem 'pg'
 end

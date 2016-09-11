@@ -1131,7 +1131,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
   create_table "students", force: :cascade do |t|
     t.string   "admission_no",       limit: 255
     t.string   "class_roll_no",      limit: 255
-    t.date     "admission_date"
+    t.datetime "admission_date"
     t.string   "first_name",         limit: 255
     t.string   "middle_name",        limit: 255
     t.string   "last_name",          limit: 255
