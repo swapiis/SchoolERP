@@ -11,7 +11,7 @@
 <div id="flash"><%= render 'layouts/messages'%></div>
 <br/>
 <div class="row">
-	<div class="col-md-2"></div>
+    <div class="col-md-2"></div>
     <div class="box col-md-6">
         <div class="box-inner">
             <div class="box-header well" data-original-title="">
@@ -22,31 +22,31 @@
             <%= form_for @batch do |b|%>
 
             <fieldset>
-            	<%=batch_error!%>
-				<div class="col-sm-7 col-sm-offset-1">
-	                <div class="form-group">
+                <%=batch_error!%>
+                <div class="col-sm-7 col-sm-offset-1">
+                    <div class="form-group">
 
-	                	<b>Name :</b>
-						<%=b.text_field :name, class: "form-control", style: "width: 350px", placeholder: "Batch Name"%>
-	                </div>
-	                <div class="form-group">
-		            	<b>Start Date :</b>
-		            	<%= b.text_field :start_date, class: "form-control datepicker",  placeholder: "Start date", :style=>"width:350px"%>
-		          	</div>
-		          	<div class="form-group">
-		            	<b>End Date :</b>
+                        <b>Name :</b>
+                        <%=b.text_field :name, class: "form-control", style: "width: 350px", placeholder: "Batch Name"%>
+                    </div>
+                    <div class="form-group">
+                        <b>Start Date :</b>
+                        <%= b.date_field :start_date, class: "form-control datepicker",  placeholder: "Start date", :style=>"width:350px"%>
+                    </div>
+                    <div class="form-group">
+                        <b>End Date :</b>
 
-		            	<%= b.text_field :end_date, class: "form-control datepicker",  placeholder: "End date", :style=>"width:350px"%>
-		          	</div>
+                        <%= b.date_field :end_date, class: "form-control datepicker",  placeholder: "End date", :style=>"width:350px"%>
+                    </div>
 
-		          	
-	          	<div class="col-sm-7 col-sm-offset-6"> 
-	          		<div class="form-actions">               
-	            	<%= b.submit 'Update', class: "btn btn-success"%>
-	          		</div>
-	        	</div>
-	            	
-	            </div>
+                    
+                <div class="col-sm-7 col-sm-offset-6"> 
+                    <div class="form-actions">               
+                    <%= b.submit 'Update', class: "btn btn-success"%>
+                    </div>
+                </div>
+                    
+                </div>
             </fieldset>
             <% end %>
             </div>
