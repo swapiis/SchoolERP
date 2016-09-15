@@ -44,7 +44,7 @@
                     <% if eg.result_published? %>
                       <div class="label-success label label-default">
                         <i class="glyphicon glyphicon-saved icon-white"></i>
-                        <%= link_to 'Result published','#',class: "a-action"%>
+                        <%= link_to 'Result published',publish_result_exam_groups_path(@exam_group),class: "a-action"%>
                       </div>
                     <%else%>
                       <div class="label-primary label label-default">
