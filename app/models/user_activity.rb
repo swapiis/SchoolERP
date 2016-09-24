@@ -5,6 +5,7 @@ class UserActivity < ActiveRecord::Base
 
   # method used for track activity and create user activity
   def self.activity(name, id, action)
+    
     activity = UserActivity.new
     activity.user_id = User.current.id
     activity.modelname = name

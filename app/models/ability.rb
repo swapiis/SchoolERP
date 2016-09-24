@@ -9,8 +9,9 @@ class Ability
   def initialize(user)
     if user.role == 'SuperAdmin'
       can :manage, :all
+      
     elsif user.role == 'Admin'
-      can [:read, :create, :update], :all
+      can :manage, :all
     elsif user.role == 'Employee'
       can :read, [TimeTable, Employee, ArchivedEmployee, Newscast, Comment]
       can [:read, :create, :update], [ExamGroup, Exam, ExamScore, Event]

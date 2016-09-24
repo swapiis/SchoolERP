@@ -468,7 +468,7 @@ class EmployeesController < ApplicationController
   # display all information of employee containing reporting manager
   def profile
     @employee = Employee.shod(params[:format])
-    @reporting_manager = Employee.shod(@employee\
+    @reporting_manager = Employee.shod(@employee
     .reporting_manager_id).first_name unless @employee.reporting_manager_id.nil?
     authorize! :read, @employee
   end

@@ -22,12 +22,16 @@
     <div class="col-sm-8 col-sm-offset-1">
     <div class="form-group">
          
+
+         
+         <% if @user == current_user%>
           <b>Username:</b>
              <%= f.text_field :username, class: "form-control", style: "width: 350px", placeholder: ""  %>
         </div>
         <div class="form-group">
         
               <b>First Name:</b>
+           
               <%= f.text_field :first_name, class: "form-control", style: "width: 350px", placeholder: "" %>
         </div>
         <div class="form-group">
@@ -37,6 +41,12 @@
         <div class="form-group">
               <b>Email:</b>
               <%= f.text_field :email, class: "form-control", style: "width: 350px", placeholder: ""%>
+
+<%else%>
+    <%= f.select :role,["SuperAdmin","Admin", "Employee", "Student","Parent"],{prompt:'Select a Role'},{onchange:"$('#user_form2').submit();",class: "form-control",style:"width:300px"} %>
+<%end%>
+
+
               </div>
                <div class="form-group">
                <div class="col-md-offset-6">

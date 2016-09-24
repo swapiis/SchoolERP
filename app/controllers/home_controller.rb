@@ -10,7 +10,7 @@ class HomeController < ApplicationController
   # this method is used for display dashboard
   def dashboard
     @student = current_user.student
-    @acts ||= UserActivity.order(created_at: :desc) if current_user.id == 1
+    @acts ||= UserActivity.order(created_at: :desc) 
   end
 
   # this method is used for record  user activity

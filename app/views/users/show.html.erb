@@ -27,9 +27,10 @@
       <% elsif @user.role.eql? "Employee"%>
         <% unless @employee.nil? %>
          <%= link_to "View Profile",profile_employees_path(@employee.employee_id), class: "btn btn-primary-link btn-xs"%>
+          <%= link_to "Edit", edit_user_path(@user), class: "btn btn-primary-link btn-xs"%>
         <%end%>  
       <% end %>
-      <%unless @user.role.eql? "Admin"%>
+      <%if @user.role.eql? "Admin"%>
         <%= link_to "Change Password", change_password_user_path(@user), class: "btn btn-primary-link btn-xs"%>
          <%= link_to "Edit", edit_user_path(@user), class: "btn btn-primary-link btn-xs"%>
       <%else%>
@@ -84,6 +85,5 @@
  </div>
  </div>
  </div>
-
 
 

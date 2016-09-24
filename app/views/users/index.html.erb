@@ -5,23 +5,38 @@
   </ul>
 </div><div id="flash"><%= render 'layouts/messages'%></div>
 
+
 <div class="row">
-  <div class="col-md-12">
-    <div class="pull-right">
-      <%= link_to 'View All',view_all_users_path, class: "btn btn-primary-link btn-xs" %>
-    </div>
-  </div>
+              <div class="col-md-2"></div>
+              <div class="col-sm-">
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="form-group">
+ 
+    <%= form_for :user, url:{action:'select'},method: :get,remote:true,html:{id: 'user_form2'} do |f| %>
+    <b>Select a Role:</b>
+      <%= f.select :role,["Admin", "Employee", "Student","Parent"],{prompt:'Select a Role'},{onchange:"$('#user_form2').submit();",class: "form-control",style:"width:300px"} %>
+    <% end %>
 </div>
-<hr>
+   </div>
+   
+
 <div class="row">
-  <div class="col-md-2"></div>
-    <div class="box col-md-6">
-    <%= form_for :user, url:{action:'search'}, method: :get,remote:true,html:{id: "user_form"} do |f|%>
+<div class="col-sm-4 col-sm-offset-1">
+    <div class="form-group">
+   <%= form_for :user, url:{action:'search'}, method: :get,remote:true,html:{id: "user_form"} do |f|%>
        <b>Search User:</b>
        <br>
           <%= text_field_tag :search,"",placeholder:'Search User',oninput:"$('#user_form').submit();",class:"form-control",style: "width: 300px"%>
         <% end %>
+        </div>
+</div>
   </div>
+</div>
+
 </div><br/>
-<div id="user_search"></div>
+<div id="user_search">
+ <div id="user_view"></div>
+ 
+<%= render 'view_all_details'%></div>
  

@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   has_many :newscasts
   has_many :comments
   belongs_to :general_setting
+  has_many :employees
+
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
          :validatable, :timeoutable, :trackable
   validates :username, presence: true, uniqueness: true, length: \
@@ -31,6 +33,7 @@ class User < ActiveRecord::Base
   def create_general_setting
     role = 'Admin'
     role = 'SuperAdmin' if id == 1
+    
     gs = GeneralSetting.create(school_or_college_name: 'Axenic School')
     update(general_setting_id: gs.id, role: role)
   end

@@ -2,6 +2,7 @@
 	<li>
 	
 	    <div style="color:#158cba">
+	    	
 		<%= comment.user.full_name %></div> 
 		<div><i class="glyphicon glyphicon-comment icon-white"></i>&nbsp;<%= sanitize  comment.statement.strip.gsub("\n", "<br/>"),:tags => %w[b i a ], :attributes => %w[href] %></div>
 		<div><b>posted</b>&nbsp;&nbsp;<%= time_ago_in_words(comment.created_at) %> ago
@@ -13,3 +14,7 @@
 </ul>
 
 <hr>
+
+
+
+
