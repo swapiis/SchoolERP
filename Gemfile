@@ -17,7 +17,7 @@ gem 'aws-sdk'
 gem 'devise'
 gem 'cancan'
 gem 'pdfkit'
-gem 'wkhtmltopdf-binary-edge'
+gem 'wkhtmltopdf-binary'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
@@ -65,4 +65,11 @@ group :production do
   gem 'rails_12factor'
   gem 'unicorn'
   # gem 'pg'
+end
+
+group :test do
+  gem 'factory_girl_rails'
+  gem 'test-unit'
+  gem 'mocha', :require => false
+  gem 'simplecov'
 end
