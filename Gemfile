@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 # gem 'hirb', :require => nil
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails'
-
+gem 'rubocop', '~> 0.43.0', require: false
 # Use SCSS for stylesheets
 gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
@@ -29,6 +29,8 @@ gem 'sdoc', group: :doc
 
 gem 'mysql2'
 gem 'roo'
+
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'passenger'
@@ -73,3 +75,8 @@ group :test do
   gem 'mocha', :require => false
   gem 'simplecov'
 end
+
+group :development do
+  gem 'rubocop', require: false
+  gem 'haml-lint', require: false
+end 
