@@ -1,0 +1,9 @@
+language: ruby
+
+rvm:
+  - 2.2.2
+  - 2.3.1
+
+install: gem install rails
+
+bundler_args: --without production
