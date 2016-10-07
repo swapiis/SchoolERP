@@ -16,6 +16,7 @@
   <div class="col-md-11 col-md-offset-1">
     <div class="pull-right">
       <%=link_to "Add subject", previous_subject_students_path(@student), remote: true,class: "btn btn-primary-link btn-xs" %>
+      <%=link_to 'View Profile', profile_student_path(@student.id), class: "btn btn-primary-link btn-xs" %></td>
     </div>
   </div>
 </div>

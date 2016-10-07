@@ -10,7 +10,7 @@ class Employee < ActiveRecord::Base
   belongs_to :reporting_manager, class_name: 'Employee'
   has_attached_file :image
   validates_attachment_content_type \
-  :image, content_type: ['image/jpg', 'image/jpeg', 'image/png', 'image/gif']
+    :image, content_type: ['image/jpg', 'image/jpeg', 'image/png', 'image/gif']
   has_many :employees_subjects
   has_many :subjects, through: :employees_subjects
   has_many :timetable_entries
@@ -48,23 +48,18 @@ class Employee < ActiveRecord::Base
   { minimum: 1, maximum: 30 }, allow_blank: true
   validates :father_name, length: \
   { minimum: 1, maximum: 20 }, format: \
-  { with: /\A[a-z A-Z_" "-]+\Z/, message: 'allows only letters' \
-    }, allow_blank: true
+  { with: /\A[a-z A-Z_" "-]+\Z/, message: 'allows only letters' }, allow_blank: true
   validates :mother_name, length: \
    { minimum: 1, maximum: 20 }, format: \
-   { with: /\A[a-z A-Z " "-]+\Z/, message: 'allows only letters' \
-    }, allow_blank: true
-
+   { with: /\A[a-z A-Z " "-]+\Z/, message: 'allows only letters' }, allow_blank: true
   validates :home_address_line1, presence: true, length: \
    { in: 1..30 }, allow_blank: true
   validates :home_address_line2, length: \
   { in: 1..30 }, allow_blank: true
   validates :home_city, presence: true, format: \
-   { with: /\A[a-z A-Z]+\z/, message: 'only allows letters' \
-   }, length: { in: 1..30 }, allow_blank: true
+   { with: /\A[a-z A-Z]+\z/, message: 'only allows letters'} , length: { in: 1..30 }, allow_blank: true
   validates :home_state, presence: true, format: \
-   { with: /\A[a-z A-Z]+\z/, message: 'only allows letters' \
-    }, length: { in: 1..30 }, allow_blank: true
+   { with: /\A[a-z A-Z]+\z/, message: 'only allows letters'} , length: { in: 1..30 }, allow_blank: true
   validates :home_pin_code, presence: true, numericality: \
   { only_integer: true }, length: \
   { minimum: 6, maximum: 6 }, allow_blank: true
@@ -78,8 +73,7 @@ class Employee < ActiveRecord::Base
   { with: /\A[a-z A-Z]+\z/, message: 'only allows letters' },
                            length: { in: 1..30 }, allow_blank: true
   validates :office_pin_code, numericality: { only_integer: true }, length: \
-  { minimum: 6, maximum: 6 \
-                    }, allow_blank: true
+  { minimum: 6, maximum: 6 }, allow_blank: true
   validates :office_phone1, numericality: { only_integer: true }, length: \
   { minimum: 6, maximum: 11 }, allow_blank: true
   validates :office_phone2, numericality: { only_integer: true }, length: \
@@ -140,11 +134,11 @@ class Employee < ActiveRecord::Base
   # check employee already present in batch else split batch and insert
   # employee in batch and update batch and join again
   def assign(batch, id)
-    if batch.employee_id.blank?
-      assigned_emps = []
+    assigned_emps = if batch.employee_id.blank?
+      []
     else
-      assigned_emps = batch.employee_id.split(',')
-    end
+      batch.employee_id.split(',')
+                    end
     assigned_emps.push(id.to_s)
     batch.update employee_id: assigned_emps.join(',')
     assigned_emps.join(',')
@@ -168,7 +162,7 @@ class Employee < ActiveRecord::Base
     date = Date.today.strftime('%Y%m%d')
     self.employee_number = date.to_s + '1' if Employee.first.nil?
     self.employee_number = date.to_s + \
-      Employee.last.id.next.to_s unless Employee.first.nil?
+                           Employee.last.id.next.to_s unless Employee.first.nil?
   end
 
   # This methd is used to search employee on dept,category,position,grade.
@@ -197,10 +191,10 @@ class Employee < ActiveRecord::Base
 
     if p[:gender]
       unless p[:gender].eql? 'All'
-        if conditions == ''
-          conditions += "gender like '#{p[:gender]}'"
+        conditions += if conditions == ''
+          "gender like '#{p[:gender]}'"
         else
-          conditions += " AND gender like '#{p[:gender]}'"
+          " AND gender like '#{p[:gender]}'"
         end
       end
     end
@@ -259,7 +253,7 @@ class Employee < ActiveRecord::Base
       else
         conditions += " AND employee_position_id='#{p[:employee_position_id]}'" unless p[:employee_position_id] == ''
       end
-     end
+    end
 
     if p[:employee_grade_id]
       if conditions == ''
@@ -299,7 +293,7 @@ class Employee < ActiveRecord::Base
     search = ''
     search += ' Name: ' + p[:name].to_s + ', ' unless p[:name].empty?
 
-    if  p[:gender] == 'All'
+    if p[:gender] == 'All'
       search += ' Gender: All' + ', '
     else
       search += ' Gender: ' + p[:gender].to_s + ', ' unless p[:gender].empty?
@@ -316,11 +310,11 @@ class Employee < ActiveRecord::Base
       search += ' Category: ' + EmployeeCategory.find(p[:employee_category_id]).name + ', '
     end
 
-    search += 'Joining date:' +  p[:joining_date].to_s + ', ' unless  p[:joining_date].empty?
+    search += 'Joining date:' + p[:joining_date].to_s + ', ' unless p[:joining_date].empty?
 
     if p[:employee_department_id].present?
       search += ' Department: ' + EmployeeDepartment.find(p[:employee_department_id]).name + ', '
-     end
+    end
 
     if p[:employee_position_id].present?
       search += ' Position: ' + EmployeePosition.find(p[:employee_position_id]).name + ', '
@@ -328,17 +322,17 @@ class Employee < ActiveRecord::Base
 
     if p[:employee_grade_id].present?
       search += ' Grade: ' + EmployeeGrade.find(p[:employee_grade_id]).name + ', '
-     end
-
-    searchs += ' Date of birth: ' +  p[:date_of_birth].to_s + ', ' unless  p[:date_of_birth].empty?
-
-    if p[:status] == 'present'
-      search += 'Staus: Present student'
-    elsif p[:status] == 'former'
-      search += 'Staus: Former student'
-    else
-      search += ' Status: All student'
     end
+
+    searchs += ' Date of birth: ' + p[:date_of_birth].to_s + ', ' unless p[:date_of_birth].empty?
+
+    search += if p[:status] == 'present'
+                'Status: Present student'
+              elsif p[:status] == 'former'
+                'Status: Former student'
+              else
+                'Status: All student'
+              end
     search
   end
 
@@ -368,7 +362,7 @@ class Employee < ActiveRecord::Base
             is_deduction.each do |i|
               amount = EmployeeSaleryStructure.where(employee_id: emp.id, payroll_category_id: i).pluck(:amount)
               amount.each do  |j|
-                tot_deduction += j.  to_f
+                tot_deduction += j. to_f
               end
             end
 
@@ -386,7 +380,7 @@ class Employee < ActiveRecord::Base
   #  ,take appropriate amount from employeesalarystrcture
   # then create  or update monthlypayslip
   def create_payslip(employee, salary_date)
-    start_date = salary_date - ((salary_date.day - 1).days)
+    start_date = salary_date - (salary_date.day - 1).days
     end_date = start_date + 1.month
     payslip_exists = employee.monthly_payslips.where(salary_date: start_date..end_date).take
     total_salary = 0
@@ -412,13 +406,11 @@ class Employee < ActiveRecord::Base
     total_salary -= tot_deduction.to_f
     b = MonthlyPayslip.where(employee_id: employee.id, salary_date: salary_date).pluck(:salary_date)
     if b[0].present?
-      if b[0] == salary_date.strftime('%b')
-        flag = 1
-    end
+      flag = 1 if b[0] == salary_date.strftime('%b')
     else
       MonthlyPayslip.create(salary_date: salary_date, employee_id: employee.id, amount: total_salary)
       flag = 0
-       end
+    end
     flag
   end
 
@@ -497,16 +489,16 @@ class Employee < ActiveRecord::Base
     user = User.new do |u|
       u.first_name = first_name
       u.last_name = last_name
-      u.username = employee_number
+      u.username = email
       u.employee_id = id
       u.password = employee_number
       u.role = 'Employee'
       u.email = email
-      if User.current
-        u.general_setting_id = User.current.general_setting.id
-      else
-        u.general_setting_id = 1
-      end
+      u.general_setting_id = if User.current
+                               User.current.general_setting_id
+                             else
+                               1
+                             end
     end
     user.save
   end

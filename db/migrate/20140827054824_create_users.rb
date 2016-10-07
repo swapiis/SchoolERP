@@ -6,8 +6,8 @@ class CreateUsers < ActiveRecord::Migration
       t.string :first_name
       t.string :last_name
       t.string :role
-      t.string :student_id
-      t.string :employee_id
+      t.integer :student_id
+      t.integer :employee_id
       t.string :email, null: false, default: ''
       t.string :encrypted_password, null: false, default: ''
       t.references :general_setting, index: true

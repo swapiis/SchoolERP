@@ -1,4 +1,3 @@
-# Student model
 class Student < ActiveRecord::Base
   include Activity
   belongs_to :country
@@ -97,7 +96,7 @@ class Student < ActiveRecord::Base
   def archived_student
     student_attributes = attributes
     student_attributes['student_id'] = id
-    archived_student = ArchivedStudent.create(student_attributes)
+    ArchivedStudent.create(student_attributes)
   end
 
   # return full name  by concating first_name,last_name
@@ -157,11 +156,11 @@ class Student < ActiveRecord::Base
     end
     if search[:gender]
       unless search[:gender].eql? 'All'
-        if conditions == ''
-          conditions += "gender like '#{search[:gender]}'"
-        else
-          conditions += " AND gender like '#{search[:gender]}'"
-        end
+        conditions += if conditions == ''
+                        "gender like '#{search[:gender]}'"
+                      else
+                        " AND gender like '#{search[:gender]}'"
+                      end
       end
     end
     if search[:blood_group]
@@ -231,7 +230,7 @@ class Student < ActiveRecord::Base
     if search[:category_id].present?
       script += ' Category: ' + Category.find(search[:category_id]).name + ', '
     end
-    if  search[:gender] == 'All'
+    if search[:gender] == 'All'
       script += ' Gender: All' + ', '
     else
       script += ' Gender: ' + search[:gender].to_s + ', ' \
@@ -242,17 +241,17 @@ class Student < ActiveRecord::Base
     if search[:country_id].present?
       script += ' Country: ' + Country.find(search[:country_id]).name + ', '
     end
-    script += ' Admission date: ' +  search[:admission_date].to_s + ', ' \
-    unless  search[:admission_date].empty?
-    script += ' Date of birth: ' +  search[:date_of_birth].to_s + ', ' \
-    unless  search[:date_of_birth].empty?
-    if search[:status] == 'present'
-      script += ' Present student'
-    elsif search[:status] == 'former'
-      script += ' Former student'
-    else
-      script += ' All student'
-    end
+    script += ' Admission date: ' + search[:admission_date].to_s + ', ' \
+    unless search[:admission_date].empty?
+    script += ' Date of birth: ' + search[:date_of_birth].to_s + ', ' \
+    unless search[:date_of_birth].empty?
+    script += if search[:status] == 'present'
+                ' Present student'
+              elsif search[:status] == 'former'
+                ' Former student'
+              else
+                ' All student'
+              end
     script
   end
 
@@ -261,7 +260,6 @@ class Student < ActiveRecord::Base
     user = User.discover(id, recipient).take
     UserMailer.student_email(user, subject, message).deliver
   end
-
 
   # Fetch the record from student according to selected exam and student.
   def exam_scores(exam)
@@ -272,7 +270,7 @@ class Student < ActiveRecord::Base
     email: 'Email Address',
     phone1: 'Phone number',
     phone2: 'Mobile number'
-  }
+  }.freeze
 
   private
 
@@ -284,16 +282,16 @@ class Student < ActiveRecord::Base
     user = User.new do |u|
       u.first_name = first_name
       u.last_name = last_name
-      u.username = admission_no
+      u.username = email
       u.student_id = id
       u.password = admission_no
       u.role = 'Student'
       u.email = email
-      if User.current
-        u.general_setting_id = User.current.general_setting.id
-      else
-        u.general_setting_id = 1
-      end
+      u.general_setting_id = if User.current
+                               User.current.general_setting_id
+                             else
+                               1
+                             end
     end
     user.save
   end

@@ -5,15 +5,15 @@ class EmployeesController < ApplicationController
   # callback as before filter it automatically all private methods
   # in to calling method,call backs generally used for code reusability
 
-  before_filter :grade, only: \
+  before_action :grade, only: \
   [:edit_grade, :update_grade, :destroy_grade]
-  before_filter :category, only:
+  before_action :category, only:
   [:edit_category, :update_category, :destroy_category]
-  before_filter :department, only: \
+  before_action :department, only: \
   [:edit_department, :update_department, :destroy_department]
-  before_filter :position, only: \
+  before_action :position, only: \
   [:edit_position, :update_position, :destroy_position]
-  before_filter :bank_fields, only: \
+  before_action :bank_fields, only: \
   [:edit_bank_field, :update_bank_field, :destroy_bank_field]
 
   # employee setting generally used for getting all information
@@ -340,7 +340,7 @@ class EmployeesController < ApplicationController
   def admission1
     @employee = Employee.new
     @empdept = EmployeeDepartment.all
-    @date = Date.today.strftime('%Y%m%d')
+    @date = Time.zone.today.strftime('%Y%m%d')
     @employee.emp_no
     authorize! :create, @employee
   end
@@ -417,7 +417,7 @@ class EmployeesController < ApplicationController
   # logic for set privilege to user
   def update_privilege
     @employee = Employee.shod(params[:format])
-    @user = User.find_by_employee_id("#{@employee.id}")
+    @user = User.find_by_employee_id(@employee.id.to_s)
     privilege_tag = params[:privilege]
     PrivilegeUser.privilege_update(privilege_tag, @user)
     redirect_to admission4_employees_path(@employee)
@@ -505,7 +505,7 @@ class EmployeesController < ApplicationController
 
   # update employee address profile ,first find employee which
   # record to be update and transfer controll to profile page
-  def  update_edit_address_profile
+  def update_edit_address_profile
     @employee = Employee.shod(params[:format])
     if @employee.update(employee_params)
       redirect_to profile_employees_path(@employee)
@@ -517,7 +517,7 @@ class EmployeesController < ApplicationController
 
   # update employee contact profile ,first find employee which
   # record to be update and transfer controll to profile page
-  def  update_edit_contact_profile
+  def update_edit_contact_profile
     @employee = Employee.shod(params[:format])
     if @employee.update(employee_params)
       redirect_to profile_employees_path(@employee)
@@ -670,8 +670,8 @@ class EmployeesController < ApplicationController
   # for redirecting to next page and perform authorization
   def one_click_pay(salary_date)
     redirect_to payslip_employees_path
-    flash[:notice] = "#{t('one')}" + \
-      ":#{salary_date.strftime('%B')}" + "#{t('one_click')}"
+    flash[:notice] = "#{t('one')}" \
+                     ":#{salary_date.strftime('%B')}" + t('one_click').to_s
     authorize! :update, @employee
   end
 
@@ -706,10 +706,10 @@ class EmployeesController < ApplicationController
   # this method is used for display payslip generated or updated
   # on th basis of flag,flag calculation done in create payslip method
   def paysli(flag, employee)
-    if flag == 0
-      flash[:notice] = 'Payslip of ' + employee.first_name + "#{t('p')}"
+    if flag.zero?
+      flash[:notice] = 'Payslip of ' + employee.first_name + t('p').to_s
     else
-      flash[:notice] = 'Payslip of ' + employee.first_name + "#{t('paysli')}"
+      flash[:notice] = 'Payslip of ' + employee.first_name + t('paysli').to_s
     end
   end
 
@@ -735,7 +735,7 @@ class EmployeesController < ApplicationController
   # and then call save method on created_category instance
   def create_payslip_category
     @employee = Employee.shod(params[:format])
-    @salary_date = (params[:salary_date])
+    @salary_date = params[:salary_date]
     @created_category = IndividualPayslipCategory\
                         .create_category(@employee, params[:payslip])
     @created_category.save
@@ -760,7 +760,7 @@ class EmployeesController < ApplicationController
   def one_click_payslip_revert2
     return if @b[0].present?
     return if @b[0] == @salary_date.strftime('%b')
-    flash[:notice] = 'Payslip of ' + @employee.first_name + "#{t('pay')}"
+    flash[:notice] = 'Payslip of ' + @employee.first_name + t('pay').to_s
   end
 
   # This method is used for display payslip,
@@ -914,7 +914,7 @@ class EmployeesController < ApplicationController
   def create_archived_employee2
     @archived_empsloyee = @employee.archived_employee
     @employee.destroy
-    flash[:notice] = 'Employee' + "#{@employee.first_name}" + "#{t('archived')}"
+    flash[:notice] = 'Employee' + @employee.first_name.to_s + t('archived').to_s
     redirect_to archived_employee_profile_employees_path(@employee)
   end
 
@@ -931,7 +931,7 @@ class EmployeesController < ApplicationController
     authorize! :delete, @employee
     @employee = Employee.shod(params[:format])
     @employee.destroy
-    flash[:notice] = "#{t('all')}" + " #{@employee.first_name}" + "#{t('del')}"
+    flash[:notice] = t('all').to_s + " #{@employee.first_name}" + t('del').to_s
     redirect_to @employee
   end
 
@@ -1045,7 +1045,7 @@ class EmployeesController < ApplicationController
   # this method is used to just redirecting to employee profile
   def update_bank_details2
     redirect_to profile_employees_path(@employee)
-    flash[:notice] = "#{t('bank')}" + " #{@employee.first_name}"
+    flash[:notice] = t('bank').to_s + " #{@employee.first_name}"
   end
 
   #  this method is used to hold payslip of selected employee

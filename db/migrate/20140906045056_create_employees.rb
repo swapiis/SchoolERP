@@ -2,7 +2,7 @@ class CreateEmployees < ActiveRecord::Migration
   def change
     create_table :employees do |t|
       t.references :employee_category, index: true
-      t.string :employee_number
+      t.integer :employee_number
       t.date :joining_date
       t.string :first_name
       t.string :middle_name
