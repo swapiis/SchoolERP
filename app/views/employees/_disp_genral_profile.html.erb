@@ -34,7 +34,7 @@
 
   <div class="form-group">
     <div class="col-md-6"><b>Reporting Manager:</b> </div>
-        <div class="col-md-6"><%= link_to @reporting_manager.to_s, profile_employees_path(@reporting_manager)%> <%= link_to 'change', change_reporting_manager_employees_path(@employee),style: 'color:green'%> </div>
+        <div class="col-md-6"><%= link_to @reporting_manager.to_s, profile_employees_path(@employee.reporting_manager_id)%> <%= link_to 'change', change_reporting_manager_employees_path(@employee),style: 'color:green'%> </div>
   </div>
 <br>
   <div class="form-group">

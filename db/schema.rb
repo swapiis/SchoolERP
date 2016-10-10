@@ -16,12 +16,12 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
   create_table "apply_leaves", force: :cascade do |t|
     t.integer  "employee_id",             limit: 4
     t.integer  "employee_leave_types_id", limit: 4
-    t.boolean  "is_half_day",             limit: 1
+    t.boolean  "is_half_day"
     t.date     "start_date"
     t.date     "end_date"
     t.string   "reason",                  limit: 255
-    t.boolean  "approved",                limit: 1,   default: false
-    t.boolean  "viewed_by_manager",       limit: 1,   default: false
+    t.boolean  "approved",                            default: false
+    t.boolean  "viewed_by_manager",                   default: false
     t.string   "manager_remark",          limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.string   "first_name",             limit: 255
     t.string   "middle_name",            limit: 255
     t.string   "last_name",              limit: 255
-    t.boolean  "gender",                 limit: 1
+    t.boolean  "gender"
     t.string   "job_title",              limit: 255
     t.integer  "employee_position_id",   limit: 4
     t.integer  "employee_department_id", limit: 4
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.text     "experience_detail",      limit: 65535
     t.integer  "experience_year",        limit: 4
     t.integer  "experience_month",       limit: 4
-    t.boolean  "status",                 limit: 1
+    t.boolean  "status"
     t.string   "status_description",     limit: 255
     t.date     "date_of_birth"
     t.string   "marital_status",         limit: 255
@@ -117,10 +117,10 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.string   "phone2",             limit: 255
     t.string   "email",              limit: 255
     t.integer  "immediate_contact",  limit: 4
-    t.boolean  "is_sms_enabled",     limit: 1,   default: true
+    t.boolean  "is_sms_enabled",                 default: true
     t.string   "status_description", limit: 255
-    t.boolean  "is_active",          limit: 1,   default: true
-    t.boolean  "is_deleted",         limit: 1,   default: false
+    t.boolean  "is_active",                      default: true
+    t.boolean  "is_deleted",                     default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "image_file_name",    limit: 255
@@ -136,15 +136,15 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.string   "title",       limit: 255
     t.text     "description", limit: 65535
     t.decimal  "amount",                    precision: 10
-    t.boolean  "is_inactive", limit: 1,                    default: false
-    t.boolean  "is_deleted",  limit: 1,                    default: false
+    t.boolean  "is_inactive",                              default: false
+    t.boolean  "is_deleted",                               default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "bank_fields", force: :cascade do |t|
     t.string   "name",       limit: 255
-    t.boolean  "status",     limit: 1
+    t.boolean  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -179,8 +179,8 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.string   "employee_id", limit: 255
     t.datetime "start_date"
     t.datetime "end_date"
-    t.boolean  "is_active",   limit: 1,   default: true
-    t.boolean  "is_deleted",  limit: 1,   default: false
+    t.boolean  "is_active",               default: true
+    t.boolean  "is_deleted",              default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -229,7 +229,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.string   "name",       limit: 255
     t.time     "start_time"
     t.time     "end_time"
-    t.boolean  "is_break",   limit: 1
+    t.boolean  "is_break"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -265,7 +265,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.string   "code",         limit: 255
     t.string   "section_name", limit: 255
     t.string   "grading_type", limit: 255
-    t.boolean  "is_deleted",   limit: 1,   default: false
+    t.boolean  "is_deleted",               default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -273,7 +273,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
   create_table "elective_groups", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.integer  "batch_id",   limit: 4
-    t.boolean  "is_deleted", limit: 1,   default: false
+    t.boolean  "is_deleted",             default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -285,7 +285,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.integer  "employee_id",            limit: 4
     t.integer  "employee_leave_type_id", limit: 4
     t.string   "reason",                 limit: 255
-    t.boolean  "is_half_day",            limit: 1
+    t.boolean  "is_half_day"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -307,7 +307,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
   create_table "employee_categories", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.string   "prefix",     limit: 255
-    t.boolean  "status",     limit: 1
+    t.boolean  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -325,7 +325,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
   create_table "employee_departments", force: :cascade do |t|
     t.string   "code",       limit: 255
     t.string   "name",       limit: 255
-    t.boolean  "status",     limit: 1
+    t.boolean  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -333,7 +333,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
   create_table "employee_grades", force: :cascade do |t|
     t.string   "name",           limit: 255
     t.integer  "priority",       limit: 4
-    t.boolean  "status",         limit: 1
+    t.boolean  "status"
     t.integer  "max_hours_day",  limit: 4
     t.integer  "max_hours_week", limit: 4
     t.datetime "created_at"
@@ -343,9 +343,9 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
   create_table "employee_leave_types", force: :cascade do |t|
     t.string   "name",                 limit: 255
     t.string   "code",                 limit: 255
-    t.boolean  "status",               limit: 1
+    t.boolean  "status"
     t.string   "max_leave_count",      limit: 255
-    t.boolean  "enable_carry_forward", limit: 1
+    t.boolean  "enable_carry_forward"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -366,7 +366,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
   create_table "employee_positions", force: :cascade do |t|
     t.string   "name",                 limit: 255
     t.integer  "employee_category_id", limit: 4
-    t.boolean  "status",               limit: 1
+    t.boolean  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -422,7 +422,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.text     "experience_detail",      limit: 65535
     t.integer  "experience_year",        limit: 4
     t.integer  "experience_month",       limit: 4
-    t.boolean  "status",                 limit: 1
+    t.boolean  "status"
     t.string   "status_description",     limit: 255
     t.date     "date_of_birth"
     t.string   "marital_status",         limit: 255
@@ -469,10 +469,10 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.string   "description", limit: 255
     t.datetime "start_date"
     t.datetime "end_date"
-    t.boolean  "is_common",   limit: 1,   default: false
-    t.boolean  "is_holiday",  limit: 1,   default: false
-    t.boolean  "is_exam",     limit: 1,   default: false
-    t.boolean  "is_due",      limit: 1,   default: false
+    t.boolean  "is_common",               default: false
+    t.boolean  "is_holiday",              default: false
+    t.boolean  "is_exam",                 default: false
+    t.boolean  "is_due",                  default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -481,8 +481,8 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.string   "name",             limit: 255
     t.integer  "batch_id",         limit: 4
     t.string   "exam_type",        limit: 255
-    t.boolean  "is_published",     limit: 1,   default: false
-    t.boolean  "result_published", limit: 1,   default: false
+    t.boolean  "is_published",                 default: false
+    t.boolean  "result_published",             default: false
     t.date     "exam_date"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -496,7 +496,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.decimal  "marks",                        precision: 10
     t.integer  "grading_level_id", limit: 4
     t.string   "remarks",          limit: 255
-    t.boolean  "is_failed",        limit: 1
+    t.boolean  "is_failed"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -532,7 +532,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.integer  "category_id",               limit: 4
     t.string   "admission_no",              limit: 255
     t.integer  "batch_id",                  limit: 4
-    t.boolean  "is_deleted",                limit: 1,                  default: false
+    t.boolean  "is_deleted",                                           default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -559,7 +559,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.integer  "category_id",               limit: 4
     t.string   "admission_no",              limit: 255
     t.integer  "batch_id",                  limit: 4
-    t.boolean  "is_deleted",                limit: 1,                    default: false
+    t.boolean  "is_deleted",                                             default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -586,7 +586,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.integer  "category_id",             limit: 4
     t.string   "admission_no",            limit: 255
     t.integer  "batch_id",                limit: 4
-    t.boolean  "is_deleted",              limit: 1,                  default: false
+    t.boolean  "is_deleted",                                         default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -610,8 +610,8 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
   create_table "finance_fee_categories", force: :cascade do |t|
     t.string   "name",        limit: 255
     t.text     "description", limit: 65535
-    t.boolean  "is_deleted",  limit: 1,     default: false
-    t.boolean  "is_master",   limit: 1,     default: false
+    t.boolean  "is_deleted",                default: false
+    t.boolean  "is_master",                 default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -623,7 +623,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.date     "due_date"
     t.integer  "finance_fee_category_id", limit: 4
     t.integer  "batch_id",                limit: 4
-    t.boolean  "is_deleted",              limit: 1,   default: false
+    t.boolean  "is_deleted",                          default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -639,7 +639,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.integer  "category_id",             limit: 4
     t.string   "admission_no",            limit: 255
     t.integer  "batch_id",                limit: 4
-    t.boolean  "is_deleted",              limit: 1,                    default: false
+    t.boolean  "is_deleted",                                           default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -656,7 +656,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.integer  "student_id",        limit: 4
     t.integer  "guardian_id",       limit: 4
     t.integer  "fee_collection_id", limit: 4
-    t.boolean  "is_deleted",        limit: 1,                  default: false
+    t.boolean  "is_deleted",                                   default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -671,7 +671,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.integer  "finance_fee_collection_id", limit: 4
     t.integer  "student_id",                limit: 4
     t.string   "receipt_no",                limit: 255
-    t.boolean  "is_paid",                   limit: 1
+    t.boolean  "is_paid"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -692,8 +692,8 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
   create_table "finance_transaction_categories", force: :cascade do |t|
     t.string   "name",        limit: 255
     t.string   "description", limit: 255
-    t.boolean  "is_income",   limit: 1
-    t.boolean  "is_deleted",  limit: 1,   default: false
+    t.boolean  "is_income"
+    t.boolean  "is_deleted",              default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -714,7 +714,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.string   "description",                     limit: 255
     t.decimal  "amount",                                      precision: 10
     t.date     "transaction_date"
-    t.boolean  "fine_included",                   limit: 1,                  default: false
+    t.boolean  "fine_included",                                              default: false
     t.integer  "student_id",                      limit: 4
     t.integer  "finance_fee_id",                  limit: 4
     t.integer  "finance_transaction_category_id", limit: 4
@@ -753,7 +753,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.integer  "min_score",   limit: 4
     t.string   "description", limit: 255
     t.integer  "order",       limit: 4
-    t.boolean  "is_deleted",  limit: 1,   default: false
+    t.boolean  "is_deleted",              default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -816,8 +816,8 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.date     "salary_date"
     t.string   "name",                limit: 255
     t.string   "amount",              limit: 255
-    t.boolean  "is_deduction",        limit: 1
-    t.boolean  "include_every_month", limit: 1
+    t.boolean  "is_deduction"
+    t.boolean  "include_every_month"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -834,8 +834,8 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.string   "title",       limit: 255
     t.text     "description", limit: 65535
     t.decimal  "amount",                    precision: 10
-    t.boolean  "is_solved",   limit: 1,                    default: false
-    t.boolean  "is_deleted",  limit: 1,                    default: false
+    t.boolean  "is_solved",                                default: false
+    t.boolean  "is_deleted",                               default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -845,7 +845,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.integer  "employee_id",         limit: 4
     t.integer  "payroll_category_id", limit: 4
     t.string   "amount",              limit: 255
-    t.boolean  "is_approved",         limit: 1,   default: false, null: false
+    t.boolean  "is_approved",                     default: false, null: false
     t.integer  "approver_id",         limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -890,7 +890,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
 
   create_table "options", force: :cascade do |t|
     t.string   "option",               limit: 255
-    t.boolean  "is_answer",            limit: 1
+    t.boolean  "is_answer"
     t.integer  "question_database_id", limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -902,8 +902,8 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.string   "name",                limit: 255
     t.float    "percentage",          limit: 24
     t.integer  "payroll_category_id", limit: 4
-    t.boolean  "is_deduction",        limit: 1
-    t.boolean  "status",              limit: 1
+    t.boolean  "is_deduction"
+    t.boolean  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -927,7 +927,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.string   "content",    limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "islink",     limit: 1
+    t.boolean  "islink"
   end
 
   create_table "privilege_tags", force: :cascade do |t|
@@ -995,7 +995,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.decimal  "marks",                          precision: 10
     t.integer  "subject_count",      limit: 4
     t.integer  "prioriy",            limit: 4
-    t.boolean  "full_course",        limit: 1
+    t.boolean  "full_course"
     t.integer  "course_id",          limit: 4
     t.string   "subject_limit_type", limit: 255
     t.string   "marks_limit_type",   limit: 255
@@ -1110,7 +1110,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "student_id",         limit: 4
-    t.boolean  "is_qualify",         limit: 1
+    t.boolean  "is_qualify"
   end
 
   add_index "student_scores", ["placement_exams_id"], name: "index_student_scores_on_placement_exams_id", using: :btree
@@ -1154,10 +1154,10 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.string   "phone2",             limit: 255
     t.string   "email",              limit: 255
     t.integer  "immediate_contact",  limit: 4
-    t.boolean  "is_sms_enabled",     limit: 1,   default: true
+    t.boolean  "is_sms_enabled",                 default: true
     t.string   "status_description", limit: 255
-    t.boolean  "is_active",          limit: 1,   default: true
-    t.boolean  "is_deleted",         limit: 1,   default: false
+    t.boolean  "is_active",                      default: true
+    t.boolean  "is_deleted",                     default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "image_file_name",    limit: 255
@@ -1173,10 +1173,10 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
     t.string   "name",               limit: 255
     t.string   "code",               limit: 255
     t.integer  "batch_id",           limit: 4
-    t.boolean  "no_exams",           limit: 1,   default: false
+    t.boolean  "no_exams",                       default: false
     t.integer  "max_weekly_classes", limit: 4
     t.integer  "elective_group_id",  limit: 4
-    t.boolean  "is_deleted",         limit: 1,   default: false
+    t.boolean  "is_deleted",                     default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -1205,7 +1205,7 @@ ActiveRecord::Schema.define(version: 20150122072350078) do
   create_table "time_tables", force: :cascade do |t|
     t.date     "start_date"
     t.date     "end_date"
-    t.boolean  "is_active",  limit: 1
+    t.boolean  "is_active"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
