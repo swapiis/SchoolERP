@@ -52,15 +52,14 @@ class Employee < ActiveRecord::Base
   validates :mother_name, length: \
    { minimum: 1, maximum: 20 }, format: \
    { with: /\A[a-z A-Z " "-]+\Z/, message: 'allows only letters' }, allow_blank: true
-
   validates :home_address_line1, presence: true, length: \
    { in: 1..30 }, allow_blank: true
   validates :home_address_line2, length: \
   { in: 1..30 }, allow_blank: true
   validates :home_city, presence: true, format: \
-   { with: /\A[a-z A-Z]+\z/, message: 'only allows letters' }, length: { in: 1..30 }, allow_blank: true
+   { with: /\A[a-z A-Z]+\z/, message: 'only allows letters'} , length: { in: 1..30 }, allow_blank: true
   validates :home_state, presence: true, format: \
-   { with: /\A[a-z A-Z]+\z/, message: 'only allows letters' }, length: { in: 1..30 }, allow_blank: true
+   { with: /\A[a-z A-Z]+\z/, message: 'only allows letters'} , length: { in: 1..30 }, allow_blank: true
   validates :home_pin_code, presence: true, numericality: \
   { only_integer: true }, length: \
   { minimum: 6, maximum: 6 }, allow_blank: true
@@ -135,11 +134,7 @@ class Employee < ActiveRecord::Base
   # check employee already present in batch else split batch and insert
   # employee in batch and update batch and join again
   def assign(batch, id)
-    assigned_emps = if batch.employee_id.blank?
-                      []
-                    else
-                      batch.employee_id.split(',')
-                    end
+    assigned_emps = batch.employee_id.blank? ? [] : batch.employee_id.split(',')
     assigned_emps.push(id.to_s)
     batch.update employee_id: assigned_emps.join(',')
     assigned_emps.join(',')
@@ -160,9 +155,10 @@ class Employee < ActiveRecord::Base
   # if first employee then append 1 to today date else
   # append last id to today date
   def emp_no
-    date = Time.zone.today.strftime('%Y%m%d')
+    date = Date.today.strftime('%Y%m%d')
     self.employee_number = date.to_s + '1' if Employee.first.nil?
-    self.employee_number = date.to_s + Employee.last.id.next.to_s unless Employee.first.nil?
+    self.employee_number = date.to_s + \
+                           Employee.last.id.next.to_s unless Employee.first.nil?
   end
 
   # This methd is used to search employee on dept,category,position,grade.
@@ -185,88 +181,20 @@ class Employee < ActiveRecord::Base
   # This method used for adv search user ,user can search employee with
   # multiple options combine all required parameter and pass to sql query
   # and return the search result
-  def self.adv_search(p)
+ def self.adv_search(p)
     conditions = ''
     conditions << "concat_ws(' ',first_name,last_name) like '#{p[:name]}%' COLLATE utf8_bin" unless p[:name] == ''
-
-    if p[:gender]
-      if conditions == ''
-        conditions << "gender like '#{p[:gender]}' AND gender like '#{p[:gender]}'" unless p[:gender].eql? 'All'
-
-      end
-    end
-    if p[:employee_category_id]
-      if conditions == ''
-        conditions << "employee_category_id = #{p[:employee_category_id]}" unless p[:employee_category_id] == ''
-      else
-        conditions << " AND employee_category_id = #{p[:employee_category_id]}" unless p[:employee_category_id] == ''
-      end
-    end
-
-    if p[:blood_group]
-      if conditions == ''
-        conditions << "blood_group like '#{p[:blood_group]}'" unless p[:blood_group] == ''
-      else
-        conditions << " AND blood_group like '#{p[:blood_group]}'" unless p[:blood_group] == ''
-      end
-    end
-
-    if p[:marital_status]
-      if conditions == ''
-        conditions << "marital_status like '#{p[:marital_status]}'" unless p[:marital_status] == ''
-      else
-        conditions << " AND marital_status like '#{p[:marital_status]}'" unless p[:marital_status] == ''
-      end
-    end
-
-    if p[:country_id]
-      if conditions == ''
-        conditions << "country_id='#{p[:country_id]}'" unless p[:country_id] == ''
-      else
-        conditions << " AND country_id ='#{p[:country_id]}'" unless p[:country_id] == ''
-      end
-    end
-
-    if p[:joining_date]
-      if conditions == ''
-        conditions << "joining_date='#{p[:joining_date]}'" unless p[:joining_date] == ''
-      else
-        conditions << " AND joining_date ='#{p[:joining_date]}'" unless p[:joining_date] == ''
-      end
-    end
-
-    if p[:employee_department_id]
-      if conditions == ''
-        conditions << "employee_department_id='#{p[:employee_department_id]}'" unless p[:employee_department_id] == ''
-      else
-        conditions << " AND employee_department_id='#{p[:employee_department_id]}'" unless p[:employee_department_id] == ''
-      end
-    end
-
-    if p[:employee_position_id]
-      if conditions == ''
-        conditions << "employee_position_id='#{p[:employee_position_id]}'" unless p[:employee_position_id] == ''
-      else
-        conditions << " AND employee_position_id='#{p[:employee_position_id]}'" unless p[:employee_position_id] == ''
-      end
-    end
-
-    if p[:employee_grade_id]
-      if conditions == ''
-        conditions << "employee_grade_id='#{p[:employee_grade_id]}'" unless p[:employee_grade_id] == ''
-      else
-        conditions << " AND employee_grade_id='#{p[:employee_grade_id]}'" unless p[:employee_grade_id] == ''
-      end
-    end
-
-    if p[:date_of_birth]
-      if conditions == ''
-        conditions << "date_of_birth='#{p[:date_of_birth]}'" unless p[:date_of_birth] == ''
-      else
-        conditions << " AND date_of_birth ='#{p[:date_of_birth]}'" unless p[:date_of_birth] == ''
-      end
-    end
-
+    conditions == '' ? conditions << "gender like '#{p[:gender]}'" : conditions <<  " AND gender like '#{p[:gender]}'" unless p[:gender].eql? 'All'
+    conditions == '' ? conditions << "employee_category_id = #{p[:employee_category_id]}" : conditions << " AND employee_category_id = #{p[:employee_category_id]}" unless p[:employee_category_id] == ''
+    conditions == '' ? conditions << "blood_group like '#{p[:blood_group]}'" : conditions << " AND blood_group like '#{p[:blood_group]}'" unless p[:blood_group] == ''
+    conditions == '' ? conditions << "marital_status like '#{p[:marital_status]}'" : conditions << " AND marital_status like '#{p[:marital_status]}'" unless p[:marital_status] == ''
+    conditions == '' ? conditions << "country_id='#{p[:country_id]}'" : conditions << " AND country_id ='#{p[:country_id]}'" unless p[:country_id] == ''
+    conditions == '' ? conditions << "joining_date='#{p[:joining_date]}'" : conditions << " AND joining_date ='#{p[:joining_date]}'" unless p[:joining_date] == ''
+    conditions == '' ? conditions << "employee_department_id='#{p[:employee_department_id]}'" : conditions << " AND employee_department_id='#{p[:employee_department_id]}'" unless p[:employee_department_id] == ''
+    conditions == '' ? conditions << "employee_position_id='#{p[:employee_position_id]}'" : conditions << " AND employee_position_id='#{p[:employee_position_id]}'" unless p[:employee_position_id] == ''
+    conditions == '' ? conditions << "employee_grade_id='#{p[:employee_grade_id]}'" : conditions << " AND employee_grade_id='#{p[:employee_grade_id]}'" unless p[:employee_grade_id] == ''
+    conditions == '' ? conditions << "date_of_birth='#{p[:date_of_birth]}'" : conditions << " AND date_of_birth ='#{p[:date_of_birth]}'" unless p[:date_of_birth] == ''
+    
     if p[:status]
       if p[:status] == 'all'
         @employee1 = Employee.includes(:employee_department).where(conditions)
@@ -288,12 +216,13 @@ class Employee < ActiveRecord::Base
     search = ''
     search << ' Name: ' + p[:name].to_s + ', ' unless p[:name].empty?
 
-    if p[:gender] == 'All'
-      search << ' Gender: All' + ', '
+   if p[:gender] == 'All'
+      search += ' Gender: All' + ', '
     else
-      search << ' Gender: ' + p[:gender].to_s + ', ' unless p[:gender].empty?
+      search += ' Gender: ' \
+      + p[:gender].to_s + ', ' unless p[:gender].empty?
     end
-
+      
     search << ' Blood group: ' + p[:blood_group].to_s + ', ' unless p[:blood_group].empty?
     search << ' Marital Status: ' + p[:marital_status].to_s + ', ' unless p[:marital_status].empty?
 
@@ -313,22 +242,23 @@ class Employee < ActiveRecord::Base
 
     if p[:employee_position_id].present?
       search << ' Position: ' + EmployeePosition.find(p[:employee_position_id]).name + ', '
-    end
+     end
 
     if p[:employee_grade_id].present?
       search << ' Grade: ' + EmployeeGrade.find(p[:employee_grade_id]).name + ', '
     end
 
-    searchs << ' Date of birth: ' + p[:date_of_birth].to_s + ', ' unless p[:date_of_birth].empty?
+    search << ' Date of birth: ' + p[:date_of_birth].to_s + ', ' unless p[:date_of_birth].empty?
 
-    if p[:status]
-      if search == ''
-        search << "search like '#{p[:status]}' AND former like '#{p[:status]}'" unless p[:status].eql? 'All'
-      end
-    end
+    search << if p[:status] == 'present'
+                'Status: Present student'
+              elsif p[:status] == 'former'
+                'Status: Former student'
+              else
+                'Status: All student'
+              end
+    search
   end
-
-  # conditions << "gender like '#{p[:gender]}' AND gender like '#{p[:gender]}'"
 
   # This method is used for payslip generation of all employee,
   # first calculate deduction of each employee and earning of each employee
@@ -341,8 +271,10 @@ class Employee < ActiveRecord::Base
       if already_created.include? emp.id
 
       else
+            counter = 0
             tot = 0
             tot_deduction = 0
+            grand_tot = 0
             no_deduction = PayrollCategory.where(is_deduction: false)
             no_deduction.each do |j|
               amount = EmployeeSaleryStructure.where(employee_id: emp.id, payroll_category_id: j).pluck(:amount)
@@ -354,13 +286,14 @@ class Employee < ActiveRecord::Base
             is_deduction.each do |i|
               amount = EmployeeSaleryStructure.where(employee_id: emp.id, payroll_category_id: i).pluck(:amount)
               amount.each do  |j|
-                tot_deduction << j. to_f
+                tot_deduction << j.to_f
               end
             end
 
             grand_tot = tot - tot_deduction
 
             MonthlyPayslip.create(employee_id: emp.id, amount: grand_tot, is_approved: false, salary_date: salary_date)
+            counter += 1
       end
     end
   end
@@ -373,7 +306,7 @@ class Employee < ActiveRecord::Base
   def create_payslip(employee, salary_date)
     start_date = salary_date - (salary_date.day - 1).days
     end_date = start_date + 1.month
-    employee.monthly_payslips.where(salary_date: start_date..end_date).take
+    payslip_exists = employee.monthly_payslips.where(salary_date: start_date..end_date).take
     total_salary = 0
     tot_deduction = 0
     amounts = []
@@ -381,7 +314,7 @@ class Employee < ActiveRecord::Base
     is_deduction.each do |i|
       amounts = EmployeeSaleryStructure.where(employee_id: employee.id, payroll_category_id: i).pluck(:amount)
       amounts.each do |j|
-        tot_deduction << j.to_f
+        tot_deduction += j.to_f
       end
     end
 
@@ -390,7 +323,7 @@ class Employee < ActiveRecord::Base
     is_deduction.each do |i|
       amo = EmployeeSaleryStructure.where(employee_id: employee.id, payroll_category_id: i).pluck(:amount)
       amo.each do |j|
-        total_salary << j.to_f
+        total_salary += j.to_f
       end
     end
 
@@ -464,7 +397,7 @@ class Employee < ActiveRecord::Base
       available_leave = default_leave_count.to_f
       leave_taken = 0
       e.update(leave_taken: leave_taken, leave_count: available_leave,\
-               reset_date: Time.zone.today)
+               reset_date: Date.today)
     end
   end
 
@@ -480,16 +413,16 @@ class Employee < ActiveRecord::Base
     user = User.new do |u|
       u.first_name = first_name
       u.last_name = last_name
-      u.username = employee_number
+      u.username = email
       u.employee_id = id
       u.password = employee_number
       u.role = 'Employee'
       u.email = email
-      if User.current
-        u.general_setting_id = User.current.general_setting.id
-      else
-        u.general_setting_id = 1
-      end
+      u.general_setting_id = if User.current
+                               User.current.general_setting_id
+                             else
+                               1
+                             end
     end
     user.save
   end

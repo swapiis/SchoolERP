@@ -604,7 +604,7 @@ class EmployeesController < ApplicationController
   # This method is used for search employee on various criteria
   # by calling class method on search2
   def search_emp
-    @employee = Employee.search2(params[:advance_search], params[:search])
+    @employee = Employee.search2(params[:advance_search])
     authorize! :read, Employee
   end
 
